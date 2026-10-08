@@ -26,7 +26,7 @@ export type Story = {
 
 /** Constants the baseline generator reads. Days are offsets from meta.day0. */
 export const PLANT = {
-  s2: { campaign: "Diwali Early", startDay: 62, pauseDay: 77, spendPerDay: 235, sessionsPerDay: 66 },
+  s2: { campaign: "Diwali Early", startDay: 62, pauseDay: 77, spendPerDay: 235, sessionsPerDay: 52 },
   s3: { day: 79, cvrBefore: 0.048, cvrAfter: 0.031 },
   s5: { day: 74, region: "NCR", courierBefore: "Delhivery", courierAfter: "Xpressbees", delayBefore: 1.2, delayAfter: 3.4 },
   s7: { vendor: "Airtel", amounts: [1499, 1499, 1899] as const, days: [0, 30, 60] as const },
@@ -263,7 +263,7 @@ export const S6: Story = {
     const sum = saffron.reduce((s, o) => s + o.total, 0);
     return [
       row("90-day revenue", total, within(total, 54_00_000, 0.06)),
-      row("Saffron orders", saffron.length, within(saffron.length, 30, 0.15)),
+      row("Saffron orders", saffron.length, within(saffron.length, 30, 0.1)),
       row("Saffron share %", ((sum / total) * 100).toFixed(1), within(sum / total, 0.31, 0.03)),
       row("Saffron revenue (exposure)", sum, within(sum, 16_74_000, 0.08)),
     ];

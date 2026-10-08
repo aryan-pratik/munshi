@@ -228,7 +228,7 @@ instead.
    about 4.9% to 3.5% after the theme update." That second cause is the moment.
 4. **The simulator argues back.** Raise price 15%: profit falls and about a fifth of customers
    leave. The best strategy of about 1,800 scenarios is price +5%, marketing +75%, hire one packer,
-   plus more stock and faster replies: profit up about 43% at low risk, because the business is
+   plus more stock and faster replies: profit up about 45% at low risk, because the business is
    capacity-constrained.
 5. **It acts, with a leash.** Approve seven follow-ups. Each was drafted from that lead's own
    thread. They are sent, the CRM is updated, and Munshi reports the expected about ₹1.1 lakh over

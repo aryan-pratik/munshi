@@ -87,7 +87,7 @@ Click **Find best strategy**. Let the counter race to "1,800 scenarios checked".
 strategies appear.
 
 > "1,800 scenarios. The best isn't just more ads. It's a small price rise, ad spend up 75%, one
-> more packer, 20% more stock and replies within 12 hours. Profit up about 43% at low risk. We're
+> more packer, 20% more stock and replies within 12 hours. Profit up about 45% at low risk. We're
 > at 96% of packing capacity today, and next month's festive demand pushes it past 100%: more
 > orders without a packer means delays, complaints, then churn. The model computed that; the AI
 > just explained it."

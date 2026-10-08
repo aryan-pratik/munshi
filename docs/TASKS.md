@@ -54,17 +54,17 @@ contract; the skills are how you check your work against it.
 
 ## Phase 2 — Engine (4 h)
 
-- [ ] `engine/metrics.ts` — all series in `docs/ENGINE.md` (Metrics), full length and memoised; `stripSeries()`
-- [ ] `engine/graph/onset.ts` — `detectOnset(series, window)` plus the event snap (`EVENT_ANCHORS` in `dag.ts`)
-- [ ] `engine/detectors/*` — all 12; each fills `onset` and `series`; `analyze(world)` ranks + dedupes
-- [ ] `engine/graph/dag.ts` + `walk.ts` — `walkCausalGraph` with temporal precedence; produces the S2 chain ordered by onset, with S3 as a branch that has its own onset
-- [ ] `engine/simulator/model.ts` + `optimize.ts` — calibrate per `docs/ENGINE.md` by adjusting seed fields (never the coefficients); the test asserts the top strategy has `hires = 1` and overload 0
-- [ ] `engine/horizon.ts` — runway dips below buffer at ~day +23 without S4 collection (built here; the Today cash line in Phase 3 and the Horizon page in Phase 7 both use it)
-- [ ] `engine/playbooks/*` — all 6; `apply()` returns effects; `labels(n)`; `followUpLeads` drafts from threads
-- [ ] `tests/engine/stories.test.ts` — checks each story's `expect` (detector, chain or simulator form)
-- [ ] `pnpm seed` report gains detector, chain and simulator columns and shows planted vs detected onset for S2, S3, S5, S7, all within 1 day (tune the generator if not)
-- [ ] `tests/engine/*.test.ts` — all green, including `onset.test.ts`; detector snapshot committed
-- [ ] Commit: `feat: engine`
+- [x] `engine/metrics.ts` — all series in `docs/ENGINE.md` (Metrics), full length and memoised; `stripSeries()`
+- [x] `engine/graph/onset.ts` — `detectOnset(series, window)` plus the event snap (`EVENT_ANCHORS` in `dag.ts`)
+- [x] `engine/detectors/*` — all 12; each fills `onset` and `series`; `analyze(world)` ranks + dedupes
+- [x] `engine/graph/dag.ts` + `walk.ts` — `walkCausalGraph` with temporal precedence; produces the S2 chain ordered by onset, with S3 as a branch that has its own onset
+- [x] `engine/simulator/model.ts` + `optimize.ts` — calibrate per `docs/ENGINE.md` by adjusting seed fields (never the coefficients); the test asserts the top strategy has `hires = 1` and overload 0
+- [x] `engine/horizon.ts` — runway dips below buffer at ~day +23 without S4 collection (built here; the Today cash line in Phase 3 and the Horizon page in Phase 7 both use it)
+- [x] `engine/playbooks/*` — all 6; `apply()` returns effects; `labels(n)`; `followUpLeads` drafts from threads
+- [x] `tests/engine/stories.test.ts` — checks each story's `expect` (detector, chain or simulator form)
+- [x] `pnpm seed` report gains detector, chain and simulator columns and shows planted vs detected onset for S2, S3, S5, S7, all within 1 day (tune the generator if not)
+- [x] `tests/engine/*.test.ts` — all green, including `onset.test.ts`; detector snapshot committed
+- [x] Commit: `feat: engine`
 
 ## Phase 3 — Shell + Today (4 h)
 

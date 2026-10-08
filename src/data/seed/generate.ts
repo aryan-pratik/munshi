@@ -31,7 +31,7 @@ export type GenerateOptions = { seed: number; day0: string; days?: number; gener
 const DAYS = 90;
 const REGIONS = ["NCR", "West", "South", "North", "East"] as const;
 type Region = (typeof REGIONS)[number];
-const REGION_WEIGHTS = [0.17, 0.3, 0.28, 0.14, 0.11];
+const REGION_WEIGHTS = [0.18, 0.29, 0.28, 0.14, 0.11];
 const CITIES: Record<Region, string[]> = {
   NCR: ["New Delhi", "Gurugram", "Noida", "Ghaziabad", "Faridabad"],
   West: ["Mumbai", "Pune", "Ahmedabad", "Surat", "Nagpur", "Goa"],
@@ -59,30 +59,30 @@ const SURNAME: Record<Region, string[]> = {
 
 type ProductSpec = { sku: string; name: string; category: Product["category"]; cost: number; w: number; wholesaleW: number; supplier: string; lead: number };
 const PRODUCTS: ProductSpec[] = [
-  { sku: "CER-MUG4", name: "Indigo Stoneware Mug (set of 4)", category: "ceramics", cost: 580, w: 16.95, wholesaleW: 3, supplier: "Neelam Blue Pottery, Sanganer", lead: 18 },
-  { sku: "CER-BOWL", name: "Blue Pottery Serving Bowl", category: "ceramics", cost: 740, w: 4.47, wholesaleW: 5, supplier: "Neelam Blue Pottery, Sanganer", lead: 18 },
-  { sku: "CER-VASE", name: "Jaipur Blue Pottery Vase", category: "ceramics", cost: 960, w: 2.99, wholesaleW: 4, supplier: "Neelam Blue Pottery, Sanganer", lead: 18 },
-  { sku: "CER-PLNT3", name: "Terracotta Planter (set of 3)", category: "ceramics", cost: 440, w: 10.01, wholesaleW: 4, supplier: "Rajesh Kumhar & Sons, Ramgarh", lead: 14 },
-  { sku: "CER-PLT6", name: "Stoneware Dinner Plate (set of 6)", category: "ceramics", cost: 1280, w: 1.91, wholesaleW: 3, supplier: "Neelam Blue Pottery, Sanganer", lead: 21 },
-  { sku: "CER-COAST", name: "Hand-painted Coasters (set of 6)", category: "ceramics", cost: 220, w: 29.31, wholesaleW: 7, supplier: "Neelam Blue Pottery, Sanganer", lead: 12 },
+  { sku: "CER-MUG4", name: "Indigo Stoneware Mug (set of 4)", category: "ceramics", cost: 580, w: 17.97, wholesaleW: 3, supplier: "Neelam Blue Pottery, Sanganer", lead: 18 },
+  { sku: "CER-BOWL", name: "Blue Pottery Serving Bowl", category: "ceramics", cost: 740, w: 4.05, wholesaleW: 5, supplier: "Neelam Blue Pottery, Sanganer", lead: 18 },
+  { sku: "CER-VASE", name: "Jaipur Blue Pottery Vase", category: "ceramics", cost: 960, w: 2.66, wholesaleW: 4, supplier: "Neelam Blue Pottery, Sanganer", lead: 18 },
+  { sku: "CER-PLNT3", name: "Terracotta Planter (set of 3)", category: "ceramics", cost: 440, w: 9.4, wholesaleW: 4, supplier: "Rajesh Kumhar & Sons, Ramgarh", lead: 14 },
+  { sku: "CER-PLT6", name: "Stoneware Dinner Plate (set of 6)", category: "ceramics", cost: 1280, w: 1.67, wholesaleW: 3, supplier: "Neelam Blue Pottery, Sanganer", lead: 21 },
+  { sku: "CER-COAST", name: "Hand-painted Coasters (set of 6)", category: "ceramics", cost: 220, w: 28.9, wholesaleW: 7, supplier: "Neelam Blue Pottery, Sanganer", lead: 12 },
   { sku: "CER-DIYA12", name: "Ceramic Diya (set of 12)", category: "ceramics", cost: 180, w: 40.0, wholesaleW: 8, supplier: "Rajesh Kumhar & Sons, Ramgarh", lead: 10 },
-  { sku: "CER-JUG", name: "Matka Water Jug", category: "ceramics", cost: 540, w: 7.29, wholesaleW: 2, supplier: "Rajesh Kumhar & Sons, Ramgarh", lead: 14 },
-  { sku: "LIN-RUN", name: "Block-print Table Runner", category: "linen", cost: 340, w: 14.93, wholesaleW: 6, supplier: "Bagru Textiles Co-op", lead: 12 },
-  { sku: "LIN-CUSH2", name: "Sanganeri Cushion Cover (set of 2)", category: "linen", cost: 500, w: 8.21, wholesaleW: 7, supplier: "Sanganer Block Print House", lead: 12 },
-  { sku: "LIN-NAP6", name: "Linen Napkin (set of 6)", category: "linen", cost: 300, w: 18.12, wholesaleW: 6, supplier: "Bagru Textiles Co-op", lead: 10 },
-  { sku: "LIN-RAZAI", name: "Jaipur Razai (single)", category: "linen", cost: 1520, w: 1.47, wholesaleW: 2, supplier: "Sanganer Block Print House", lead: 21 },
-  { sku: "LIN-BED", name: "Bagru Bedsheet (king)", category: "linen", cost: 1160, w: 2.23, wholesaleW: 3, supplier: "Bagru Textiles Co-op", lead: 16 },
-  { sku: "LIN-TOWEL3", name: "Indigo Tea Towel (set of 3)", category: "linen", cost: 200, w: 33.97, wholesaleW: 6, supplier: "Bagru Textiles Co-op", lead: 10 },
-  { sku: "LIN-CLOTH", name: "Block-print Tablecloth", category: "linen", cost: 780, w: 4.12, wholesaleW: 3, supplier: "Sanganer Block Print House", lead: 14 },
-  { sku: "LIN-APRON", name: "Linen Apron", category: "linen", cost: 260, w: 22.62, wholesaleW: 3, supplier: "Bagru Textiles Co-op", lead: 10 },
-  { sku: "LGT-LANT-S", name: "Brass Lantern (small)", category: "lighting", cost: 660, w: 5.34, wholesaleW: 5, supplier: "Moradabad Brassworks", lead: 21 },
-  { sku: "LGT-LANT-L", name: "Brass Lantern (large)", category: "lighting", cost: 1120, w: 2.35, wholesaleW: 2, supplier: "Moradabad Brassworks", lead: 21 },
-  { sku: "LGT-SHADE", name: "Paper Lamp Shade", category: "lighting", cost: 480, w: 8.75, wholesaleW: 4, supplier: "Kagzi Paper Studio, Sanganer", lead: 12 },
-  { sku: "LGT-CANE", name: "Cane Pendant Light", category: "lighting", cost: 1360, w: 1.74, wholesaleW: 2, supplier: "Moradabad Brassworks", lead: 21 },
-  { sku: "LGT-JAALI4", name: "Jaali Tealight Holder (set of 4)", category: "lighting", cost: 320, w: 16.4, wholesaleW: 6, supplier: "Moradabad Brassworks", lead: 16 },
-  { sku: "LGT-DIYAST", name: "Hanging Diya Stand", category: "lighting", cost: 580, w: 6.52, wholesaleW: 3, supplier: "Moradabad Brassworks", lead: 16 },
-  { sku: "LGT-LAMP", name: "Ceramic Table Lamp", category: "lighting", cost: 1680, w: 1.25, wholesaleW: 1, supplier: "Neelam Blue Pottery, Sanganer", lead: 21 },
-  { sku: "LGT-STRING", name: "Festive String Lights", category: "lighting", cost: 220, w: 29.31, wholesaleW: 5, supplier: "Kagzi Paper Studio, Sanganer", lead: 10 },
+  { sku: "CER-JUG", name: "Matka Water Jug", category: "ceramics", cost: 540, w: 6.75, wholesaleW: 2, supplier: "Rajesh Kumhar & Sons, Ramgarh", lead: 14 },
+  { sku: "LIN-RUN", name: "Block-print Table Runner", category: "linen", cost: 340, w: 14.28, wholesaleW: 6, supplier: "Bagru Textiles Co-op", lead: 12 },
+  { sku: "LIN-CUSH2", name: "Sanganeri Cushion Cover (set of 2)", category: "linen", cost: 500, w: 7.64, wholesaleW: 7, supplier: "Sanganer Block Print House", lead: 12 },
+  { sku: "LIN-NAP6", name: "Linen Napkin (set of 6)", category: "linen", cost: 300, w: 17.48, wholesaleW: 6, supplier: "Bagru Textiles Co-op", lead: 10 },
+  { sku: "LIN-RAZAI", name: "Jaipur Razai (single)", category: "linen", cost: 1520, w: 1.26, wholesaleW: 2, supplier: "Sanganer Block Print House", lead: 21 },
+  { sku: "LIN-BED", name: "Bagru Bedsheet (king)", category: "linen", cost: 1160, w: 1.96, wholesaleW: 3, supplier: "Bagru Textiles Co-op", lead: 16 },
+  { sku: "LIN-TOWEL3", name: "Indigo Tea Towel (set of 3)", category: "linen", cost: 200, w: 33.72, wholesaleW: 6, supplier: "Bagru Textiles Co-op", lead: 10 },
+  { sku: "LIN-CLOTH", name: "Block-print Tablecloth", category: "linen", cost: 780, w: 3.72, wholesaleW: 3, supplier: "Sanganer Block Print House", lead: 14 },
+  { sku: "LIN-APRON", name: "Linen Apron", category: "linen", cost: 260, w: 22.05, wholesaleW: 3, supplier: "Bagru Textiles Co-op", lead: 10 },
+  { sku: "LGT-LANT-S", name: "Brass Lantern (small)", category: "lighting", cost: 660, w: 4.87, wholesaleW: 5, supplier: "Moradabad Brassworks", lead: 21 },
+  { sku: "LGT-LANT-L", name: "Brass Lantern (large)", category: "lighting", cost: 1120, w: 2.07, wholesaleW: 2, supplier: "Moradabad Brassworks", lead: 21 },
+  { sku: "LGT-SHADE", name: "Paper Lamp Shade", category: "lighting", cost: 480, w: 8.17, wholesaleW: 4, supplier: "Kagzi Paper Studio, Sanganer", lead: 12 },
+  { sku: "LGT-CANE", name: "Cane Pendant Light", category: "lighting", cost: 1360, w: 1.51, wholesaleW: 2, supplier: "Moradabad Brassworks", lead: 21 },
+  { sku: "LGT-JAALI4", name: "Jaali Tealight Holder (set of 4)", category: "lighting", cost: 320, w: 15.75, wholesaleW: 6, supplier: "Moradabad Brassworks", lead: 16 },
+  { sku: "LGT-DIYAST", name: "Hanging Diya Stand", category: "lighting", cost: 580, w: 6.01, wholesaleW: 3, supplier: "Moradabad Brassworks", lead: 16 },
+  { sku: "LGT-LAMP", name: "Ceramic Table Lamp", category: "lighting", cost: 1680, w: 1.07, wholesaleW: 1, supplier: "Neelam Blue Pottery, Sanganer", lead: 21 },
+  { sku: "LGT-STRING", name: "Festive String Lights", category: "lighting", cost: 220, w: 28.9, wholesaleW: 5, supplier: "Kagzi Paper Studio, Sanganer", lead: 10 },
 ];
 
 const WHOLESALE_SHOPS: { shop: string; city: string; contact: string }[] = [
@@ -125,7 +125,17 @@ const WHOLESALE_SHOPS: { shop: string; city: string; contact: string }[] = [
   { shop: "Agni Lights", city: "Kolkata", contact: "Arnab Ghosh" },
   { shop: "Saanjh Decor", city: "Jodhpur", contact: "Pallavi Bisht" },
   { shop: "Ratan Home Store", city: "Nashik", contact: "Rakesh Naik" },
+  { shop: "Gulmohar Living", city: "Pune", contact: "Sneha Deshpande" },
+  { shop: "Champa & Co", city: "Mumbai", contact: "Farah Parikh" },
+  { shop: "Peepal Home", city: "Bengaluru", contact: "Vinod Hegde" },
+  { shop: "Marigold Studio", city: "Kolkata", contact: "Ipsita Sen" },
+  { shop: "Ambar Decor", city: "Lucknow", contact: "Rohit Verma" },
+  { shop: "Nakshi Haat", city: "Guwahati", contact: "Bhaskar Das" },
+  { shop: "Mogra House", city: "Hyderabad", contact: "Lavanya Rao" },
 ];
+
+const SHOP_FIRST = ["Tulsi", "Neem", "Amaltas", "Kesar", "Indigo", "Mitti", "Saanjh", "Roohani", "Patra", "Varnam", "Ikat", "Kalpa", "Sona", "Haldi", "Chaitra", "Banyan", "Jharokha", "Angan", "Zaroori", "Maati", "Kutumb", "Dhara", "Aranya", "Nilgiri", "Clay", "Sutra", "Deva", "Ratan", "Agni", "Baithak", "Anand", "Casa", "Courtyard", "Verandah", "Kaarigari", "Dastkar", "Gulmohar", "Champa", "Marigold", "Peepal", "Kohbar", "Nakshi", "Ambar", "Rangoli", "Mogra", "Jaali", "Bandhej", "Leheriya", "Phulkari", "Kalamkari"];
+const SHOP_SECOND = ["Living", "Home", "Store", "Decor", "Studio", "House", "Collective", "Emporium", "& Co", "Haat", "Boutique", "Gallery"];
 
 const S1_LEADS: { shop: string; city: string; contact: string; est: number; channel: Lead["channel"]; ask: string; qty: string; question: string; hoursAgo: number }[] = [
   { shop: "Tulsi Living", city: "Pune", contact: "Priya Kulkarni", est: 45_000, channel: "whatsapp", ask: "Indigo Stoneware Mug sets and Sanganeri cushion covers for the Diwali window", qty: "40 mug sets and 30 cushion sets", question: "Can you do 60 mug sets instead of 40 if we take two colourways?", hoursAgo: 52 },
@@ -138,7 +148,9 @@ const S1_LEADS: { shop: string; city: string; contact: string; est: number; chan
 ];
 
 export function generateWorld(opts: GenerateOptions): World {
-  const rng = mulberry32(opts.seed);
+  // One stream per section, so tuning one section does not reshuffle the ones after it.
+  let rng = mulberry32(opts.seed);
+  const stream = (k: number) => mulberry32((opts.seed + k * 7919) >>> 0);
   const day0 = opts.day0;
   const days = opts.days ?? DAYS;
   const date = (d: number) => addDays(day0, d);
@@ -235,14 +247,15 @@ export function generateWorld(opts: GenerateOptions): World {
   }
 
   // ---- demand curves ---------------------------------------------------------------------
+  rng = stream(1);
   const W = normalise([1.1, 0.94, 0.96, 0.98, 1.0, 1.02, 1.1]); // Sun..Sat
   const dow = (d: number) => weekday(date(d));
-  const trend = (d: number) => 1 + 0.02 * (d / 30); // under 3% a month
+  const trend = (d: number) => 1.02 + 0.015 * (d / 30); // about 1% a month
   const bump = (d: number) => (d >= 18 && d <= 26 ? 1.12 : 1); // monsoon sale, before day 30
   const organic: number[] = [];
   const paidSessions: number[] = [];
   const landingSessions: number[] = [];
-  const spendSchedule = (d: number) => (d < PLANT.s2.startDay ? 2150 : 2900);
+  const spendSchedule = (d: number) => (d < PLANT.s2.startDay ? 2100 : 2900);
   const CAMPAIGNS = [
     { name: "Always on: ceramics", share: 0.55 },
     { name: "Linen and bedding", share: 0.45 },
@@ -257,7 +270,7 @@ export function generateWorld(opts: GenerateOptions): World {
     let paid = 0;
     CAMPAIGNS.forEach((c, i) => {
       const spend = Math.round(spendSchedule(d) * c.share * rng.noise(0.02));
-      const sessions = campaignRounders[i](spend * 0.12 * W[dow(d)] * bump(d) * rng.noise(0.025));
+      const sessions = campaignRounders[i](spend * 0.127 * W[dow(d)] * bump(d) * rng.noise(0.025));
       const clicks = Math.round(sessions * 1.18);
       world.adDays.push({
         id: `ad-${d}-${i}`,
@@ -299,6 +312,7 @@ export function generateWorld(opts: GenerateOptions): World {
   }
 
   // ---- D2C orders (purchase lag: 60% of a day's orders come from the previous day's sessions)
+  rng = stream(2);
   const cvrNonLanding = 0.023;
   const landingCvr = (d: number) => (d < PLANT.s3.day ? PLANT.s3.cvrBefore : PLANT.s3.cvrAfter);
   const expLanding = (d: number) => landingSessions[Math.max(0, d)] * landingCvr(Math.max(0, d));
@@ -308,8 +322,9 @@ export function generateWorld(opts: GenerateOptions): World {
   const d2cCustomers: { c: Customer; lastOrderDay: number }[] = [];
   let orderSeq = 10_000;
   let custSeq = 1;
+  const regionDeck = deck(rng, REGIONS, REGION_WEIGHTS, 100);
   const newCustomer = (d: number): Customer => {
-    const region = rng.weighted(REGIONS, REGION_WEIGHTS);
+    const region = regionDeck();
     const c: Customer = {
       id: `c${String(custSeq++).padStart(4, "0")}`,
       source: "shopify",
@@ -340,6 +355,8 @@ export function generateWorld(opts: GenerateOptions): World {
     return lines;
   };
   const repeatWindowDays = 60;
+  const repeatDeck = deck(rng, [true, false], [0.22, 0.78], 50);
+  const qualityDeck = deck(rng, [true, false], [0.015, 0.985], 200);
   for (let d = 0; d < days; d++) {
     const nL = roundL((0.4 * expLanding(d) + 0.6 * expLanding(d - 1)) * rng.noise(0.025));
     const nO = roundO((0.4 * expOther(d) + 0.6 * expOther(d - 1)) * rng.noise(0.025));
@@ -348,11 +365,11 @@ export function generateWorld(opts: GenerateOptions): World {
       // 22% of orders come from a customer who ordered in the last 60 days. After the NCR courier
       // change, NCR customers come back less (S5 → repeat rate).
       let customer: Customer | null = null;
-      if (rng.next() < 0.22) {
+      if (repeatDeck()) {
         const pool = d2cCustomers.filter((x) => x.lastOrderDay >= d - repeatWindowDays && x.lastOrderDay < d);
         if (pool.length) {
           const cand = rng.pick(pool);
-          const dropped = cand.c.region === PLANT.s5.region && d >= PLANT.s5.day + 6 && rng.next() < 0.6;
+          const dropped = cand.c.region === PLANT.s5.region && d >= PLANT.s5.day + 6 && rng.next() < 0.85;
           if (!dropped) customer = cand.c;
         }
       }
@@ -411,7 +428,7 @@ export function generateWorld(opts: GenerateOptions): World {
             status: ticketDay >= today - 3 ? "open" : "resolved",
             region,
           });
-        } else if (rng.next() < 0.013) {
+        } else if (qualityDeck()) {
           const ticketDay = Math.min(today, deliveredDay + rng.int(1, 4));
           const quality = rng.next() < 0.7;
           world.tickets.push({
@@ -431,7 +448,14 @@ export function generateWorld(opts: GenerateOptions): World {
     }
   }
 
+  calibrateD2CAov(world, rng, 1250);
+  // Each comparison window sits on the same AOV, so the planted D2C revenue drop is the order drop.
+  for (const [from, to] of [[today - 27, today - 14], [today - 13, today]]) {
+    calibrateD2CAov(world, rng, 1250, (o) => { const d = daysBetween(world.meta.day0, o.createdAt); return d >= from && d <= to; });
+  }
+
   // ---- leads + messages ----------------------------------------------------------------
+  rng = stream(3);
   const leadRound = diffuser();
   let leadSeq = 1;
   let msgSeq = 1;
@@ -441,21 +465,27 @@ export function generateWorld(opts: GenerateOptions): World {
     return msg;
   };
   const wonOrders: { lead: Lead; day: number }[] = [];
-  const leadShopPool = rng.shuffle(WHOLESALE_SHOPS.filter((s) => !s1Shops.has(s.shop)));
-  let poolIdx = 0;
-  const nextShop = () => {
-    const s = leadShopPool[poolIdx % leadShopPool.length];
-    const n = Math.floor(poolIdx / leadShopPool.length);
-    poolIdx++;
-    return n === 0 ? s : { ...s, shop: `${s.shop} ${["II", "Annexe", "Studio"][n % 3]}` };
+  // Lead shops: fresh names, never one of the accounts the world already has.
+  const taken = new Set(WHOLESALE_SHOPS.map((s) => s.shop));
+  const nextShop = (): { shop: string; city: string; contact: string } => {
+    for (;;) {
+      const shop = `${rng.pick(SHOP_FIRST)} ${rng.pick(SHOP_SECOND)}`;
+      if (taken.has(shop)) continue;
+      taken.add(shop);
+      const region = rng.weighted(REGIONS, REGION_WEIGHTS);
+      return { shop, city: rng.pick(CITIES[region]), contact: `${rng.pick(FIRST)} ${rng.pick(SURNAME[region])}` };
+    }
   };
   const ownerName = "Meera";
+  const wonDeck = deck(rng, [true, false], [0.6, 0.4], 10); // six of every ten quotes close
   for (let d = 0; d < days; d++) {
-    const n = leadRound((27.8 / 30) * rng.noise(0.1));
+    // 27.8 new leads a month over the last 30 days including the seven hot ones S1 plants; the
+    // two months before ran a little hotter, which is what keeps about 16 won orders a month coming.
+    const n = leadRound((d < 60 ? 1.2 : (27.0 - 7) / 30) * rng.noise(0.1));
     for (let k = 0; k < n; k++) {
       const s = nextShop();
       const channel: Lead["channel"] = rng.next() < 0.6 ? "whatsapp" : "email";
-      const est = rng.int(5, 24) * 1000;
+      const est = rng.int(5, 23) * 1000;
       const product = rng.weighted(PRODUCTS, PRODUCTS.map((p) => p.wholesaleW));
       const qty = rng.int(10, 40);
       const id = `L${String(leadSeq++).padStart(3, "0")}`;
@@ -520,7 +550,7 @@ export function generateWorld(opts: GenerateOptions): World {
         );
         const decisionDay = quotedDay + rng.int(3, 10);
         if (decisionDay <= today) {
-          const won = rng.next() < 0.6;
+          const won = wonDeck();
           stage = won ? "won" : "lost";
           const at = dt(decisionDay, rng.int(10, 18));
           lastInboundAt = at;
@@ -604,6 +634,7 @@ export function generateWorld(opts: GenerateOptions): World {
   });
 
   // ---- wholesale orders ----------------------------------------------------------------
+  rng = stream(4);
   const wholesaleLines = (target: number, k: number): OrderLine[] => {
     const picked = rng.shuffle(PRODUCTS.map((p, i) => i)).slice(0, k);
     const share = target / k;
@@ -628,26 +659,25 @@ export function generateWorld(opts: GenerateOptions): World {
     world.orders.push(o);
     return o;
   };
-  // Saffron Stories: two orders a week (gaps of 3 and 4 days) so every 14-day window holds four,
-  // plus four extra early orders. About 30 in all.
+  // Saffron Stories: five orders in every 14-day block (days 1, 4, 7, 10, 13 of each), so the two
+  // comparison windows hold the same count and wholesale stays flat. 32 orders in 90 days.
   const saffronDays: number[] = [];
-  for (let d = 1, i = 0; d <= today; d += i % 2 === 0 ? 3 : 4, i++) saffronDays.push(d);
-  for (const extra of [2, 16, 30, 44]) saffronDays.push(extra);
-  saffronDays.sort((a, b) => a - b);
+  for (let block = 1; block <= today; block += 14) for (const off of [0, 3, 6, 9, 12]) if (block + off <= today) saffronDays.push(block + off);
   for (const d of saffronDays) {
     if (d === 18) continue; // the S4 invoice order, written below with an exact total
     addWholesaleOrder(PLANT.s6.customerId, d, wholesaleLines(55_800 * rng.noise(0.08), rng.int(6, 9)));
   }
-  // other existing accounts: about 60 recurring orders over 90 days
+  // other existing accounts: about 59 recurring orders over 90 days, 20 a month
   const others = wholesaleIds.filter((id) => id !== PLANT.s6.customerId);
+  const RECUR = 59;
   const recurRound = diffuser();
   for (let d = 0; d < days; d++) {
-    const n = recurRound((60 / days) * rng.noise(0.1));
+    const n = recurRound(RECUR / days);
     for (let k = 0; k < n; k++) {
       const cid = rng.pick(others);
       const c = world.customers.find((x) => x.id === cid)!;
       if (s4Shops.includes(c.shop!) && d >= 30) continue; // the debtors stopped ordering; their S4 orders are planted
-      addWholesaleOrder(cid, d, wholesaleLines(8_500 * rng.noise(0.3), rng.int(3, 6)));
+      addWholesaleOrder(cid, d, wholesaleLines(11_500 * rng.noise(0.3), rng.int(3, 6)));
     }
   }
   // lead-won orders: the lead becomes an account
@@ -665,12 +695,18 @@ export function generateWorld(opts: GenerateOptions): World {
     { cid: world.customers.find((c) => c.shop === "Dhara Home")!.id, day: 50, total: 14_400, id: "WO-S4-3" },
   ];
   for (const s of s4) addWholesaleOrder(s.cid, s.day, linesForTotal(s.total, rng), s.id);
-  // Calibrate: Saffron share of 90-day revenue, then wholesale flat across the two windows.
-  calibrateSaffron(world, today, false);
-  calibrateFlatWindows(world, today);
-  calibrateSaffron(world, today, true); // only orders before the two windows, so flatness holds
+  // Calibrate: the other accounts' 90-day total, Saffron's share of 90-day revenue, then
+  // wholesale flat across the two windows (docs/DATA-MODEL.md, Business totals).
+  // The other accounts ran a little hotter before the windows (a monsoon restock in July and
+  // August), so the last 30 days carry ~46 wholesale orders at about ₹21,600 each (ENGINE.md §4.2)
+  // while 90-day revenue still reaches ₹54L (DATA-MODEL.md, Business totals).
+  calibrateOthers(world, 4_50_000, (d) => d >= today - 29);
+  calibrateOthers(world, 10_30_000, (d) => d < today - 29);
+  calibrateSaffron(world, 5_50_000, today);
+  calibrateFlatWindows(world, today); // adjusts the other accounts only; Saffron is symmetric by construction
 
   // ---- invoices ---------------------------------------------------------------------------
+  rng = stream(5);
   let invSeq = 142;
   const s4Ids = new Set(s4.map((s) => s.id));
   for (const o of world.orders.filter((x) => x.channel === "wholesale").sort((a, b) => a.createdAt.localeCompare(b.createdAt))) {
@@ -679,7 +715,7 @@ export function generateWorld(opts: GenerateOptions): World {
     const planted = s4Ids.has(o.id);
     let paidDay: number | null = null;
     if (!planted && due <= today) {
-      const onTime = rng.next() < 0.8;
+      const onTime = rng.next() < 0.87;
       paidDay = onTime ? due + rng.int(-3, 2) : due + rng.int(3, 20);
       if (paidDay > today) paidDay = today - rng.int(0, 2); // paid late but paid: only S4 is overdue
     }
@@ -720,6 +756,7 @@ export function generateWorld(opts: GenerateOptions): World {
   }
 
   // ---- bills + subscriptions ----------------------------------------------------------------
+  rng = stream(6);
   const addBill = (vendor: string, category: Bill["category"], amount: number, billDay: number, dueIn: number, recurring: boolean, source: Bill["source"] = "zoho-books") => {
     const paidDay = billDay + dueIn <= today ? billDay + dueIn - rng.int(0, 2) : null;
     world.bills.push({
@@ -739,17 +776,17 @@ export function generateWorld(opts: GenerateOptions): World {
     addBill("JVVNL (electricity)", "electricity", 18_000 * rng.noise(0.08), 1 + 31 * m, 10, true, "gmail");
     addBill("Jaipur Packwell (packaging)", "packaging", 42_000 * rng.noise(0.06), 4 + 31 * m, 15, true);
     addBill("Sharma & Associates (accounts)", "services", 15_000, 14 + 31 * m, 7, true);
-    addBill("Studio maintenance, MI Road", "other", 10_000, 7 + 31 * m, 5, true);
+    addBill("Studio maintenance, MI Road", "other", 15_000, 7 + 31 * m, 5, true);
   }
   // Shiprocket: a fixed fee plus ₹90 per shipment, billed on the 3rd for the previous month
   for (const m of [0, 1, 2]) {
     const billDay = 23 + 31 * m; // 3 Aug, 3 Sep, 4 Oct
     const from = billDay - 31;
     const n = world.shipments.filter((s) => dayOfDate(s.dispatchedAt) >= from && dayOfDate(s.dispatchedAt) < billDay).length;
-    addBill("Shiprocket", "courier", 22_000 + 90 * n, billDay, 7, true);
+    addBill("Shiprocket", "courier", 12_000 + 90 * n, billDay, 27, true); // due on the last day of the month
   }
-  // rent on the 1st
-  for (const d of [21, 52, 82]) addBill("MI Road studio rent", "rent", 1_20_000, d, 0, true);
+  // rent, paid on the 28th
+  for (const d of [17, 48, 79]) addBill("MI Road studio rent", "rent", 1_20_000, d, 0, true);
   // suppliers: weekly bills for the week's cost of goods, 21-day terms
   for (let wk = 0; wk * 7 < days; wk++) {
     const from = wk * 7;
@@ -773,18 +810,21 @@ export function generateWorld(opts: GenerateOptions): World {
   addSub("sub-interakt", "Interakt", "WhatsApp Business API", 2_500, 89, 101, 1);
 
   // ---- stories (events, obligations, planted subscriptions and bills, meta) -------------------
+  rng = stream(7);
   for (const story of STORIES) story.apply(world, rng);
 
   // ---- inventory from velocity --------------------------------------------------------------
+  rng = stream(8);
   const units30 = new Map<string, number>();
   for (const o of world.orders.filter((x) => dayOfDate(x.createdAt) >= today - 29)) for (const l of o.lines) units30.set(l.sku, (units30.get(l.sku) ?? 0) + l.qty);
   for (const p of world.products) {
     if (p.sku === PLANT.s9.sku) continue;
     const monthly = units30.get(p.sku) ?? 10;
-    p.onHand = Math.max(p.leadTimeDays * 2, Math.round(monthly * 1.12 * rng.noise(0.06)));
+    p.onHand = Math.max(8, Math.round(monthly * 1.155 * rng.noise(0.06)));
   }
 
   // ---- bank transactions ----------------------------------------------------------------------
+  rng = stream(9);
   const txn = (d: number, amount: number, narration: string, category: BankTxn["category"], ref?: BankTxn["ref"]) =>
     world.bankTxns.push({ id: `tx-${world.bankTxns.length + 1}`, source: "hdfc", createdAt: date(d), date: date(d), amount: Math.round(amount), narration, category, ref });
   // Razorpay settles D2C takings two days later, net of fees
@@ -846,9 +886,14 @@ function deck<T>(rng: Rng, items: readonly T[], weights: readonly number[], size
     const n = carry((weights[i] / total) * size);
     for (let k = 0; k < n; k++) cards.push(it);
   });
+  // Shuffle in eight interleaved chunks so every fiftieth card or so still carries the full mix.
   let pile: T[] = [];
   return () => {
-    if (!pile.length) pile = rng.shuffle(cards);
+    if (!pile.length) {
+      const chunks: T[][] = Array.from({ length: 8 }, () => []);
+      rng.shuffle(cards).forEach((c, i) => chunks[i % 8].push(c));
+      pile = chunks.flatMap((c) => rng.shuffle(c)).reverse();
+    }
     return pile.pop()!;
   };
 }
@@ -896,58 +941,107 @@ function linesForTotal(total: number, rng: Rng): OrderLine[] {
   return linesForTotal(total, rng);
 }
 
+/**
+ * Nudge the D2C order value to `target` by swapping single-line baskets for the next cheaper or
+ * dearer product in the same category. The mug is never swapped (S9 depends on its velocity).
+ */
+function calibrateD2CAov(world: World, rng: Rng, target: number, only?: (o: Order) => boolean) {
+  const d2c = world.orders.filter((o) => o.channel === "d2c" && (!only || only(o)));
+  const aov = () => d2c.reduce((s, o) => s + o.total, 0) / d2c.length;
+  const byCat = new Map<string, ProductSpec[]>();
+  for (const p of PRODUCTS) byCat.set(p.category, [...(byCat.get(p.category) ?? []), p].sort((a, b) => a.cost - b.cost));
+  const candidates = rng.shuffle(d2c.filter((o) => o.lines.length === 1 && o.lines[0].qty === 1 && o.lines[0].sku !== PLANT.s9.sku));
+  for (const o of candidates) {
+    const cur = aov();
+    if (Math.abs(cur / target - 1) <= 0.003) break;
+    const p = PRODUCTS.find((x) => x.sku === o.lines[0].sku)!;
+    const ladder = byCat.get(p.category)!;
+    const i = ladder.indexOf(p);
+    const next = cur > target ? ladder[i - 1] : ladder[i + 1];
+    if (!next || next.sku === PLANT.s9.sku) continue;
+    o.lines[0] = { sku: next.sku, qty: 1, price: next.cost * 2.5 };
+    retotal(o);
+  }
+}
+
+/** Scale the wholesale orders of accounts other than Saffron (planted S4 orders aside) to `target` over 90 days. */
+function calibrateOthers(world: World, target: number, days: (d: number) => boolean) {
+  const others = () => world.orders.filter((o) => o.channel === "wholesale" && o.customerId !== PLANT.s6.customerId && !o.id.startsWith("WO-S4") && days(daysBetween(world.meta.day0, o.createdAt)));
+  const sum = () => others().reduce((s, o) => s + o.total, 0);
+  for (let i = 0; i < 4; i++) {
+    const f = target / sum();
+    if (Math.abs(f - 1) < 0.005) break;
+    for (const o of others()) {
+      for (const l of o.lines) l.qty = Math.max(1, Math.round(l.qty * f));
+      retotal(o);
+    }
+  }
+  nudgeToward(others(), () => target - sum(), target * 0.003);
+}
+
+/** Move a set of orders toward a target one unit at a time, on the line whose price best closes the gap. */
+function nudgeToward(orders: Order[], gap: () => number, tolerance: number) {
+  for (let j = 0; j < 200; j++) {
+    const g = gap();
+    if (Math.abs(g) <= tolerance) return;
+    let best: { o: Order; l: OrderLine } | null = null;
+    for (const o of orders) for (const l of o.lines) {
+      if (g < 0 && l.qty <= 1 && o.lines.length <= 1) continue;
+      if (!best || Math.abs(Math.abs(g) - l.price) < Math.abs(Math.abs(g) - best.l.price)) best = { o, l };
+    }
+    if (!best) return;
+    if (g > 0) best.l.qty += 1;
+    else if (best.l.qty > 1) best.l.qty -= 1;
+    else best.o.lines.splice(best.o.lines.indexOf(best.l), 1);
+    retotal(best.o);
+  }
+}
+
 function retotal(o: Order) {
   o.total = o.lines.reduce((s, l) => s + l.qty * l.price, 0);
 }
 
-/** Scale Saffron's unplanted orders so its share of 90-day revenue is PLANT.s6.share. */
-function calibrateSaffron(world: World, today: number, outsideWindowsOnly: boolean) {
+/** Scale Saffron's unplanted orders so its share of 90-day revenue is PLANT.s6.share, with its
+ * last 30 days at `last30` (the simulator reads those; ENGINE.md §4.2). */
+function calibrateSaffron(world: World, last30: number, today: number) {
   const day = (iso: string) => daysBetween(world.meta.day0, iso);
-  for (let i = 0; i < 4; i++) {
-    const total = world.orders.reduce((s, o) => s + o.total, 0);
-    const saffron = world.orders.filter((o) => o.customerId === PLANT.s6.customerId);
-    const sum = saffron.reduce((s, o) => s + o.total, 0);
-    const other = total - sum;
-    const target = (PLANT.s6.share / (1 - PLANT.s6.share)) * other;
-    const fixed = (o: Order) => o.id.startsWith("WO-S4") || (outsideWindowsOnly && day(o.createdAt) >= today - 27);
-    const held = saffron.filter(fixed).reduce((s, o) => s + o.total, 0);
-    const f = (target - held) / (sum - held);
-    for (const o of saffron) {
-      if (fixed(o)) continue;
-      for (const l of o.lines) l.qty = Math.max(1, Math.round(l.qty * f));
-      retotal(o);
+  const fixed = (o: Order) => o.id.startsWith("WO-S4");
+  const saffron = () => world.orders.filter((o) => o.customerId === PLANT.s6.customerId && !fixed(o));
+  const sumOf = (os: Order[]) => os.reduce((s, o) => s + o.total, 0);
+  const scale = (os: Order[], target: number) => {
+    for (let i = 0; i < 4; i++) {
+      const f = target / sumOf(os);
+      if (Math.abs(f - 1) < 0.005) break;
+      for (const o of os) {
+        for (const l of o.lines) l.qty = Math.max(1, Math.round(l.qty * f));
+        retotal(o);
+      }
     }
-  }
+    nudgeToward(os, () => target - sumOf(os), target * 0.002);
+  };
+  const recent = saffron().filter((o) => day(o.createdAt) >= today - 29);
+  scale(recent, last30);
+  const total = world.orders.reduce((s, o) => s + o.total, 0);
+  const all = world.orders.filter((o) => o.customerId === PLANT.s6.customerId);
+  const other = total - sumOf(all);
+  const target = (PLANT.s6.share / (1 - PLANT.s6.share)) * other;
+  const held = sumOf(all.filter(fixed)) + sumOf(recent);
+  scale(saffron().filter((o) => day(o.createdAt) < today - 29), target - held);
 }
 
-/** Wholesale revenue in the current 14 days within ±1% of the previous 14 (docs/DATA-MODEL.md). */
 function calibrateFlatWindows(world: World, today: number) {
   const day = (iso: string) => daysBetween(world.meta.day0, iso);
   const sum = (from: number, to: number) => world.orders.filter((o) => o.channel === "wholesale" && day(o.createdAt) >= from && day(o.createdAt) <= to).reduce((s, o) => s + o.total, 0);
-  for (let i = 0; i < 6; i++) {
-    const prev = sum(today - 27, today - 14);
-    const cur = sum(today - 13, today);
-    if (Math.abs(cur / prev - 1) <= 0.01) return;
-    const f = prev / cur;
-    const targets = world.orders.filter((o) => o.channel === "wholesale" && day(o.createdAt) >= today - 13 && !o.id.startsWith("WO-S4"));
-    for (const o of targets) {
-      for (const l of o.lines) l.qty = Math.max(1, Math.round(l.qty * f));
-      retotal(o);
-    }
-    // fine tune one unit at a time on the line whose price best closes the gap
-    for (let j = 0; j < 40; j++) {
-      const gap = sum(today - 27, today - 14) - sum(today - 13, today);
-      if (Math.abs(gap) <= prev * 0.004) break;
-      let best: { o: Order; l: OrderLine } | null = null;
-      for (const o of targets) for (const l of o.lines) {
-        if (gap < 0 && l.qty <= 1) continue;
-        if (!best || Math.abs(Math.abs(gap) - l.price) < Math.abs(Math.abs(gap) - best.l.price)) best = { o, l };
-      }
-      if (!best) break;
-      best.l.qty += gap > 0 ? 1 : -1;
-      retotal(best.o);
-    }
-  }
+  const adjustable = (o: Order) => o.channel === "wholesale" && !o.id.startsWith("WO-S4") && o.customerId !== PLANT.s6.customerId;
+  const currentOrders = world.orders.filter((o) => adjustable(o) && day(o.createdAt) >= today - 13);
+  const previousOrders = world.orders.filter((o) => adjustable(o) && day(o.createdAt) >= today - 27 && day(o.createdAt) <= today - 14);
+  const prev = sum(today - 27, today - 14);
+  const cur = sum(today - 13, today);
+  if (Math.abs(cur / prev - 1) <= 0.004) return;
+  // Pull both windows to their mean, so the last-30-day total the simulator reads stays put.
+  const mean = (prev + cur) / 2;
+  nudgeToward(currentOrders, () => mean - sum(today - 13, today), mean * 0.002);
+  nudgeToward(previousOrders, () => mean - sum(today - 27, today - 14), mean * 0.002);
 }
 
 export type { Rng };

@@ -65,3 +65,14 @@ export function inWindow(iso: string, w: Window): boolean {
   const d = isoDay(iso);
   return d >= w.from && d <= w.to;
 }
+
+/** The engine's reference instant on the last day: 18:00 IST, when the owner opens Munshi's evening view. */
+export function nowAt(world: World): string {
+  return `${now(world)}T18:00:00+05:30`;
+}
+
+/** Hours from `a` to `b` for full ISO datetimes (dates count from 00:00 IST). */
+export function hoursBetween(a: string, b: string): number {
+  const t = (s: string) => Date.parse(s.length === 10 ? `${s}T00:00:00+05:30` : s);
+  return (t(b) - t(a)) / 3_600_000;
+}

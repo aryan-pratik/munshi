@@ -1,0 +1,119 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`analyze on the seed > matches the committed snapshot 1`] = `
+[
+  {
+    "group": "needs-you",
+    "id": "staleHighValueLeads:whatsapp:lead:all",
+    "impactINR": 110400,
+    "onset": "2026-10-04",
+    "playbooks": [
+      "followUpLeads",
+    ],
+    "severity": "high",
+    "title": "7 wholesale leads worth ₹1.8 lakh have gone quiet",
+  },
+  {
+    "group": "needs-you",
+    "id": "conversionDrop:shopify:event:ev-theme-updated",
+    "impactINR": 86303,
+    "onset": "2026-09-28",
+    "playbooks": [],
+    "severity": "high",
+    "title": "Landing-page conversion fell from 4.8% to 3.2% after the theme update",
+  },
+  {
+    "group": "needs-you",
+    "id": "overdueInvoices:zoho-books:invoice:all",
+    "impactINR": 82400,
+    "onset": "2026-08-29",
+    "playbooks": [
+      "collectOverdue",
+    ],
+    "severity": "critical",
+    "title": "3 wholesale invoices overdue, ₹82,400",
+  },
+  {
+    "group": "needs-you",
+    "id": "cashCrunch:calendar:obligation:ob-payroll",
+    "impactINR": 62477,
+    "onset": null,
+    "playbooks": [
+      "collectOverdue",
+    ],
+    "severity": "high",
+    "title": "Cash dips ₹62,477 under the ₹2 lakh buffer in 23 days",
+  },
+  {
+    "group": "worth-knowing",
+    "id": "zombieSubscription:zoho-books:subscription:all",
+    "impactINR": 45000,
+    "onset": "2026-07-16",
+    "playbooks": [
+      "cancelSubscription",
+    ],
+    "severity": "medium",
+    "title": "2 subscriptions nobody has used in two months, ₹45,000 a year",
+  },
+  {
+    "group": "needs-you",
+    "id": "stockoutRisk:shopify:product:CER-MUG4",
+    "impactINR": 34800,
+    "onset": null,
+    "playbooks": [
+      "reorderStock",
+    ],
+    "severity": "high",
+    "title": "Indigo Stoneware Mug (set of 4) runs out in 10 days; the next batch takes 18",
+  },
+  {
+    "group": "worth-knowing",
+    "id": "renewalDue:calendar:obligation:all",
+    "impactINR": 15200,
+    "onset": null,
+    "playbooks": [
+      "scheduleRenewal",
+    ],
+    "severity": "medium",
+    "title": "3 renewals and filings due within 3 weeks, ₹15,200 in penalties if missed",
+  },
+  {
+    "group": "worth-knowing",
+    "id": "adEfficiency:meta-ads:adDay:ad-88-0",
+    "impactINR": 14755,
+    "onset": "2026-10-01",
+    "playbooks": [],
+    "severity": "medium",
+    "title": "Cost per order from ads up 24% this month, ₹139 against ₹112",
+  },
+  {
+    "group": "worth-knowing",
+    "id": "complaintSpike:freshdesk:ticket:tk-44",
+    "impactINR": 14131,
+    "onset": null,
+    "playbooks": [
+      "escalateCourier",
+    ],
+    "severity": "medium",
+    "title": "Delivery complaints up from 3 to 11 since the NCR courier change",
+  },
+  {
+    "group": "worth-knowing",
+    "id": "costCreep:gmail:bill:bill-airtel-1",
+    "impactINR": 4800,
+    "onset": "2026-09-09",
+    "playbooks": [],
+    "severity": "info",
+    "title": "Airtel bill up ₹400 a month since the plan upgrade",
+  },
+  {
+    "group": "worth-knowing",
+    "id": "customerConcentration:zoho-books:customer:w01",
+    "impactINR": 0,
+    "onset": "2026-07-18",
+    "playbooks": [],
+    "severity": "medium",
+    "title": "Saffron Stories is 31% of revenue, ₹16.9 lakh exposed",
+  },
+]
+`;

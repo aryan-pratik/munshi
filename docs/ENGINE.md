@@ -284,7 +284,7 @@ non-linear so "find best" has something to find.
 
 ### 4.2 Base inputs
 
-`base.*` is computed from the last 30 days of the seed (values below are on the committed seed).
+`base.*` is computed from the last 30 days of the seed. The values below are the targets the generator is calibrated to; the committed seed lands within 3% of each (`pnpm seed` prints the simulator row, and `tests/engine/simulator.test.ts` asserts the tolerance).
 
 | Symbol | Meaning | Value | From |
 |---|---|---|---|
@@ -318,13 +318,13 @@ non-linear so "find best" has something to find.
 
 Constants: `boost(followUpHours)` 48 → 1.00, 24 → 1.15, 12 → 1.28, 4 → 1.35; `followUpCost` per month
 48 → ₹0, 24 → ₹9,000, 12 → ₹21,000, 4 → ₹45,000; elasticities `ε_d2c = 1.3`, `ε_ws = 0.6` (price
-sensitivity is applied once, as the elasticity); marketing exponent 0.7; account loss 0.8 × `A0` × `p⁺`;
+sensitivity is applied once, as the elasticity); marketing exponent 0.75; account loss 0.8 × `A0` × `p⁺`;
 complaint multiplier 8 × overload; delay 2.5 days per 100% overload (note only).
 
 ### 4.3 Mechanics (`simulator/model.ts`)
 
 ```
-traffic     = P0*(1+m)^0.7 + O0                       // diminishing returns on paid only
+traffic     = P0*(1+m)^0.75 + O0                      // diminishing returns on paid only
 newD        = traffic * c0 * (1+p)^(-1.3) * festiveLift
 accKeep     = 1 - 0.8*p+                               // share of wholesale accounts retained
 newW        = accKeep * (R0 + L0*w0*boost(h_fu)) * (1+p)^(-0.6) * festiveLift
@@ -404,6 +404,10 @@ On the committed seed:
 - Price +15 alone: revenue ₹16,44,071, profit ₹1,49,155 (−7%), customers 509 (−22%), churn 16.5%,
   risk medium.
 
+These are the results on the calibration targets in 4.2 fed through 4.3 exactly. The committed seed
+reproduces them within 3%: base profit ₹1,60,922, the same top strategy at ₹2,33,608 (+45%), price
++15 at ₹1,52,463. `pnpm seed` prints the current figures.
+
 Robustness: the top strategy has `hires = 1` in 151 of 200 draws with ±10% jitter of marketing,
 salary, fixed, aov, leads and orders, so the generator pins the seed and `simulator.test.ts` asserts
 on the committed seed.
@@ -430,7 +434,7 @@ interface Playbook {
 
 `labels(n)` keeps an action's name constant from the first click to the confirmation. For
 `followUpLeads` with 7 drafts: `review` "Review 7 drafts" (the button on the finding), `approve`
-"Approve and send 7" (the button in the Act sheet), `working` "Sending 7..." (the loading state of
+"Approve and send 7" (the button in the Act sheet), `working` "Sending 7…" (the loading state of
 that button), `done` "7 follow-ups sent" (the Done state, the toast and the activity entry; the
 ActionTimeline appends "2 minutes ago"). The UI never invents its own wording for these.
 `followUpLeads.expectedImpact.inr` equals the finding's `impactINR` (₹1,10,400, 14 days).
