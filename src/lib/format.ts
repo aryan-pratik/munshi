@@ -3,16 +3,16 @@
 
 const inrFormatter = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
 
-/** ₹1,10,400. Negative values keep the sign before the symbol: -₹1,200. */
+/** ₹1,10,400. Negative values carry the real minus sign before the symbol: −₹1,200. */
 export function inr(value: number): string {
   const n = Math.round(Math.abs(value));
-  return `${value < 0 ? "-" : ""}₹${inrFormatter.format(n)}`;
+  return `${value < 0 ? "\u2212" : ""}₹${inrFormatter.format(n)}`;
 }
 
 /** ₹1.1 lakh, ₹16.7 lakh, ₹1.2 crore; below a lakh falls back to `inr`. */
 export function inrCompact(value: number): string {
   const abs = Math.abs(value);
-  const sign = value < 0 ? "-" : "";
+  const sign = value < 0 ? "\u2212" : "";
   if (abs >= 1_00_00_000) return `${sign}₹${trim(abs / 1_00_00_000)} crore`;
   if (abs >= 1_00_000) return `${sign}₹${trim(abs / 1_00_000)} lakh`;
   return inr(value);
@@ -75,4 +75,25 @@ function daysBetweenISO(a: string, b: string): number {
     return Date.UTC(y, m - 1, d);
   };
   return Math.round((toUtc(b) - toUtc(a)) / 86_400_000);
+}
+
+/** "Thursday, 8 October": the Today brief's opening. */
+export function briefDate(iso: string): string {
+  const [, weekday, rest] = /^(\w+) (\d+ \w+) \d+$/.exec(longDate(iso)) ?? [];
+  return weekday && rest ? `${weekday}, ${rest}` : longDate(iso);
+}
+
+/** "2:00 pm" from an ISO datetime, in the offset the record carries (seed records carry +05:30). */
+export function timeOf(iso: string): string {
+  const m = /T(\d{2}):(\d{2})/.exec(iso);
+  if (!m) return "";
+  const h = Number(m[1]);
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${h12}:${m[2]} ${h < 12 ? "am" : "pm"}`;
+}
+
+/** "6 Oct, 2:00 pm". */
+export function dateTime(iso: string): string {
+  const t = timeOf(iso);
+  return t ? `${shortDate(iso)}, ${t}` : shortDate(iso);
 }

@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Hover-only affordances are gated to fine pointers (DESIGN.md, Motion) */
+@custom-variant fine {
+  @media (hover: hover) and (pointer: fine) {
+    @slot;
+  }
+}
+
 /*
   Tokens come from DESIGN.md (frontmatter). Do not restate them elsewhere.
   Light is the primary theme. Dark is composed, not inverted, under `.dark`.
@@ -193,9 +200,11 @@ body {
   color: var(--ink);
 }
 
-:focus-visible {
-  outline: 2px solid var(--neel);
-  outline-offset: 2px;
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--neel);
+    outline-offset: 2px;
+  }
 }
 
 h1,

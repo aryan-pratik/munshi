@@ -71,18 +71,18 @@ contract; the skills are how you check your work against it.
 Today is a briefing with a findings table under it, not a metric with cards. Layout, type, colour
 and states per `DESIGN.md`.
 
-- [ ] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`
-- [ ] `lib/store/world.ts` — zustand store: seed world, `actions[]`, `applyAction`, `replay`. In memory only, no `persist`; a hard refresh reloads the seed and is the demo reset
-- [ ] `components/primitives/*` — `Money`, `Delta`, `SeverityLabel` (text label plus icon), `ReceiptChip`, `Confidence`, `EmptyState`, `Kbd`
-- [ ] `components/shell/*` — `Sidebar`, `TopBar`, `CommandK` ask field, `SourceStatus`; responsive per `DESIGN.md` (Layout)
-- [ ] `components/chain/OnsetStrip.tsx` — one series over time with the onset marked; an event flag when `onsetEvidence` exists; "in 12 days" form when the onset is null
-- [ ] `components/finding/*` — `FindingRow` (expands in place to `explain`, evidence and actions), `EvidenceList` (renders any `RecordRef[]` as readable records: messages as bubbles, invoices as a mini-invoice, orders as a line, events as a dated line). Containers: a strip click opens it in a popover (bottom sheet on phone); rows and "See the threads" expand in place. No drawer anywhere
-- [ ] `components/today/*` — `Brief` (the dated sentence: "Thursday, 8 October. 11 things found overnight, worth about ₹4 lakh."; the total sums `impactINR` of open findings except `cashCrunch`), `LeadItem` (Munshi's top item in two or three sentences, figures link to evidence; primary "Review 7 drafts", secondary "See the threads" expands the seven threads in place), `FindingsTable` (columns Finding with severity label and icon, Since as an `OnsetStrip`, Worth, Action; sections "Needs you" and "Worth knowing" from `Finding.group`, and "Handled" from `handledFindings(seed, actions)`)
-- [ ] `components/today/CashLine` (320x96, uses `engine/horizon.ts` and the shared `chain/` axis helper that Phase 7 `RunwayCurve` reuses), `UpcomingOutflows` (next three rows), and `components/ask/SuggestedQuestions` (the list, each item carries a `questionId`; created here, reused by `/ask` in Phase 4)
-- [ ] `CommandK`: the top-bar ask field, when focused and empty, opens a popover listing the suggested questions; selecting one navigates to `/ask?q=<questionId>`; free text plus Enter navigates with the text
-- [ ] Today is demo-able end to end (no AI yet)
-- [ ] After: `impeccable critique` then `impeccable polish` on Today and the shell, one bounded round
-- [ ] Commit: `feat: today`
+- [x] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`
+- [x] `lib/store/world.ts` — zustand store: seed world, `actions[]`, `applyAction`, `replay`. In memory only, no `persist`; a hard refresh reloads the seed and is the demo reset
+- [x] `components/primitives/*` — `Money`, `Delta`, `SeverityLabel` (text label plus icon), `ReceiptChip`, `Confidence`, `EmptyState`, `Kbd`
+- [x] `components/shell/*` — `Sidebar`, `TopBar`, `CommandK` ask field, `SourceStatus`; responsive per `DESIGN.md` (Layout)
+- [x] `components/chain/OnsetStrip.tsx` — one series over time with the onset marked; an event flag when `onsetEvidence` exists; "in 12 days" form when the onset is null
+- [x] `components/finding/*` — `FindingRow` (expands in place to `explain`, evidence and actions), `EvidenceList` (renders any `RecordRef[]` as readable records: messages as bubbles, invoices as a mini-invoice, orders as a line, events as a dated line). Containers: a strip click opens it in a popover (bottom sheet on phone); rows and "See the threads" expand in place. No drawer anywhere
+- [x] `components/today/*` — `Brief` (the dated sentence: "Thursday, 8 October. 11 things found overnight, worth about ₹4 lakh."; the total sums `impactINR` of open findings except `cashCrunch`), `LeadItem` (Munshi's top item in two or three sentences, figures link to evidence; primary "Review 7 drafts", secondary "See the threads" expands the seven threads in place), `FindingsTable` (columns Finding with severity label and icon, Since as an `OnsetStrip`, Worth, Action; sections "Needs you" and "Worth knowing" from `Finding.group`, and "Handled" from `handledFindings(seed, actions)`)
+- [x] `components/today/CashLine` (320x96, uses `engine/horizon.ts` and the shared `chain/` axis helper that Phase 7 `RunwayCurve` reuses), `UpcomingOutflows` (next three rows), and `components/ask/SuggestedQuestions` (the list, each item carries a `questionId`; created here, reused by `/ask` in Phase 4)
+- [x] `CommandK`: the top-bar ask field, when focused and empty, opens a popover listing the suggested questions; selecting one navigates to `/ask?q=<questionId>`; free text plus Enter navigates with the text
+- [x] Today is demo-able end to end (no AI yet)
+- [x] After: `impeccable critique` then `impeccable polish` on Today and the shell, one bounded round
+- [x] Commit: `feat: today`
 
 ## Phase 4 — Why + onset trail (4 h)
 

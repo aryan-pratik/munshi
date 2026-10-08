@@ -6,7 +6,7 @@ describe("format", () => {
     expect(inr(110400)).toBe("₹1,10,400");
     expect(inr(1674000)).toBe("₹16,74,000");
     expect(inr(820)).toBe("₹820");
-    expect(inr(-1200)).toBe("-₹1,200");
+    expect(inr(-1200)).toBe("−₹1,200");
     expect(inr(401400.4)).toBe("₹4,01,400");
   });
   it("compacts to lakh and crore", () => {

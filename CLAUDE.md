@@ -6,9 +6,9 @@ build whose demo runs on a seeded digital twin of one business, with no network 
 
 ## Current state
 
-Phases 0 to 2 are done: the scaffold, the seed world (`pnpm seed`) and the engine (`src/engine`,
-tests in `tests/engine`). **No UI yet beyond the placeholder page.** Next is Phase 3 in
-`docs/TASKS.md`.
+Phases 0 to 3 are done: the scaffold, the seed world (`pnpm seed`), the engine (`src/engine`,
+tests in `tests/engine`), and the shell plus the Today screen (`src/components/{shell,today,
+finding,chain,primitives}`). The other routes are placeholders. Next is Phase 4 in `docs/TASKS.md`.
 
 - If `package.json` is missing, your first action is `bash scripts/bootstrap.sh`. It scaffolds
   Next.js into a temp dir and merges it in without overwriting existing files. Safe to re-run.
