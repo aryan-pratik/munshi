@@ -1,0 +1,329 @@
+@import "tailwindcss";
+
+/*
+  Tokens come from DESIGN.md (frontmatter). Do not restate them elsewhere.
+  Light is the primary theme. Dark is composed, not inverted, under `.dark`
+  (and the system preference when no explicit class is set).
+*/
+
+:root {
+  --chalk: #f6f7fb;
+  --surface: #ffffff;
+  --wash: #eceef6;
+  --rule: #d9dce8;
+  --rule-strong: #8187a3;
+  --ink: #151a2d;
+  --ink-2: #4a5068;
+  --ink-3: #646a82;
+  --neel-deep: #1b2559;
+  --neel: #3246c8;
+  --neel-hover: #2838a8;
+  --neel-soft: #eaecfc;
+  --rail-active: #2a3676;
+  --rail-text-2: #b9c0e6;
+  --haldi: #b67d0a;
+  --haldi-ink: #8a5a00;
+  --haldi-soft: #fdf1d6;
+  --debit: #b4231a;
+  --debit-soft: #fbe6e3;
+  --credit: #1f7a4d;
+  --credit-soft: #e1f2e8;
+  --on-fill: #ffffff;
+  --sidebar-ring: #ffffff;
+
+  --shadow-float: 0 8px 24px -8px rgb(21 26 45 / 0.18), 0 2px 6px -2px rgb(21 26 45 / 0.1);
+  --shadow-sheet: -16px 0 40px -16px rgb(21 26 45 / 0.22);
+  --scrim: rgb(21 26 45 / 0.32);
+
+  /* Motion tokens (DESIGN.md, Motion) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 140ms;
+  --dur-pop: 160ms;
+  --dur-sheet-in: 320ms;
+  --dur-sheet-out: 200ms;
+  --dur-rerank: 260ms;
+  --dur-morph: 400ms;
+
+  /* shadcn variable wiring (DESIGN.md, Wiring to shadcn) */
+  --background: var(--chalk);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--neel);
+  --primary-foreground: var(--on-fill);
+  --secondary: var(--wash);
+  --secondary-foreground: var(--ink);
+  --muted: var(--wash);
+  --muted-foreground: var(--ink-2);
+  --accent: var(--wash);
+  --accent-foreground: var(--ink);
+  --destructive: var(--debit);
+  --border: var(--rule);
+  --input: var(--rule-strong);
+  --ring: var(--neel);
+  --sidebar: var(--neel-deep);
+  --sidebar-foreground: var(--rail-text-2);
+  --sidebar-accent: var(--rail-active);
+  --sidebar-accent-foreground: var(--on-fill);
+  --radius: 8px;
+}
+
+.dark {
+  --chalk: #0f1220;
+  --surface: #161a2c;
+  --wash: #1d2238;
+  --rule: #2a3050;
+  --rule-strong: #6b7294;
+  --ink: #e8eaf4;
+  --ink-2: #a9aec6;
+  --ink-3: #898fa8;
+  --neel-deep: #0b0e1a;
+  --neel: #8c9bff;
+  --neel-hover: #a3afff;
+  --neel-soft: #1e2550;
+  --rail-active: #1d2238;
+  --rail-text-2: #a9aec6;
+  --haldi: #f5b83d;
+  --haldi-ink: #f5b83d;
+  --haldi-soft: #3a2c0c;
+  --debit: #ff8a80;
+  --debit-soft: #3a1512;
+  --credit: #6fd3a0;
+  --credit-soft: #10301f;
+  --on-fill: #0f1220;
+  --sidebar-ring: #8c9bff;
+  --shadow-float: 0 8px 24px -8px rgb(0 0 0 / 0.5), 0 2px 6px -2px rgb(0 0 0 / 0.5);
+  --shadow-sheet: -16px 0 40px -16px rgb(0 0 0 / 0.5);
+  --scrim: rgb(0 0 0 / 0.5);
+}
+
+@theme inline {
+  --color-chalk: var(--chalk);
+  --color-surface: var(--surface);
+  --color-wash: var(--wash);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-neel-deep: var(--neel-deep);
+  --color-neel: var(--neel);
+  --color-neel-hover: var(--neel-hover);
+  --color-neel-soft: var(--neel-soft);
+  --color-rail-active: var(--rail-active);
+  --color-rail-text-2: var(--rail-text-2);
+  --color-haldi: var(--haldi);
+  --color-haldi-ink: var(--haldi-ink);
+  --color-haldi-soft: var(--haldi-soft);
+  --color-debit: var(--debit);
+  --color-debit-soft: var(--debit-soft);
+  --color-credit: var(--credit);
+  --color-credit-soft: var(--credit-soft);
+  --color-on-fill: var(--on-fill);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-sans), Geist, ui-sans-serif, system-ui, sans-serif;
+
+  --radius-control: 8px;
+  --radius-surface: 12px;
+
+  --shadow-float: var(--shadow-float);
+  --shadow-sheet: var(--shadow-sheet);
+
+  --breakpoint-phone: 720px;
+  --breakpoint-stack: 900px;
+  --breakpoint-rail: 1100px;
+}
+
+/* Browser surfaces (DESIGN.md, Browser surfaces) */
+html {
+  color-scheme: light dark;
+  scrollbar-color: var(--rule-strong) transparent;
+  scrollbar-width: thin;
+}
+html.light {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--chalk);
+  color: var(--ink);
+  font-family: var(--font-sans), Geist, ui-sans-serif, system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  caret-color: var(--neel);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--neel-soft);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--neel);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* Prose links */
+.prose-link,
+.prose a {
+  color: var(--neel);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+@layer components {
+  /* Type roles (DESIGN.md, Typography). One family; widths via font-stretch. */
+  .t-page-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-stretch: 110%;
+  }
+  .t-briefing {
+    font-size: 1.375rem;
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    font-stretch: 105%;
+    max-width: 34rem;
+  }
+  .t-briefing strong,
+  .t-briefing b {
+    font-weight: 600;
+  }
+  .t-section {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+  .t-body {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  .t-ui {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+  .t-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    font-stretch: 87%;
+  }
+  .t-caption {
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  /* Press feedback for pressable controls (DESIGN.md, Functional motion) */
+  .pressable {
+    transition: transform var(--dur-press) var(--ease-out), background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  }
+  .pressable:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  /* Skeleton pulse */
+  .skeleton {
+    background: var(--wash);
+    border-radius: var(--radius-control);
+    animation: skeleton-pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes skeleton-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+
+  /* Floating layers from Base UI: enter from the trigger, exit faster than enter */
+  .popup-float {
+    transform-origin: var(--transform-origin);
+    transition: transform var(--dur-pop) var(--ease-out), opacity var(--dur-pop) var(--ease-out);
+  }
+  .popup-float[data-starting-style],
+  .popup-float[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  .popup-float[data-instant] {
+    transition-duration: 0ms;
+  }
+
+  /* Spinner: 600ms per turn, linear */
+  .spin {
+    animation: spin 600ms linear infinite;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+  .pressable:active:not(:disabled) {
+    transform: none;
+  }
+  .popup-float {
+    transition: opacity 150ms ease;
+  }
+  .popup-float[data-starting-style],
+  .popup-float[data-ending-style] {
+    transform: none;
+  }
+}

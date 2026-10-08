@@ -6,13 +6,14 @@ build whose demo runs on a seeded digital twin of one business, with no network 
 
 ## Current state
 
-Docs, a folder skeleton and a bootstrap script. **No app code yet.**
+Bootstrapped (Phase 0 of `docs/TASKS.md` done). `pnpm install && pnpm dev` runs it.
 
-- If `package.json` is missing, your first action is `bash scripts/bootstrap.sh`. It scaffolds
-  Next.js into a temp dir and merges it in without overwriting existing files. Safe to re-run.
-- One product decision is open: consumer "Life OS" or the business version documented here. The
-  assistant chose business; the user has not confirmed. Ask the user before starting Phase 1
-  (the seed world). See the Decision log at the end of `PRODUCT.md`.
+- `scripts/bootstrap.sh` exits early once `package.json` exists. It was run on 2026-10-08; the
+  shadcn registry was unreachable from that machine, so the components in `src/components/ui`
+  are hand-written in the shadcn style on `@base-ui/react` and themed through the tokens in
+  `globals.css`. Add new ones the same way rather than through the shadcn CLI.
+- The product decision is settled: the business version (Kaveri Home) as `PRODUCT.md`
+  documents. The Decision log there records it.
 
 ## Read these, in this order, before writing code
 

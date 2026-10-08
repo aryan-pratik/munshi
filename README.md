@@ -11,9 +11,9 @@ Jaipur home-decor brand), so nothing on stage depends on a third-party login or 
 
 ## Status
 
-This commit is **docs, a folder skeleton and a bootstrap script. There is no app code yet.**
-The build plan is `docs/TASKS.md`. One product decision is still open (consumer "Life OS" or the
-business version documented here); see the Decision log at the end of `PRODUCT.md`.
+Phase 0 of `docs/TASKS.md` is done: the app scaffolds, typechecks and builds. The business
+version (Kaveri Home) documented in `PRODUCT.md` is the one being built. Later phases tick off in
+`docs/TASKS.md`.
 
 Screenshots and live URL: to be added after Phase 9 of `docs/TASKS.md`.
 

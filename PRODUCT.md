@@ -259,9 +259,9 @@ Full click-by-click script: `docs/DEMO.md`.
 - **What was kept from the Life OS.** The items the user listed live inside the business version
   as detectors and Horizon entries: the internet bill that rose by ₹400, subscriptions that
   renewed without being used, the insurance renewal, and upcoming obligations.
-- **Who decided.** The assistant. **The user has not confirmed it.**
+- **Who decided.** The assistant proposed it; **the user confirmed it on 2026-10-08** when the
+  build started.
 - **Cost of switching to the consumer Life OS.** Rewrite `PRODUCT.md`, `docs/DATA-MODEL.md`
   (persona and planted stories) and `docs/DEMO.md`. The engine shape (detectors, causal walk,
   simulator, playbooks), the architecture, the design system and the task plan carry over.
-- **Status:** open. Ask the user before Phase 1 (seed world) starts, because the seed is where
-  the two versions diverge.
+- **Status:** settled. Business version.
