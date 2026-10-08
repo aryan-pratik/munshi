@@ -31,6 +31,10 @@ Package manager: **pnpm**. Node ≥ 22.
 
 ### What the scaffold actually produces (verified 2026-10-09)
 
+Note (2026-10-08 build): the registry at `ui.shadcn.com` was unreachable from the build
+environment, so `shadcn init` and `shadcn add` were not run. Components in `src/components/ui` are
+hand-written in the shadcn style on `@base-ui/react`. The theme wiring below still applies.
+
 `scripts/bootstrap.sh` was run from scratch on a clean copy of this repo: install, typecheck,
 build and `vitest` all pass and `pnpm dev` serves `/` with HTTP 200. Everything is `@latest`, so
 these are the versions seen that day, not pins:

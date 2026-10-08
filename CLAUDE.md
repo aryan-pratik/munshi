@@ -6,10 +6,13 @@ build whose demo runs on a seeded digital twin of one business, with no network 
 
 ## Current state
 
-Docs, a folder skeleton and a bootstrap script. **No app code yet.**
+Phase 0 is done: Next.js scaffold, tokens, fonts, root layout, `pnpm check`. See `docs/TASKS.md`
+for where the build is.
 
-- If `package.json` is missing, your first action is `bash scripts/bootstrap.sh`. It scaffolds
-  Next.js into a temp dir and merges it in without overwriting existing files. Safe to re-run.
+- `scripts/bootstrap.sh` is only for a repo with no `package.json`. It stops at `shadcn init` when
+  `ui.shadcn.com` is unreachable (it was, from the build environment). **UI components are
+  therefore hand-written** in `src/components/ui`, in the shadcn style, on `@base-ui/react`, themed
+  through the `DESIGN.md` tokens. Do not run the shadcn CLI over them; add new ones the same way.
 - The product decision is made: build the business version (Kaveri Home) as `PRODUCT.md`
   documents. The owner's cloud goal states it is confirmed; do not stop to ask. The Decision log
   at the end of `PRODUCT.md` records it and what switching to the consumer "Life OS" would cost.
