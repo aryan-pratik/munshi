@@ -43,13 +43,13 @@ contract; the skills are how you check your work against it.
 ## Phase 1 — Types + seed world (3 h)
 
 - [ ] Check the Decision log in `PRODUCT.md` before generating a persona's worth of data
-- [ ] `src/types/*.ts` — all record types (including `Event`), `World`, `RecordRef`, `Finding` (with `onset`, `series`), `ChainNode`, `Chain`, `Levers`, `Scenario`, `Action`, `Effect` (zod schemas + inferred types in one place; shapes in `docs/ARCHITECTURE.md`, Key types)
+- [ ] `src/types/*.ts` — all record types (including `Event` and `PurchaseOrder`), `World`, `RecordRef`, `Window`, `MetricMeta`, `Outcome`, `Step`, `Draft`, `Effect`, `Finding` (with `id`, `group`, `impactINR`, `exposureINR`, `onset`, `series`), `ChainNode`, `Chain` (with `id`), `Levers`, `Scenario` (with `riskScore`), `Action` (zod schemas + inferred types in one place; shapes in `docs/ARCHITECTURE.md`, Key types)
 - [ ] `scripts/generate-seed.ts` — mulberry32 PRNG, baseline generation per `docs/DATA-MODEL.md` (Generator), including the purchase lag and quiet-noise rules in Onset anchors
 - [ ] `src/data/seed/stories.ts` — S1–S12 with `apply()` and `expect`; S2, S3, S5, S7 each write their `Event`
-- [ ] `pnpm seed` writes `src/data/seed/world.json` ≤ 1.5 MB and prints the detectability report
-- [ ] `src/engine/windows.ts` — `now()`, window helpers, `MUNSHI_DEMO_NOW`
+- [ ] `pnpm seed` writes `src/data/seed/world.json` ≤ 1.5 MB and prints a story report computed from records only (per story: planted records and figures; no detectors needed). `MUNSHI_DEMO_NOW` is read only here and sets `meta.day0 = date - 89`
+- [ ] `src/engine/windows.ts` — `now(world)` = `day0 + 89` (`parseISO(meta.day0) + (meta.days - 1)`), window helpers. It never reads the environment
 - [ ] `src/lib/format.ts` — `inr()`, `inrCompact()`, `pct()`, `relDate()` + tests
-- [ ] `tests/engine/seed.test.ts` passes
+- [ ] `tests/engine/seed.test.ts` passes: schema validity, determinism, size ≤ 1.5 MB, per-story record facts (counts, dates, sums from records). No detector, chain or simulator checks here
 - [ ] Commit: `feat: seed world with planted stories`
 
 ## Phase 2 — Engine (4 h)
@@ -58,10 +58,11 @@ contract; the skills are how you check your work against it.
 - [ ] `engine/graph/onset.ts` — `detectOnset(series, window)` plus the event snap (`EVENT_ANCHORS` in `dag.ts`)
 - [ ] `engine/detectors/*` — all 12; each fills `onset` and `series`; `analyze(world)` ranks + dedupes
 - [ ] `engine/graph/dag.ts` + `walk.ts` — `walkCausalGraph` with temporal precedence; produces the S2 chain ordered by onset, with S3 as a branch that has its own onset
-- [ ] `engine/simulator/model.ts` + `optimize.ts` — calibrate so S11 ("hire 1") is the optimizer's answer
-- [ ] `engine/horizon.ts` — runway dips below buffer at ~day +23 without S4 collection
+- [ ] `engine/simulator/model.ts` + `optimize.ts` — calibrate per `docs/ENGINE.md` by adjusting seed fields (never the coefficients); the test asserts the top strategy has `hires = 1` and overload 0
+- [ ] `engine/horizon.ts` — runway dips below buffer at ~day +23 without S4 collection (built here; the Today cash line in Phase 3 and the Horizon page in Phase 7 both use it)
 - [ ] `engine/playbooks/*` — all 6; `apply()` returns effects; `labels(n)`; `followUpLeads` drafts from threads
-- [ ] `pnpm seed` report now shows planted day vs detected onset for S2, S3, S5, S7, all within 1 day (tune the generator if not)
+- [ ] `tests/engine/stories.test.ts` — checks each story's `expect` (detector, chain or simulator form)
+- [ ] `pnpm seed` report gains detector, chain and simulator columns and shows planted vs detected onset for S2, S3, S5, S7, all within 1 day (tune the generator if not)
 - [ ] `tests/engine/*.test.ts` — all green, including `onset.test.ts`; detector snapshot committed
 - [ ] Commit: `feat: engine`
 
@@ -71,12 +72,14 @@ Today is a briefing with a findings table under it, not a metric with cards. Lay
 and states per `DESIGN.md`.
 
 - [ ] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`
-- [ ] `lib/store/world.ts` — zustand store: seed world, `actions[]`, `applyAction`, `replay`, persisted
+- [ ] `lib/store/world.ts` — zustand store: seed world, `actions[]`, `applyAction`, `replay`. In memory only, no `persist`; a hard refresh reloads the seed and is the demo reset
 - [ ] `components/primitives/*` — `Money`, `Delta`, `SeverityLabel` (text label plus icon), `ReceiptChip`, `Confidence`, `EmptyState`, `Kbd`
 - [ ] `components/shell/*` — `Sidebar`, `TopBar`, `CommandK` ask field, `SourceStatus`; responsive per `DESIGN.md` (Layout)
 - [ ] `components/chain/OnsetStrip.tsx` — one series over time with the onset marked; an event flag when `onsetEvidence` exists; "in 12 days" form when the onset is null
-- [ ] `components/finding/*` — `FindingRow` (expands inline to `explain`, evidence and actions), `EvidenceDrawer` (renders any `RecordRef[]` as readable records: messages as bubbles, invoices as a mini-invoice, orders as a line, events as a dated line)
-- [ ] `components/today/*` — `Brief` (the dated sentence: "Thursday, 8 October. 11 things found overnight, worth about ₹3.2 lakh."), `LeadItem` (Munshi's top item in two or three sentences, figures link to evidence; primary "Review 7 drafts", secondary "See the threads"), `FindingsTable` (columns Finding with severity label and icon, Since as an `OnsetStrip`, Worth, Action; sections "Needs you", "Worth knowing", "Handled")
+- [ ] `components/finding/*` — `FindingRow` (expands in place to `explain`, evidence and actions), `EvidenceList` (renders any `RecordRef[]` as readable records: messages as bubbles, invoices as a mini-invoice, orders as a line, events as a dated line). Containers: a strip click opens it in a popover (bottom sheet on phone); rows and "See the threads" expand in place. No drawer anywhere
+- [ ] `components/today/*` — `Brief` (the dated sentence: "Thursday, 8 October. 11 things found overnight, worth about ₹4 lakh."; the total sums `impactINR` of open findings except `cashCrunch`), `LeadItem` (Munshi's top item in two or three sentences, figures link to evidence; primary "Review 7 drafts", secondary "See the threads" expands the seven threads in place), `FindingsTable` (columns Finding with severity label and icon, Since as an `OnsetStrip`, Worth, Action; sections "Needs you" and "Worth knowing" from `Finding.group`, and "Handled" from `handledFindings(seed, actions)`)
+- [ ] `components/today/CashLine` (320x96, uses `engine/horizon.ts` and the shared `chain/` axis helper that Phase 7 `RunwayCurve` reuses), `UpcomingOutflows` (next three rows), and `components/ask/SuggestedQuestions` (the list, each item carries a `questionId`; created here, reused by `/ask` in Phase 4)
+- [ ] `CommandK`: the top-bar ask field, when focused and empty, opens a popover listing the suggested questions; selecting one navigates to `/ask?q=<questionId>`; free text plus Enter navigates with the text
 - [ ] Today is demo-able end to end (no AI yet)
 - [ ] After: `impeccable critique` then `impeccable polish` on Today and the shell, one bounded round
 - [ ] Commit: `feat: today`
@@ -84,14 +87,14 @@ and states per `DESIGN.md`.
 ## Phase 4 — Why + onset trail (4 h)
 
 - [ ] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`; read `docs/AI_SDK_NOTES.md`
-- [ ] `components/chain/OnsetTrail.tsx` — SVG. Stacked `OnsetStrip`s on one shared 28-day axis (previous 14 days muted, current 14), earliest cause at the top, the asked-about metric at the bottom, onset marked on each, `EventFlag`s on the axis, the "but also" branch as a second group with its own onset. Strip click → `EvidenceDrawer`. The draw (top to bottom, onset marks stepping right) is the one authored animation in the product; with reduced motion it renders fully drawn. A strip with no onset or no evidence is labelled "unverified"
+- [ ] `components/chain/OnsetTrail.tsx` — SVG. Stacked `OnsetStrip`s on one shared 28-day axis (previous 14 days muted, current 14), earliest cause at the top, the asked-about metric at the bottom, onset marked on each, `EventFlag`s on the axis. Three groups top to bottom, derived from `Chain` as in `docs/ARCHITECTURE.md`: the primary path, a group headed "Also contributing" (drawn only when `branches` is non-empty), then the shared effect with the asked-about metric last. Strip click → `EvidenceList` in a popover (bottom sheet on phone). The draw (in group order, onset marks stepping right within the primary path) is the one authored animation in the product; with reduced motion it renders fully drawn. A strip with no onset or no evidence is labelled "unverified"
 - [ ] `lib/ai/tools/*` — `getMetricSeries`, `compareWindows`, `walkCausalGraph`, `listRecords`, `getRecord`, `runSimulation` (all wrap engine; zod `inputSchema`)
 - [ ] `lib/ai/agents/investigator.ts` — `ToolLoopAgent`, instructions from `data/rules/tone.ts`, final `Output.object` = `{ chainId, narrative, citations }`
-- [ ] `lib/ai/mode.ts` — resolves mode; `scriptedStream(id)` emits parts with delays in UI-message-stream format
-- [ ] `app/api/ask/route.ts` — live via `createAgentUIStreamResponse`, scripted via `mode.ts`; request carries `actions[]`
-- [ ] `scripts/record-scripts.ts` — runs the engine for each demo question and writes `data/scripts/*.json`; narrative text hand-written in the script file (good copy matters)
+- [ ] `lib/ai/mode.ts` — resolves mode per request from `MUNSHI_AI_MODE` and key or OIDC presence (`scripted` never calls the model; `auto` is live with a key and falls back to the matching script on a failure before the first byte; `live` shows errors; `live` with no key is the error "No AI key is configured."; table in `docs/ARCHITECTURE.md`). `scriptedStream(id)` emits parts with delays in UI-message-stream format. Scripted matching is by `questionId`, else fuzzy match of `text` against each script's `match` phrases
+- [ ] `app/api/ask/route.ts` — `POST { questionId?, text?, actions[] }`; live via `createAgentUIStreamResponse`, scripted via `mode.ts`. The first stream part is `data-mode` `{ mode }` and the `x-munshi-mode` response header carries the same value; the client shows "Demo answers" when it is `scripted`
+- [ ] `scripts/record-scripts.ts` — runs the engine for each demo question and writes `data/scripts/*.json` (used by `/api/ask` only); narrative text hand-written in the script file (good copy matters)
 - [ ] Scripts: `why-revenue-fell`, `why-complaints-up`, `which-customers-at-risk`, `what-should-i-do-today`
-- [ ] `/ask` page (`AskComposer`, `Investigation`, `SuggestedQuestions`) + `⌘K` → `/ask?q=` navigation
+- [ ] `/ask` page (`AskComposer`, `Investigation`; `SuggestedQuestions` already exists from Phase 3) + `⌘K` → `/ask?q=<questionId>` navigation. The `why-revenue-fell` answer calls `compareWindows(revenue)`, `compareWindows(revenueD2C)`, then `walkCausalGraph(target: 'revenueD2C')`
 - [ ] Verify: works with no `.env.local` (scripted), then with a key (live, same UI)
 - [ ] After: `impeccable critique` then `impeccable polish` on Why, one bounded round. Watch the trail draw once in slow motion
 - [ ] Commit: `feat: why`
@@ -100,8 +103,8 @@ and states per `DESIGN.md`.
 
 - [ ] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`
 - [ ] `components/whatif/Levers.tsx` — sliders with value readouts and the base value marked, presets, reset
-- [ ] `OutcomeTable` — rows Revenue, Customers, Churn, Profit, Cash runway; columns Base, Scenario, Change. Values update instantly as a slider moves, with no count-up. `notes[]` under it, then `RiskScale` (Low, Medium, High as words)
-- [ ] `StrategyScan` — the scan counter (the only animated number in the product) + scatter + `ParetoList` top 3 with "Apply"
+- [ ] `OutcomeTable` — one row per `Outcome` field: Revenue, Customers, Churn, Profit, Cash runway; columns Base, Scenario, Change. Values update instantly as a slider moves, with no count-up. `notes[]` under it, then `RiskScale` (Low, Medium, High as words)
+- [ ] `StrategyScan` — the scan counter ("1,800 scenarios checked", the only animated number in the product) + scatter (x `riskScore`, y profit, from `optimize().all`) + `ParetoList` top 3 with "Apply"
 - [ ] `/whatif` reads initial levers from `?preset=`; `/ask` answers can deep-link here
 - [ ] After: `impeccable critique` then `impeccable polish` on What if, one bounded round
 - [ ] Commit: `feat: what if`
@@ -111,9 +114,10 @@ and states per `DESIGN.md`.
 - [ ] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`; read `docs/AI_SDK_NOTES.md` (search the installed SDK docs for built-in tool approval before writing your own)
 - [ ] `components/act/*` — `ActSheet`, plan timeline, `DraftPreview` (editable), `ApprovalCard`, done state
 - [ ] `lib/ai/agents/operator.ts` — rewrites engine drafts in tone, per recipient, using thread context; scripted fallback = engine templates
-- [ ] `app/api/act/route.ts`
-- [ ] One name per action, from the playbook's `labels(n)`: "Review 7 drafts" opens the sheet, "Approve and send 7" approves, the toast reads "7 follow-ups sent"
-- [ ] Approve → `applyAction` → Today re-ranks with a layout animation; the finding moves to "Handled"; the lead item changes
+- [ ] `app/api/act/route.ts` — `POST { findingId, actions[] }`; same `data-mode` part and `x-munshi-mode` header as `/api/ask`; final part is `data-plan` `{ steps, drafts }`. Scripted mode runs `playbook.plan` and streams the engine's template drafts (it does not read `data/scripts`)
+- [ ] One name per action, from the playbook's `labels(n)` = `{ review, approve, working, done }`: "Review 7 drafts" opens the sheet, "Approve and send 7" approves, the button then shows "Sending 7..." (loading), and "7 follow-ups sent" is the toast and the activity entry
+- [ ] Act flow: approve → button loading → the sheet shows the Done state (effects list with check icons, expected impact and basis, "I'll check back on Friday.") and the toast fires on completion → the presenter closes the sheet and Today has re-ranked behind it
+- [ ] Approve → `applyAction` → Today re-ranks with a layout animation; the finding moves to "Handled" (via `handledFindings`); the lead item changes
 - [ ] `ActionTimeline` on Today ("7 follow-ups sent 2 minutes ago. Expected ₹1.1 lakh in 14 days.")
 - [ ] After: `impeccable critique` then `impeccable polish` on the Act sheet, one bounded round
 - [ ] Commit: `feat: act`
@@ -121,7 +125,7 @@ and states per `DESIGN.md`.
 ## Phase 7 — Horizon + Vault (3 h)
 
 - [ ] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`
-- [ ] `RunwayCurve` with buffer band, pinned outflows, "If overdue invoices are collected" toggle (path morph)
+- [ ] `RunwayCurve` with buffer band, pinned outflows, "Assume overdue invoices are collected" switch (path morph); reuses the Phase 3 axis helper and `engine/horizon.ts`
 - [ ] `UpcomingList`, `RiskStrip`
 - [ ] Vault: `SourceGrid`, `RecordTable` (virtualised if > 500 rows — or just paginate), `GraphExplorer`
 - [ ] Every `ReceiptChip` anywhere deep-links to the Vault record
@@ -148,7 +152,7 @@ Verification is bounded: inspect once, fix in one batch, confirm once. No open-e
 
 ## Phase 9 — Ship (1 h)
 
-- [ ] `vercel link` → set `AI_GATEWAY_API_KEY`, `MUNSHI_AI_MODE=auto`, `MUNSHI_DEMO_NOW=<demo date>`
+- [ ] `vercel link` → set `AI_GATEWAY_API_KEY` and `MUNSHI_AI_MODE=auto`. Do not set `MUNSHI_DEMO_NOW` on Vercel (the app never reads it). To change the demo date run `MUNSHI_DEMO_NOW=<date> pnpm seed` and commit `world.json`
 - [ ] `vercel --prod`; smoke test the deployed URL in scripted *and* live mode
 - [ ] README: add the live URL + a 20-second GIF of the "Why" beat
 - [ ] Tag `v0.1-demo`

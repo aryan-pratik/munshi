@@ -16,6 +16,7 @@ colors:
   neel-soft: "#EAECFC"
   rail-active: "#2A3676"
   rail-text-2: "#B9C0E6"
+  rail-active-text: "#FFFFFF"
   haldi: "#B67D0A"
   haldi-ink: "#8A5A00"
   haldi-soft: "#FDF1D6"
@@ -38,6 +39,7 @@ colors:
   neel-soft-dark: "#1E2550"
   rail-active-dark: "#1D2238"
   rail-text-2-dark: "#A9AEC6"
+  rail-active-text-dark: "#E8EAF4"
   haldi-dark: "#F5B83D"
   haldi-ink-dark: "#F5B83D"
   haldi-soft-dark: "#3A2C0C"
@@ -179,7 +181,7 @@ components:
     padding: "12px"
   rail-item-active:
     backgroundColor: "{colors.rail-active}"
-    textColor: "{colors.on-fill}"
+    textColor: "{colors.rail-active-text}"
     rounded: "{rounded.control}"
     height: "36px"
   sheet:
@@ -234,7 +236,7 @@ Facts are written in ink, Munshi's hand is neel, the mark is haldi, and losses a
 
 ### Primary
 - **Neel** (#3246C8, dark #8C9BFF): Munshi's hand. Primary actions, links, selection, the focus ring, the connector in the OnsetTrail, and any series Munshi proposes (a scenario, "if collected"). Never used for plain facts.
-- **Neel deep** (#1B2559, dark #0B0E1A): the shell. The left rail and the phone tab bar. Text on it is white (#FFFFFF) or rail-text-2 (#B9C0E6); the active item sits on rail-active (#2A3676, dark #1D2238).
+- **Neel deep** (#1B2559, dark #0B0E1A): the shell. The left rail and the phone tab bar. Text on it is rail-text-2 (#B9C0E6, dark #A9AEC6) at rest. The active and hovered item sits on rail-active (#2A3676, dark #1D2238) with rail-active-text (#FFFFFF, dark #E8EAF4). The rail text colours are their own tokens because `on-fill` flips to near-black in dark and would vanish on the rail.
 - **Neel hover** (#2838A8, dark #A3AFFF): hover step for neel fills.
 - **Neel soft** (#EAECFC, dark #1E2550): selected and expanded rows, tinted backgrounds, text selection.
 
@@ -277,7 +279,8 @@ Computed with the WCAG 2.x formula for every pair that occurs. Body text needs 4
 | neel (links, text) | chalk, surface, wash, neel-soft | 6.29 | 5.74 | 4.5 |
 | on-fill | neel, neel-hover | 7.38 | 7.31 | 4.5 |
 | on-fill | debit, credit (button fills) | 5.32 | 8.16 | 4.5 |
-| white, rail-text-2 | neel-deep, rail-active | 8.07 | 8.75 | 4.5 |
+| rail-text-2 | neel-deep, rail-active | 6.22 | 7.14 | 4.5 |
+| rail-active-text (active and hover) | neel-deep, rail-active | 11.12 | 13.08 | 4.5 |
 | haldi-ink | surface, chalk, wash, haldi-soft | 5.12 | 7.64 | 4.5 |
 | debit | surface, chalk, wash, neel-soft, debit-soft | 5.48 | 6.41 | 4.5 |
 | credit | surface, chalk, wash, neel-soft, credit-soft | 4.53 | 7.85 | 4.5 |
@@ -305,7 +308,7 @@ Define the tokens as CSS variables on `:root`, the dark set under `.dark`, and m
 | `--input` | rule-strong |
 | `--ring` | neel |
 | `--sidebar` / `--sidebar-foreground` | neel-deep / rail-text-2 |
-| `--sidebar-accent` / `--sidebar-accent-foreground` | rail-active / on-fill |
+| `--sidebar-accent` / `--sidebar-accent-foreground` | rail-active / rail-active-text |
 | `--sidebar-ring` | on-fill in light, neel in dark |
 | `--radius` | 8px |
 
@@ -415,9 +418,9 @@ Never colour alone, never a side stripe. A text label plus an icon in the Findin
 - **Table:** as specified in Layout. Group header rows ("Needs you") are UI at 600 on chalk with the count beside them in ink-2.
 
 ### Navigation
-- **Rail:** neel-deep. Items are rail-text-2 at rest, white on hover, white on rail-active when current (with `aria-current="page"`). The focus ring on the rail is white in light and neel in dark. No animation on route change.
+- **Rail:** neel-deep. Items are rail-text-2 at rest, rail-active-text on rail-active on hover and when current (with `aria-current="page"`). The focus ring on the rail is white in light and neel in dark. No animation on route change.
 - **Tab bar (phone):** five items, icon over a 12px label, same colours.
-- **Ask field:** an input in the top bar. Cmd+K focuses it instantly, with no animation. Enter navigates to Why with the question.
+- **Ask field:** an input in the top bar. Cmd+K focuses it instantly, with no animation. When it is focused and empty, a popover lists the suggested questions (the same list as the Today right column, each with a question id); choosing one opens Why with that question (`/ask?q=<questionId>`). Typing free text and pressing Enter opens Why with the text.
 
 ### Sheet, popover, tooltip, toast
 - **Sheet:** right side, 480px (full width under 720px), surface, sheet shadow, scrim behind. A 56px header with the title in the section role and a close icon button labelled "Close". The body scrolls with `overscroll-behavior: contain`. Focus is trapped and Esc closes it.
@@ -441,21 +444,23 @@ The parts nobody draws still carry the design. Set them once in `globals.css`:
 The answer to "why did revenue fall?" is not a box-and-arrow diagram. It is a stack of metric strips on one shared time axis, with a mark at the day each one changed. The marks step rightward down the page, so the reader sees cause come before effect.
 
 **Structure.** A `figure` inside a panel. One strip per metric, ordered from the earliest cause at the top to the asked-about metric at the bottom, in three groups:
-1. The primary path (for example ad spend, then sessions).
-2. The "Also contributing" group, introduced by that plain label in the label role, ink-2 (for example landing conversion).
-3. The shared effect, where both paths meet (for example D2C orders, then revenue). The asked-about metric is last, with its name at 600.
+1. The primary path, in onset order (for example ad spend, then sessions).
+2. The group headed "Also contributing", introduced by that plain label in the label role, ink-2 (for example landing conversion). It is drawn only when the walk has a branch.
+3. The shared effect, where both paths meet: the rejoin node and everything after it (for example D2C orders, then D2C revenue). The asked-about metric is last, with its name at 600.
+
+The demo trail is five strips: ad spend, sessions | landing conversion | D2C orders, D2C revenue. Strip names are the metric labels from `METRICS`. Group order wins over strict onset order: the marks step rightward within the primary path, and the "Also contributing" group may sit later in time than the first strip of the shared effect (landing conversion changed on 28 Sep, D2C orders on 27 Sep).
 
 **Axis.** 28 days: the previous 14 and the last 14. A 1px rule vertical line marks the boundary, captioned "Previous 14 days" and "Last 14 days" in the caption role at the top. Date ticks every 7 days along the bottom, caption role, ink-3. A 24px events lane above the first strip holds event flags.
 
 **A strip** is a three-column grid: name 168px, plot 1fr (at least 280px), change 80px. It is 56px tall with a 36px plot and 8px between strips. No rule between strips.
 - Series: the previous 14 days as a 1px ink-3 line, the last 14 as a 1.5px ink line. Each strip scales to its own range with 10 percent padding; strips show shape and timing, and the change column gives the size.
 - Reference: the previous-window mean as a 1px dotted rule-strong line across the plot.
-- Onset tick: a 2px haldi vertical line the full height of the plot at the day the metric changed, with the date ("23 Sep") above it in the caption role, haldi-ink. The label flips to the left of the tick within 48px of the right edge.
-- Change: a Delta in the right column, tabular, coloured by `goodWhen`.
+- Onset tick: a 2px haldi vertical line the full height of the plot at the day the metric changed, with the date ("26 Sep") above it in the caption role, haldi-ink. The label flips to the left of the tick within 48px of the right edge.
+- Change: a Delta in the right column, tabular, coloured by the metric's `goodWhen` in `METRICS`.
 - Connector: a 1px neel path that leaves the bottom of one tick, runs along the gap between strips and enters the top of the next tick, with 4px corner radii. Both groups' connectors enter the first shared-effect strip.
 - Event flags: a caption chip with a 12px `flag` icon ("Campaign paused", "Theme updated") in the events lane at its date, with a 1px ink-3 leader down to the strip it explains.
 
-**Interaction.** Each strip is a `button` with a label such as "Sessions, down 11 percent, changed on 23 September. Show evidence." Hover (fine pointers) is wash; pressed and selected are neel-soft; focus-visible shows the ring. Selecting a strip opens a popover anchored to it with up to five records and "Open in Vault". On a phone the evidence opens in a bottom sheet.
+**Interaction.** Each strip is a `button` with a label such as "Sessions, down 6 percent, changed on 26 September. Show evidence." Hover (fine pointers) is wash; pressed and selected are neel-soft; focus-visible shows the ring. Selecting a strip opens a popover anchored to it with up to five records and "Open in Vault". On a phone the evidence opens in a bottom sheet.
 
 **States.**
 - Loading: skeleton strips, a name bar and a flat wash line each.
@@ -469,7 +474,7 @@ The answer to "why did revenue fall?" is not a box-and-arrow diagram. It is a st
 **Accessibility.** The SVG is `aria-hidden`. A `figcaption` states the finding in one sentence, and a visually hidden table lists metric, onset date and change for assistive technology.
 
 **Echoes.** The same grammar appears in two other places and nowhere else:
-- Each finding row on Today has a 96 by 20px strip in the Since column: a 1px ink series of the last 28 days with its 2px haldi onset tick, followed by the date as text. A finding with no time series shows the text only ("Unused for 94 days"). A strip always carries a real series and its onset; it is never decoration.
+- Each finding row on Today has a 96 by 20px strip in the Since column: a 1px ink line of the finding's `series` (28 daily points ending at the window end, extended up to 90 points so the onset falls inside the strip). A 2px haldi onset tick is drawn only when the finding has an onset, followed by the date as text. Forward-looking findings (cash crunch, stockout risk, renewal due) have no onset: they draw the projection series with no tick and read "in 12 days" instead of a date. A finding with no usable series shows the text only ("Unused for 84 days"). A strip always carries a real series; it is never decoration.
 - The Horizon runway uses the same axis style, and its haldi tick marks the day cash crosses the buffer.
 
 ## Do's and Don'ts
@@ -508,16 +513,16 @@ Each screen is written as what leads, then the regions in reading order, then it
 
 ### Today (`/`)
 **Leads with the briefing, not a metric.**
-1. A dated sentence in the body role, ink-2: "Thursday, 8 October. 11 things found overnight, worth about ₹3.2 lakh."
-2. Munshi's lead item: two or three sentences in the briefing role, first person, with figures inline at 600 as links to their evidence. Primary button "Review 7 drafts", secondary "See the threads".
+1. A dated sentence in the body role, ink-2: "Thursday, 8 October. 11 things found overnight, worth about ₹4 lakh."
+2. Munshi's lead item: two or three sentences in the briefing role, first person, with figures inline at 600 as links to their evidence. The lead item's figure reads "about ₹1.1 lakh" (the quotes behind it total ₹1.84 lakh, shown in the evidence). Primary button "Review 7 drafts", secondary "See the threads", which expands the lead item in place to show the seven WhatsApp threads (no drawer).
 3. The findings table. Columns: Finding (severity label and icon, then the title), Since (onset strip and date), Worth (rupees, right-aligned, tabular), Action (one small button, always visible on touch, visible on hover and focus with a fine pointer). Group header rows: "Needs you", "Worth knowing", "Handled". A row expands in place to show the explanation and its evidence records.
-4. Right column on desktop: a 30-day cash line (320 by 96px, the Horizon grammar, buffer threshold and crossing tick), the next three outflows as three rows, then suggested questions as a list of ghost buttons with the full question as the label.
+4. Right column on desktop, three components in order: `CashLine` (a 30-day cash line, 320 by 96px, the Horizon grammar with the buffer threshold and crossing tick), `UpcomingOutflows` (the next three outflows as three rows), then `SuggestedQuestions` (ghost buttons with the full question as the label, the same list the Cmd+K ask field shows).
 
 States: loading shows the sentence and table as skeletons; empty reads "Nothing needs you today." with when Munshi last checked and an "Ask a question" button, and the cash line still shows; after an approval the table re-ranks and the handled row moves to "Handled".
 
 ### Why (`/ask`)
 **Leads with the question.**
-1. Composer: a labelled, auto-growing text field with an example placeholder ending in an ellipsis, and an icon button labelled "Ask". The footer shows "Demo answers" when the live model is not in use.
+1. Composer: a labelled, auto-growing text field with an example placeholder ending in an ellipsis, and an icon button labelled "Ask". The footer shows "Demo answers" when the displayed answer's mode is scripted (the `x-munshi-mode` response header is `scripted`), including a fallback to a recorded script after a live error.
 2. Suggested questions as ghost buttons.
 3. One activity status line while tools run.
 4. The OnsetTrail.
@@ -529,10 +534,10 @@ States: no history shows the suggestions only; an unanswerable question in demo 
 ### What if (`/whatif`)
 **Leads with the levers.**
 1. Left, 360px: five labelled sliders with tabular readouts and the base value marked, preset buttons ("Raise prices", "Push marketing", "Hire"), and a "Reset" ghost button.
-2. Right: the outcomes as a comparison table. Rows Revenue, Customers, Churn, Profit, Cash runway. Columns Base (ink-2), Scenario (ink at 500), Change (Delta). Values update instantly while a slider moves.
+2. Right: the outcomes as a comparison table. Rows come from `Outcome`: Revenue, Customers, Churn, Profit, Cash runway (in days). Columns Base (ink-2), Scenario (ink at 500), Change (Delta). Values update instantly while a slider moves.
 3. "What the model noticed": the engine's notes as a plain list.
 4. Risk: a labelled three-step scale (Low, Medium, High) with the current step filled (credit, haldi, debit) and named in text.
-5. "Find best strategy" opens the scan panel in place: a counter ("1,842 scenarios checked"), a 320 by 200px scatter of profit against risk with all scenarios as 3px ink-3 dots and the Pareto front as neel dots joined by a 1px neel line, then the top three as table rows (strategy as a sentence, profit, risk, "Apply"). The best scenario's dot carries a 2px haldi ring, the one mark of this view.
+5. "Find best strategy" opens the scan panel in place: a counter ("1,800 scenarios checked"), a 320 by 200px scatter with x = risk score and y = profit, plotting every scenario in `optimize().all` as 3px ink-3 dots and the Pareto front as neel dots joined by a 1px neel line, then the top three as table rows (strategy as a sentence such as "Price +5%, ad spend +75%, hire 1, stock +20%, reply within 12 hours", profit, risk, "Apply"). The best scenario's dot carries a 2px haldi ring, the one mark of this view.
 
 ### Horizon (`/horizon`)
 **Leads with the runway.**
@@ -549,9 +554,9 @@ A sheet, not a route and not a modal dialog, because approval needs protected fo
 1. Plan: an ordered list of what will happen. Numbering is right here; it is a real sequence.
 2. Drafts: one editable block per recipient with initials, channel icon, the message in the body role and a "Rewrite" ghost button.
 3. Approval bar, pinned to the bottom: a summary sentence ("7 messages on WhatsApp. Expected about ₹1.1 lakh over 14 days.") and the primary button "Approve and send 7". The label "Not sent yet" stays visible until it is pressed.
-4. Done: the effects as a list with `check` icons in credit, the expected impact and its basis, and when Munshi will check back.
+4. Done: shown inside the sheet after approval (no new route, the sheet stays open): the effects as a list with `check` icons in credit, the expected impact and its basis, and "I'll check back on Friday." The toast fires on completion, and the presenter then closes the sheet (Close or Esc), with Today already re-ranked behind it.
 
-The action keeps one name through the flow: "Review 7 drafts", then "Approve and send 7", then the toast "7 follow-ups sent".
+The action keeps one name through the flow, taken from `labels(n)`: review "Review 7 drafts", approve "Approve and send 7", working "Sending 7…" (the button's loading state), done "7 follow-ups sent" (the toast and the activity entry).
 
 ## Agent and data states
 
@@ -570,7 +575,7 @@ Every surface implements these. Force each one once before a phase is called don
 | Failed | Inline on the item that failed: a debit icon, "Not sent to Saffron Stories. WhatsApp did not respond." and "Try again". The summary counts honestly: "6 of 7 sent". |
 | Unverified | A 1px dashed rule-strong border, an "Unverified" chip, figures in ink-2 and not linked. Tooltip: "No record backs this yet." |
 | Resolved | The row sits under "Handled" in ink-2 with a `check` in credit and "Handled 2 minutes ago". Still expandable. |
-| Demo answers | When the live model is not in use, the composer footer and the Act sheet header show the label "Demo answers". The app never passes a scripted answer off as live. |
+| Demo answers | Shown on the composer footer and the Act sheet header when the displayed answer's mode is scripted (the `x-munshi-mode` header, which includes a fallback to a script after a live error). The app never passes a scripted answer off as live. |
 | Source status | A sentence at the foot of the rail: "Synced 4 minutes ago", "Freshdesk is still syncing", or "Shopify needs reconnecting" with a debit icon. |
 
 ## Motion

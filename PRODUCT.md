@@ -106,7 +106,7 @@ visible in the product itself.
 | Surface | Route | Question it answers | What the user gets |
 |---|---|---|---|
 | **Today** | `/` | What needs me, and what is it worth? | A written briefing on the top finding, then every finding ranked by rupee impact, each with its evidence and a one-click action. |
-| **Why** | `/ask` | Why did revenue fall last week? | The **OnsetTrail**: each cause shown preceding its effect on one shared time axis, with a second "but also" cause when there is one, then a short narrative and the evidence. |
+| **Why** | `/ask` | Why did revenue fall last week? | The **OnsetTrail**: each cause shown preceding its effect on one shared time axis, with a second cause under "Also contributing" when there is one, then a short narrative and the evidence. |
 | **What if** | `/whatif` | What happens if I raise prices 15%? Find the best strategy. | Levers and computed outcomes. "Find best strategy" scans about 1,800 scenarios and returns the best few with reasons. |
 | **Horizon** | `/horizon` | What is coming in the next 30 days? | Projected cash with upcoming outflows placed on it: payroll, GST, renewals, and the invoice that may not arrive. |
 | **Vault** | `/vault` | Where did this come from? | Connected sources, raw records and the metric graph. Every evidence link on the other surfaces lands here. |
@@ -218,19 +218,20 @@ instead.
 ## What makes it feel different (the demo beats)
 
 1. **It leads with money, not metrics.** The first thing on screen is a sentence:
-   "Seven wholesale leads have gone two days without a reply. They are worth about ₹1.84 lakh."
+   "Seven wholesale leads have gone two days without a reply. They are worth about ₹1.1 lakh."
    Not a KPI row.
-2. **Click any number, see the receipt.** The ₹1.84 lakh opens the seven leads, each with its
-   last message thread and the quote that was sent.
+2. **Click any number, see the receipt.** The ₹1.1 lakh opens the seven leads, each with its
+   last message thread and the quote that was sent (quotes total ₹1.84 lakh).
 3. **"Why did revenue fall?" shows cause before effect.** The campaign was paused, then sessions
-   fell, then orders fell, each onset marked on the same time axis. Then: "Turning the ads back on
-   is not the best fix. Landing conversion also fell from 4.8% to 3.1% after the theme update."
-   That second cause is the moment.
-4. **The simulator argues back.** Raise price 15%: profit rises but wholesale churn jumps.
-   Price +8%, marketing +17%, hire one packer: profit rises 24% at low risk, because the business
-   is capacity-constrained.
+   fell, then orders fell, each onset marked on the same time axis. Then, under "Also
+   contributing": "Turning the ads back on is not the best fix. Landing conversion also fell from
+   about 4.9% to 3.5% after the theme update." That second cause is the moment.
+4. **The simulator argues back.** Raise price 15%: profit falls and about a fifth of customers
+   leave. The best strategy of about 1,800 scenarios is price +5%, marketing +75%, hire one packer,
+   plus more stock and faster replies: profit up about 43% at low risk, because the business is
+   capacity-constrained.
 5. **It acts, with a leash.** Approve seven follow-ups. Each was drafted from that lead's own
-   thread. They are sent, the CRM is updated, and Munshi reports the expected ₹1.1 lakh over
+   thread. They are sent, the CRM is updated, and Munshi reports the expected about ₹1.1 lakh over
    14 days and says when it will check back.
 
 Full click-by-click script: `docs/DEMO.md`.

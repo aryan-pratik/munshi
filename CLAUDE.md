@@ -16,7 +16,7 @@ Docs, a folder skeleton and a bootstrap script. **No app code yet.**
 
 ## Read these, in this order, before writing code
 
-1. `PRODUCT.md`: what it is, who it is for, scope, the open decision
+1. `PRODUCT.md`: what it is, who it is for, scope, the product decision
 2. `DESIGN.md`: the design contract
 3. `docs/ARCHITECTURE.md`: stack, folder map, data flow, the two AI modes, key types
 4. `docs/ENGINE.md`: metrics, detectors, causal walk, simulator, playbooks, tests
@@ -25,13 +25,14 @@ Docs, a folder skeleton and a bootstrap script. **No app code yet.**
 7. `docs/TASKS.md`: the build plan
 8. `docs/DEMO.md`: the three-minute script the build must serve
 
-Then work `docs/TASKS.md` top-down. Tick the boxes as you go. Commit once per phase.
+Then work `docs/TASKS.md` top-down. Tick the boxes as you go. Commit once per phase. After
+bootstrap, the rest of Phase 0 in `docs/TASKS.md` is mandatory before Phase 1.
 
 ## Commands
 
 ```bash
 pnpm dev          # run the app
-pnpm typecheck    # tsc --noEmit
+pnpm typecheck    # next typegen && tsc --noEmit
 pnpm test         # vitest (tests/engine)
 pnpm build
 pnpm check        # typecheck + test + build; added in Phase 0
@@ -88,7 +89,8 @@ curl -s https://ai-gateway.vercel.sh/v1/models \
 ```
 
 Env is in `.env.example`: `AI_GATEWAY_API_KEY` (primary, optional), `MUNSHI_AI_MODE`
-(`auto` | `live` | `scripted`), `MUNSHI_DEMO_NOW`. Never commit `.env.local`.
+(`auto` | `live` | `scripted`), `MUNSHI_DEMO_NOW` (read only by `pnpm seed`; the app never reads it
+at runtime). Never commit `.env.local`.
 
 ## Conventions
 

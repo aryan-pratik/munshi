@@ -30,9 +30,15 @@ on_exit() {
   if [ "$DONE" != 1 ] && [ -f package.json ]; then
     echo >&2
     echo "Bootstrap stopped before finishing. package.json now exists, so re-running would exit early." >&2
-    echo "Fix the error above, then restore the committed state and retry:" >&2
-    echo "  git clean -fdx -e .env.local && bash scripts/bootstrap.sh" >&2
-    echo "(git clean removes every untracked file — commit or stash your own work first.)" >&2
+    echo "Fix the error above, then restore the committed state and retry. Two options:" >&2
+    echo "  (a) Save your own work first, then clean and re-run:" >&2
+    echo "        git stash -u" >&2
+    echo "        git clean -fdx -e .env.local && bash scripts/bootstrap.sh" >&2
+    echo "      WARNING: git clean deletes ALL untracked files (including node_modules and anything" >&2
+    echo "      you have not committed or stashed). Removing only what this script created is hard" >&2
+    echo "      to enumerate, which is why stashing first matters." >&2
+    echo "  (b) Inspect first with a dry run, which deletes nothing:" >&2
+    echo "        git clean -ndx -e .env.local" >&2
   fi
 }
 trap on_exit EXIT
@@ -81,5 +87,5 @@ Bootstrap complete.
   cp .env.example .env.local     # add AI_GATEWAY_API_KEY (optional — app runs scripted without it)
   pnpm dev
 
-Next: open docs/TASKS.md and start at Phase 1.
+Next: finish the rest of Phase 0 in docs/TASKS.md (it is mandatory), then Phase 1.
 EOF

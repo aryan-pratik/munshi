@@ -40,14 +40,21 @@ cp .env.example .env.local     # optional: add AI_GATEWAY_API_KEY
 pnpm dev
 ```
 
+After bootstrap, finish the rest of Phase 0 in `docs/TASKS.md` (it is mandatory), then start
+Phase 1.
+
 The app runs with **no API key**. Without one, every AI surface streams scripted responses built
-from the seeded data (`MUNSHI_AI_MODE=scripted`). Add `AI_GATEWAY_API_KEY` to `.env.local` and the
-same surfaces call the live model. Options are documented in `.env.example`.
+from the seeded data. `MUNSHI_AI_MODE` decides per request: `auto` (default) is live when a key
+is present and scripted otherwise, falling back to the matching script if the model fails before
+the first streamed byte; `live` always calls the model and shows errors; `scripted` never calls
+the model, even when a key exists. Add `AI_GATEWAY_API_KEY` to `.env.local` and the same surfaces
+call the live model. `MUNSHI_DEMO_NOW` is read only by `pnpm seed`. Options are documented in
+`.env.example`.
 
 After bootstrap:
 
 ```bash
-pnpm typecheck    # tsc --noEmit
+pnpm typecheck    # next typegen && tsc --noEmit
 pnpm test         # vitest, engine only
 pnpm build
 ```
@@ -56,7 +63,7 @@ pnpm build
 
 ## Read in this order
 
-1. `PRODUCT.md`: what Munshi is, who it is for, what is in and out of scope, and the open decision.
+1. `PRODUCT.md`: what Munshi is, who it is for, what is in and out of scope, and the decision log.
 2. `DESIGN.md`: the design contract. Tokens, type, layout per screen, states, motion, review gate.
 3. `docs/ARCHITECTURE.md`: stack, folder map, data flow, the two AI modes, key types.
 4. `docs/ENGINE.md`: metrics, detectors, the causal walk, the simulator, playbooks, tests.

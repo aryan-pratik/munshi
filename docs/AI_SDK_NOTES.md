@@ -194,8 +194,10 @@ the skip). Two things that were tried and fail:
   throws: the chunks were `start`, then `error`.)
 - `APICallError.isInstance(error)` is still right on the **client**, in `useChat({ onError })`, when
   the route itself returns a non-2xx (docs: `node_modules/ai/docs/04-ai-sdk-ui/21-error-handling.mdx`).
-- In this app any live failure falls back to the scripted stream when a script matches (pattern in
-  section 6), and otherwise shows an inline error with a retry (`regenerate({ body: { actions } })`).
+- In this app, with `MUNSHI_AI_MODE=auto`, a live failure before the first streamed byte falls back
+  to the matching script (pattern in section 6), and otherwise shows a plain message with a retry
+  (`regenerate({ body: { actions } })`). With `MUNSHI_AI_MODE=live` the error is shown and there is
+  no fallback. The full table is in `docs/ARCHITECTURE.md`, section 5.
 
 ## 3. The renames
 
@@ -620,13 +622,20 @@ Every AI surface must work with no key and no network. In scripted mode the rout
 recorded response in the **same UI-message-stream wire format** as live mode, so the client code
 path (`useChat`, typed parts, the trail renderer) is identical and there is one UI to test.
 
-- Mode resolution lives in `src/lib/ai/mode.ts`: `MUNSHI_AI_MODE` is `auto` (live when a key or
-  OIDC token is present, scripted otherwise), `live`, or `scripted`.
+- Mode resolution lives in `src/lib/ai/mode.ts`, server side, per request: `MUNSHI_AI_MODE` is
+  `auto` (live when a key or OIDC token is present, scripted otherwise; a live failure before the
+  first byte falls back to the matching script), `live` (always the model, errors shown, no
+  fallback), or `scripted` (the model is never called, even when a key exists). The table is in
+  `docs/ARCHITECTURE.md`, section 5.
 - Scripts live in `src/data/scripts/*.json`, one per demo question, as an ordered list of parts
   with timing hints. See `docs/ARCHITECTURE.md` for the file shape.
 - **Scripted is not fake.** `scripts/record-scripts.ts` runs the real engine on the seed and writes
   the tool inputs and outputs into the script. Only the narrative sentences are written by hand.
-- The UI shows which mode is active. Do not present a scripted answer as a live one.
+- The UI shows which mode is active. Every `/api/ask` and `/api/act` response carries the header
+  `x-munshi-mode: live | scripted` and a leading `data-mode` part with the same value; the client
+  shows the label "Demo answers" when it is `scripted`. Do not present a scripted answer as a live one.
+- `/api/act` in scripted mode does not read `src/data/scripts`: it runs `playbook.plan` and streams
+  the engine's template drafts as a `data-plan` part. Scripts exist for `/api/ask` only.
 
 **Recommended: write the recorded parts with `createUIMessageStream` and return them with
 `createUIMessageStreamResponse`.** No model, no key, per-part delays, and the script file shape in
