@@ -111,16 +111,16 @@ and states per `DESIGN.md`.
 
 ## Phase 6 — Act (3 h)
 
-- [ ] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`; read `docs/AI_SDK_NOTES.md` (search the installed SDK docs for built-in tool approval before writing your own)
-- [ ] `components/act/*` — `ActSheet`, plan timeline, `DraftPreview` (editable), `ApprovalCard`, done state
-- [ ] `lib/ai/agents/operator.ts` — rewrites engine drafts in tone, per recipient, using thread context; scripted fallback = engine templates
-- [ ] `app/api/act/route.ts` — `POST { findingId, actions[] }`; same `data-mode` part and `x-munshi-mode` header as `/api/ask`; final part is `data-plan` `{ steps, drafts }`. Scripted mode runs `playbook.plan` and streams the engine's template drafts (it does not read `data/scripts`)
-- [ ] One name per action, from the playbook's `labels(n)` = `{ review, approve, working, done }`: "Review 7 drafts" opens the sheet, "Approve and send 7" approves, the button then shows "Sending 7..." (loading), and "7 follow-ups sent" is the toast and the activity entry
-- [ ] Act flow: approve → button loading → the sheet shows the Done state (effects list with check icons, expected impact and basis, "I'll check back on Friday.") and the toast fires on completion → the presenter closes the sheet and Today has re-ranked behind it
-- [ ] Approve → `applyAction` → Today re-ranks with a layout animation; the finding moves to "Handled" (via `handledFindings`); the lead item changes
-- [ ] `ActionTimeline` on Today ("7 follow-ups sent 2 minutes ago. Expected ₹1.1 lakh in 14 days.")
-- [ ] After: `impeccable critique` then `impeccable polish` on the Act sheet, one bounded round
-- [ ] Commit: `feat: act`
+- [x] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`; read `docs/AI_SDK_NOTES.md` (search the installed SDK docs for built-in tool approval before writing your own)
+- [x] `components/act/*` — `ActSheet`, plan timeline, `DraftPreview` (editable), `ApprovalCard`, done state
+- [x] `lib/ai/agents/operator.ts` — rewrites engine drafts in tone, per recipient, using thread context; scripted fallback = engine templates
+- [x] `app/api/act/route.ts` — `POST { findingId, actions[] }`; same `data-mode` part and `x-munshi-mode` header as `/api/ask`; final part is `data-plan` `{ steps, drafts }`. Scripted mode runs `playbook.plan` and streams the engine's template drafts (it does not read `data/scripts`)
+- [x] One name per action, from the playbook's `labels(n)` = `{ review, approve, working, done }`: "Review 7 drafts" opens the sheet, "Approve and send 7" approves, the button then shows "Sending 7..." (loading), and "7 follow-ups sent" is the toast and the activity entry
+- [x] Act flow: approve → button loading → the sheet shows the Done state (effects list with check icons, expected impact and basis, "I'll check back on Friday.") and the toast fires on completion → the presenter closes the sheet and Today has re-ranked behind it
+- [x] Approve → `applyAction` → Today re-ranks with a layout animation; the finding moves to "Handled" (via `handledFindings`); the lead item changes
+- [x] `ActionTimeline` on Today ("7 follow-ups sent 2 minutes ago. Expected ₹1.1 lakh over 14 days.")
+- [x] After: `impeccable critique` then `impeccable polish` on the Act sheet, one bounded round
+- [x] Commit: `feat: act`
 
 ## Phase 7 — Horizon + Vault (3 h)
 

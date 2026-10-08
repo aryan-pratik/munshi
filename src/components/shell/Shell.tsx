@@ -1,3 +1,4 @@
+import { ActSheet } from "@/components/act/ActSheet";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
 
@@ -10,6 +11,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       <main id="main" className="mx-auto w-full max-w-[1120px] px-4 py-6 md:px-8 md:py-8">
         {children}
       </main>
+      <ActSheet />
     </div>
   );
 }

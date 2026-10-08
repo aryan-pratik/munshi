@@ -378,6 +378,27 @@ p {
   transform: translateY(100%);
 }
 
+/* Toast (DESIGN.md, Functional motion): slides from the bottom right and leaves the same way, 240ms ease */
+.toast {
+  transition:
+    transform 240ms ease,
+    opacity 240ms ease;
+}
+.toast[data-starting-style],
+.toast[data-ending-style] {
+  opacity: 0;
+  transform: translateX(calc(100% + 16px));
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    transition: opacity 240ms ease;
+  }
+  .toast[data-starting-style],
+  .toast[data-ending-style] {
+    transform: none;
+  }
+}
+
 /* The strategy scan (DESIGN.md, Scan counter): dots appear by opacity in batches while the counter runs. */
 .scan .scan-batch {
   opacity: 0;

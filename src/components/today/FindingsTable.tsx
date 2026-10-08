@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import type { Action, Finding, World } from "@/types";
 import { FindingRow } from "@/components/finding/FindingRow";
 import { useWorldStore } from "@/lib/store/world";
+import { useAgo } from "@/components/act/ActionTimeline";
+import { useReducedMotion } from "@/lib/hooks";
 
 type Props = {
   world: World;
@@ -17,9 +19,11 @@ export function FindingsTable({ world, findings, handled }: Props) {
   const needs = findings.filter((f) => f.group === "needs-you");
   const worth = findings.filter((f) => f.group === "worth-knowing");
   const toggle = (id: string) => setExpanded((e) => (e === id ? null : id));
+  const ref = useRef<HTMLTableElement>(null);
+  useRerank(ref, findings.map((f) => f.id).join("|") + "#" + handled.map((h) => h.action.id).join("|"));
   return (
     <div className="overflow-hidden rounded-[12px] border border-rule bg-surface">
-      <table className="w-full border-collapse max-phone:block [&_tbody]:max-phone:block">
+      <table ref={ref} className="w-full border-collapse max-phone:block [&_tbody]:max-phone:block">
         <thead className="max-phone:hidden">
           <tr className="h-9 border-b border-rule">
             <th scope="col" className="px-4 text-left t-label text-ink-2">Finding</th>
@@ -64,17 +68,31 @@ function HandledRow({ world, finding, action, expanded, onToggle }: { world: Wor
   return <FindingRow world={world} finding={finding} expanded={expanded} onToggle={onToggle} handled={{ label: `Handled ${label}` }} />;
 }
 
-/** "just now", "2 minutes ago", refreshed every half minute. */
-function useAgo(ms: number | undefined): string {
-  const [, tick] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => tick((n) => n + 1), 30_000);
-    return () => clearInterval(t);
-  }, []);
-  if (!ms) return "earlier today";
-  const mins = Math.round((Date.now() - ms) / 60_000);
-  if (mins < 1) return "just now";
-  if (mins < 60) return `${mins} ${mins === 1 ? "minute" : "minutes"} ago`;
-  const h = Math.round(mins / 60);
-  return `${h} ${h === 1 ? "hour" : "hours"} ago`;
+/**
+ * The re-rank after an approval (DESIGN.md, Today re-rank): rows move to their new places in
+ * 260ms ease-in-out, and a row that arrives (the handled one) crossfades in with a 2px blur.
+ * A FLIP over the rows' `data-flip` keys, with the Web Animations API; nothing on first paint.
+ */
+function useRerank(ref: React.RefObject<HTMLTableElement | null>, order: string) {
+  const prev = useRef<Map<string, number> | null>(null);
+  const reduced = useReducedMotion();
+  useLayoutEffect(() => {
+    const table = ref.current;
+    if (!table) return;
+    const rows = Array.from(table.querySelectorAll<HTMLElement>("[data-flip]"));
+    const next = new Map(rows.map((r) => [r.dataset.flip!, r.getBoundingClientRect().top]));
+    const before = prev.current;
+    prev.current = next;
+    if (!before || reduced) return;
+    for (const r of rows) {
+      const key = r.dataset.flip!;
+      const was = before.get(key);
+      const now = next.get(key)!;
+      if (was === undefined) {
+        r.animate([{ opacity: 0.7, filter: "blur(2px)" }, { opacity: 1, filter: "blur(0)" }], { duration: 260, easing: "cubic-bezier(0.77, 0, 0.175, 1)" });
+      } else if (Math.abs(was - now) > 1) {
+        r.animate([{ transform: `translateY(${was - now}px)` }, { transform: "translateY(0)" }], { duration: 260, easing: "cubic-bezier(0.77, 0, 0.175, 1)" });
+      }
+    }
+  }, [ref, order, reduced]);
 }

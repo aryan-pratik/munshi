@@ -97,10 +97,10 @@ strategies appear.
 
 Back to `/`. Click **Review 7 drafts** on the lead item.
 
-Sheet opens: plan, then drafts. Open one draft.
+Sheet opens: plan, then drafts. Point at the first draft, to Priya at Tulsi Living.
 
-> "It read each thread. This one asked about a 40-piece order of the stoneware mugs. The draft
-> answers that, in Meera's tone, on WhatsApp."
+> "It read each thread. This one asked whether 60 mug sets instead of 40 would work across two
+> colourways. The draft answers that, in Meera's tone, on WhatsApp."
 
 Click **Approve and send 7**. The button shows "Sending 7..." while it works. Then the sheet shows
 its Done state: the effects list with check icons, "Expected about ₹1.1 lakh over 14 days" and

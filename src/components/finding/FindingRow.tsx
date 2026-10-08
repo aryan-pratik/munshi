@@ -57,6 +57,7 @@ export function FindingRow({ world, finding, expanded, onToggle, handled }: Prop
       <tr
         className={cn("group border-b border-rule", STACK_ROW, expanded ? "bg-neel-soft" : "fine:hover:bg-wash", handled && "text-ink-2")}
         data-expanded={expanded || undefined}
+        data-flip={handled ? `handled:${finding.id}` : finding.id}
       >
         <td className={cn(ROW_CELL, "max-phone:col-span-2 max-phone:p-0 max-phone:pb-1")}>
           <button

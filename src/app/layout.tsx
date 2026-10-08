@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Anek_Latin } from "next/font/google";
+import { ToastProvider } from "@/components/ui/toast";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Shell } from "@/components/shell/Shell";
 import "./globals.css";
@@ -36,7 +37,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col">
         <TooltipProvider>
-          <Shell>{children}</Shell>
+          <ToastProvider>
+            <Shell>{children}</Shell>
+          </ToastProvider>
         </TooltipProvider>
       </body>
     </html>

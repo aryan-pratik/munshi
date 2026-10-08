@@ -1,7 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
 import { create } from "zustand";
-import { useShallow } from "zustand/react/shallow";
 import type { Action, Finding, PlaybookId, World } from "@/types";
 import { seedWorld } from "@/data/seed";
 import { analyze, applyEffects, handledFindings } from "@/engine";
@@ -60,5 +60,8 @@ export function useFindings(): Finding[] {
 
 /** Findings an approved action handled, with the action, oldest first. */
 export function useHandled(): { finding: Finding; action: Action }[] {
-  return useWorldStore(useShallow((s) => handledFindings(s.seed, s.actions)));
+  const seed = useSeed();
+  const actions = useActions();
+  // Memoised on the actions array, which the store replaces only when an action is applied.
+  return useMemo(() => handledFindings(seed, actions), [seed, actions]);
 }

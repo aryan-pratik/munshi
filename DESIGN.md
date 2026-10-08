@@ -552,7 +552,7 @@ States: no history shows the suggestions only; an unanswerable question in demo 
 ### Act (sheet over the current page)
 A sheet, not a route and not a modal dialog, because approval needs protected focus.
 1. Plan: an ordered list of what will happen. Numbering is right here; it is a real sequence.
-2. Drafts: one editable block per recipient with initials, channel icon, the message in the body role and a "Rewrite" ghost button.
+2. Drafts: one editable block per recipient with initials, channel icon, the message in the body role and, in live mode, a "Rewrite" ghost button. In scripted mode the drafts are the engine's templates, editable in place, and there is no Rewrite: a scripted rewrite would have to be typed by hand.
 3. Approval bar, pinned to the bottom: a summary sentence ("7 messages on WhatsApp. Expected about ₹1.1 lakh over 14 days.") and the primary button "Approve and send 7". The label "Not sent yet" stays visible until it is pressed.
 4. Done: shown inside the sheet after approval (no new route, the sheet stays open): the effects as a list with `check` icons in credit, the expected impact and its basis, and "I'll check back on Friday." The toast fires on completion, and the presenter then closes the sheet (Close or Esc), with Today already re-ranked behind it.
 

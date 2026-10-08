@@ -1,6 +1,6 @@
 import type { Finding, World } from "@/types";
 import { THRESHOLDS } from "@/data/rules/thresholds";
-import { inrCompact, pct } from "@/lib/format";
+import { inrCompact, pct, shortDate } from "@/lib/format";
 import { addDays, dayIndex, inWindow } from "../windows";
 import { compareWindows, metricSeries, stripSeries, windowPerDay, windowValue } from "../metrics";
 import { metricOnset } from "../graph/onset";
@@ -39,7 +39,7 @@ export function conversionDrop(world: World, ctx: DetectorCtx): Finding[] {
         onset,
         series: stripSeries(world, "landingCvr", current),
         evidence,
-        explain: `Sessions that enter on a campaign or collection page convert at ${(cvrSince * 100).toFixed(1)}% now against ${landing.previous.toFixed(1)}% in the previous 14 days (${pct(landing.deltaPct)}).${event ? ` The change began on ${event.at.slice(8)}/${event.at.slice(5, 7)}, the day of the event "${event.label}".` : ""} At about ${Math.round(landingSessionsPerDay)} such sessions a day that is roughly ${lostPerDay.toFixed(1)} orders a day, ${inrCompact(impact)} a month.`,
+        explain: `Sessions that enter on a campaign or collection page convert at ${(cvrSince * 100).toFixed(1)}% now against ${landing.previous.toFixed(1)}% in the previous 14 days (${pct(landing.deltaPct)}).${event ? ` The change began on ${shortDate(event.at)}, the day of the event "${event.label}".` : ""} At about ${Math.round(landingSessionsPerDay)} such sessions a day that is roughly ${lostPerDay.toFixed(1)} orders a day, ${inrCompact(impact)} a month.`,
         playbooks: [],
       }),
     );

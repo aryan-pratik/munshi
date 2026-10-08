@@ -46,6 +46,7 @@ describe("analyze on the seed", () => {
     }
     const byDetector = Object.fromEntries(findings.map((f) => [f.detector, f]));
     expect(dayIndex(world, byDetector.conversionDrop.onset!)).toBe(79);
+    expect(byDetector.conversionDrop.explain).toContain('began on 28 Sep, the day of the event "Shopify theme updated"');
     expect(dayIndex(world, byDetector.costCreep.onset!)).toBe(60);
     expect(byDetector.customerConcentration.impactINR).toBe(0);
     expect(byDetector.customerConcentration.exposureINR).toBeGreaterThan(16_00_000);

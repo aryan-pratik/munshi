@@ -7,6 +7,7 @@ import { FindingsTable } from "@/components/today/FindingsTable";
 import { CashLine } from "@/components/today/CashLine";
 import { UpcomingOutflows } from "@/components/today/UpcomingOutflows";
 import { SuggestedQuestions } from "@/components/ask/SuggestedQuestions";
+import { ActionTimeline } from "@/components/act/ActionTimeline";
 import { EmptyState } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { useFindings, useHandled, useWorld } from "@/lib/store/world";
@@ -22,7 +23,7 @@ export default function TodayPage() {
     <div className="grid grid-cols-1 gap-8 stack:grid-cols-[minmax(0,1fr)_320px]">
       <div className="min-w-0">
         <h1 className="sr-only">Today</h1>
-        <Brief world={world} findings={findings} />
+        <Brief world={world} findings={findings} handled={handled.map((h) => h.finding)} />
         {lead ? (
           <div className="mt-3">
             <LeadItem key={lead.id} world={world} finding={lead} />
@@ -39,6 +40,7 @@ export default function TodayPage() {
             }
           />
         )}
+        <ActionTimeline handled={handled} className="mt-6" />
         {findings.length || handled.length ? (
           <div className="mt-8">
             <FindingsTable world={world} findings={findings} handled={handled} />

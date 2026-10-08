@@ -37,17 +37,28 @@ type ButtonProps = React.ComponentProps<"button"> &
     loading?: boolean;
   };
 
-function Button({ className, variant, size, loading, children, disabled, ...props }: ButtonProps) {
+function Button({ className, variant, size, loading, children, disabled, style, ...props }: ButtonProps) {
+  // Loading keeps the variant's fill and the width it had before the label swapped (DESIGN.md,
+  // Buttons): the button is working, not disabled, so it is only inert to the pointer.
+  const ref = React.useRef<HTMLButtonElement>(null);
+  const width = React.useRef<number | null>(null);
+  React.useLayoutEffect(() => {
+    if (!loading && ref.current) width.current = ref.current.offsetWidth;
+  });
   return (
     <button
+      ref={ref}
       type="button"
       data-variant={variant ?? "secondary"}
-      className={cn(buttonVariants({ variant, size, className }))}
-      disabled={disabled || loading}
+      data-loading={loading || undefined}
+      className={cn(buttonVariants({ variant, size, className }), loading && "pointer-events-none")}
+      disabled={disabled}
+      aria-disabled={loading || undefined}
       aria-busy={loading || undefined}
+      style={loading && width.current ? { minWidth: width.current, ...style } : style}
       {...props}
     >
-      {loading ? <Loader2 className="spin" aria-hidden /> : null}
+      {loading ? <Loader2 className="spin size-3.5!" aria-hidden /> : null}
       {children}
     </button>
   );
