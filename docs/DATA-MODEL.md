@@ -65,7 +65,9 @@ on the committed seed. If a result drifts, adjust these seed fields, never the c
 - Marketing ₹90,000 a month (₹3,000 a day of `AdDay.spend`); payroll ₹4,10,000 (includes the 4
   packers); salary per hire ₹18,000; fixed costs ₹2,80,000 (from `bills`, `subscriptions`,
   `bankTxns`); inventory value ₹9,00,000; stock headroom 1.12.
-- Complaint rate 1.25% of orders; repeat rate 0.22; cash today ₹6,40,000 (`bankTxns` balance).
+- Complaint rate 1.25% of orders (tickets of category `quality` or `other`, the ones the business
+  itself causes; courier `delivery` tickets are the S5 spike and are not a fulfilment rate); repeat
+  rate 0.22; cash today ₹6,40,000 (`bankTxns` balance).
 
 Every record has `id`, `source: SourceId`, and `createdAt`. `RecordRef = { source, kind, id }`.
 
@@ -115,7 +117,7 @@ detector, chain, simulator and planted-vs-detected onset columns, arrive in Phas
 | S2 | **Revenue ↓6% last 14 days, all of it D2C.** D2C revenue is down 14% because Meta campaign "Diwali Early" was paused on day 77 (spend ↓7%) → sessions ↓6% → D2C orders ↓14%. Wholesale is flat, so total revenue falls about 6%. | `Event` `campaign_paused` on day 77 (source `meta-ads`, anchors `adSpend`); `adDays` spend and sessions step down from day 77; orders follow on day 78. | Why (primary path of the trail) | chain: `adSpend, sessions, ordersD2C, revenueD2C`, one branch at `landingCvr` |
 | S3 | **Also contributing: landing conversion fell** (planted 4.8% → 3.1%; the 14-day window means read 4.9% → 3.5% because they include the 4 days before the change) after a Shopify theme update on day 79. | `Event` `theme_updated` on day 79 (source `shopify`, anchors `landingCvr`); conversion of landing-page sessions steps down from day 79, independently of spend. Landing-entry orders are about 30% of D2C orders. | Why ("Also contributing" group) — the key moment | `conversionDrop`, impact about ₹83,000 |
 | S4 | **3 wholesale invoices overdue, ₹82,400.** One is 41 days late from "Saffron Stories, Bengaluru". | `invoices` with `dueDate` < now, unpaid; 2 reminder emails already in `messages`. | Today · Act (`collectOverdue`) · Horizon | `overdueInvoices`, impact 82,400 |
-| S5 | **Delivery complaints ↑31%.** Shiprocket switched Delhi-NCR to a new courier on day 74; delays 1.2 → 3.4 days there. | `Event` `courier_changed` on day 74 (source `shiprocket`, anchors `deliveryDelayAvg`); `shipments` dispatched to NCR from day 74 are delayed; `tickets` category delivery ↑ a few days later. Day 74 lies in the previous 14-day window (days 62 to 75), a deliberate case. | Today · Why (second trail: delays → complaints → repeatRate) · Act (`escalateCourier`) | `complaintSpike`, impact about ₹15,100; onset of `deliveryDelayAvg` |
+| S5 | **Delivery complaints several times up** (3 → about 14 in the 14-day windows; the baseline is under one a day). Shiprocket switched Delhi-NCR to a new courier on day 74; delays 1.2 → 3.4 days there. | `Event` `courier_changed` on day 74 (source `shiprocket`, anchors `deliveryDelayAvg`); `shipments` dispatched to NCR from day 74 are delayed; `tickets` category delivery ↑ a few days later. Day 74 lies in the previous 14-day window (days 62 to 75), a deliberate case. | Today · Why (second trail: delays → complaints → repeatRate) · Act (`escalateCourier`) | `complaintSpike`, impact about ₹15,100; onset of `deliveryDelayAvg` |
 | S6 | **Customer concentration: "Saffron Stories" is 31% of 90-day revenue** (₹54,00,000), so ₹16,74,000 is exposed — and they're the one paying late. | wholesale orders skewed to one account (about 30 of the ~140 wholesale orders). | Today (`customerConcentration`, impact 0, exposure ₹16,74,000) · What-if risk | `customerConcentration`, `exposureINR` 16,74,000 |
 | S7 | **Internet bill ↑₹400/month** since day 60 (Airtel plan auto-upgraded). | `Event` `plan_upgraded` on day 60 (source `gmail`, anchors vendor Airtel); `bills` for Airtel dated days 0, 30, 60: 1,499, 1,499, 1,899. | Today (`costCreep`, ₹4,800 a year), info severity — shows the engine notices small things | `costCreep`, impact about ₹4,800 |
 | S8 | **Zombie subscriptions:** Figma Pro (₹2,100/mo, unused 84 days, `lastUsedAt` day 5), Zapier Starter (₹1,650/mo, unused 71 days, `lastUsedAt` day 18). | `subscriptions` with old `lastUsedAt`. | Today (`zombieSubscription`, one aggregated finding, ₹45,000 a year) · Act (`cancelSubscription`) | `zombieSubscription`, impact about ₹45,000 |
@@ -178,7 +180,7 @@ Generator rules that make the trail readable:
 - **Quiet noise.** Daily multiplicative noise on top of the weekday pattern: sigma 2.5% on counts
   and sessions, 2% on spend. Integer counts come from error-diffusion rounding (carry the
   remainder), not Poisson draws. Per-shipment delay noise has sd 0.4 days. The upward trend stays
-  under 3% a month, and the Navratri bump sits before day 30, clear of the onset baseline (days
+  under 3% a month, and the monsoon-sale bump (days 18 to 26) sits before day 30, clear of the onset baseline (days
   34 to 61) and the strip (days 62 to 89). Real data is noisier; there the engine returns a null
   onset and the UI says the timing is unverified.
 - **Wholesale held flat.** Wholesale revenue in the two 14-day windows must be within ±2% of
@@ -200,7 +202,7 @@ Generator rules that make the trail readable:
 
 - Seeded PRNG (`seedrandom`-style, implement a tiny mulberry32 — no dependency).
 - Order of operations: business + products → customers → baseline demand curve (weekly
-  seasonality, slight upward trend, a Navratri bump) → ad days + traffic → orders → shipments →
+  seasonality, slight upward trend, a monsoon-sale bump) → ad days + traffic → orders → shipments →
   tickets → wholesale leads + messages + invoices → bills + subscriptions → bank txns →
   obligations → **apply stories** (S2, S3, S5 and S7 each write their `Event`, see Onset anchors)
   → validate with zod → write JSON.

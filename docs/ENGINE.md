@@ -90,7 +90,7 @@ thresholds from `data/rules/thresholds.ts`.
 | `staleHighValueLeads` | wholesale lead, est. value ≥ ₹10k, no contact ≥ 48h, not lost | Σ est. value × `leadCvr` quoted-to-won rate 0.60 (seed: 7 leads, ₹1,84,000 × 0.60 = ₹1,10,400) |
 | `overdueInvoices` | invoice unpaid > dueDate | Σ outstanding (seed: 3 invoices, ₹82,400) |
 | `conversionDrop` | `landingCvr` or `leadCvr` Δ ≤ −15% vs previous window | lost orders per day × 30 × aov (seed: 2.21 × 30 × ₹1,250 ≈ ₹83,000) |
-| `complaintSpike` | `complaints` Δ ≥ +25% and ≥ 5 abs | affected customers × `repeatRate` × aov (seed: 55 × 0.22 × ₹1,250 ≈ ₹15,100) |
+| `complaintSpike` | `complaints` Δ ≥ +25% and at least 5 more than the previous window | affected customers (NCR shipments the new courier has carried since the change) × `repeatRate` × aov (seed: 55 × 0.22 × ₹1,250 ≈ ₹15,100) |
 | `costCreep` | recurring `Bill` from same vendor ↑ ≥ 10% vs 3-month median | Δ × 12 (seed: ₹400 × 12 = ₹4,800) |
 | `zombieSubscription` | `Subscription` active, `lastUsedAt` ≥ 60d ago | Σ monthly × 12, one aggregated finding (seed: (2,100 + 1,650) × 12 = ₹45,000 for Figma and Zapier) |
 | `customerConcentration` | one customer ≥ 25% of 90-day revenue | `impactINR` 0; `exposureINR` = that customer's 90-day revenue (seed: Saffron Stories, 31% of ₹54,00,000 = ₹16,74,000). Not annualised. |
@@ -206,7 +206,7 @@ Only the anchored metric snaps. Downstream metrics keep the day the detector fou
 lets the trail show sessions falling the same day (day 77) and orders a day later (day 78, purchase lag).
 
 **Null is an answer.** A null onset stays null and is drawn as "timing unverified". It is never
-back-filled from an event or guessed from a neighbour. `complaints` is a small count (about 3 a day),
+back-filled from an event or guessed from a neighbour. `complaints` is a small count (under one a day),
 so its onset may be null on real data; the seed S5 test covers `deliveryDelayAvg` only.
 
 ### 3.2 The walk (`graph/walk.ts`)
@@ -306,7 +306,7 @@ non-linear so "find best" has something to find.
 | `inventoryValue` | | ₹9,00,000 | `products` |
 | `staff0` | `meta.business.staffOps` | 4 | seed meta |
 | `ordersPerPersonPerMonth` | `(ordersD0 + ordersW0) / (staffOps × 0.96)` | 177.0 | derived; base utilisation today is 96% |
-| `cr0` | complaint rate | 1.25% of orders | `Ticket` |
+| `cr0` | complaint rate: tickets the business itself caused (`quality`, `other`), not the courier's `delivery` tickets | 1.25% of orders | `Ticket` |
 | `r0` | repeat rate | 0.22 | `repeatRate` |
 | `stockHeadroom` | on-hand covers 12% more than a month of velocity | 1.12 | `products` |
 | `cash0` | bank balance today | ₹6,40,000 | `BankTxn` |

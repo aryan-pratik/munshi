@@ -42,15 +42,15 @@ contract; the skills are how you check your work against it.
 
 ## Phase 1 — Types + seed world (3 h)
 
-- [ ] Check the Decision log in `PRODUCT.md` before generating a persona's worth of data
-- [ ] `src/types/*.ts` — all record types (including `Event` and `PurchaseOrder`), `World`, `RecordRef`, `Window`, `MetricMeta`, `Outcome`, `Step`, `Draft`, `Effect`, `Finding` (with `id`, `group`, `impactINR`, `exposureINR`, `onset`, `series`), `ChainNode`, `Chain` (with `id`), `Levers`, `Scenario` (with `riskScore`), `Action` (zod schemas + inferred types in one place; shapes in `docs/ARCHITECTURE.md`, Key types)
-- [ ] `scripts/generate-seed.ts` — mulberry32 PRNG, baseline generation per `docs/DATA-MODEL.md` (Generator), including the purchase lag and quiet-noise rules in Onset anchors
-- [ ] `src/data/seed/stories.ts` — S1–S12 with `apply()` and `expect`; S2, S3, S5, S7 each write their `Event`
-- [ ] `pnpm seed` writes `src/data/seed/world.json` ≤ 1.5 MB and prints a story report computed from records only (per story: planted records and figures; no detectors needed). `MUNSHI_DEMO_NOW` is read only here and sets `meta.day0 = date - 89`
-- [ ] `src/engine/windows.ts` — `now(world)` = `day0 + 89` (`parseISO(meta.day0) + (meta.days - 1)`), window helpers. It never reads the environment
-- [ ] `src/lib/format.ts` — `inr()`, `inrCompact()`, `pct()`, `relDate()` + tests
-- [ ] `tests/engine/seed.test.ts` passes: schema validity, determinism, size ≤ 1.5 MB, per-story record facts (counts, dates, sums from records). No detector, chain or simulator checks here
-- [ ] Commit: `feat: seed world with planted stories`
+- [x] Check the Decision log in `PRODUCT.md` before generating a persona's worth of data
+- [x] `src/types/*.ts` — all record types (including `Event` and `PurchaseOrder`), `World`, `RecordRef`, `Window`, `MetricMeta`, `Outcome`, `Step`, `Draft`, `Effect`, `Finding` (with `id`, `group`, `impactINR`, `exposureINR`, `onset`, `series`), `ChainNode`, `Chain` (with `id`), `Levers`, `Scenario` (with `riskScore`), `Action` (zod schemas + inferred types in one place; shapes in `docs/ARCHITECTURE.md`, Key types)
+- [x] `scripts/generate-seed.ts` — mulberry32 PRNG, baseline generation per `docs/DATA-MODEL.md` (Generator), including the purchase lag and quiet-noise rules in Onset anchors
+- [x] `src/data/seed/stories.ts` — S1–S12 with `apply()` and `expect`; S2, S3, S5, S7 each write their `Event`
+- [x] `pnpm seed` writes `src/data/seed/world.json` ≤ 1.5 MB and prints a story report computed from records only (per story: planted records and figures; no detectors needed). `MUNSHI_DEMO_NOW` is read only here and sets `meta.day0 = date - 89`
+- [x] `src/engine/windows.ts` — `now(world)` = `day0 + 89` (`parseISO(meta.day0) + (meta.days - 1)`), window helpers. It never reads the environment
+- [x] `src/lib/format.ts` — `inr()`, `inrCompact()`, `pct()`, `relDate()` + tests
+- [x] `tests/engine/seed.test.ts` passes: schema validity, determinism, size ≤ 1.5 MB, per-story record facts (counts, dates, sums from records). No detector, chain or simulator checks here
+- [x] Commit: `feat: seed world with planted stories`
 
 ## Phase 2 — Engine (4 h)
 
