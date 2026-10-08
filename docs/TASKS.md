@@ -29,16 +29,16 @@ contract; the skills are how you check your work against it.
 
 ## Phase 0 — Bootstrap (30 min)
 
-- [x] `bash scripts/bootstrap.sh` (scaffolds Next.js + shadcn + deps into this repo without touching the docs; see README)
-- [x] `ls -la .claude/skills` — the four design skills resolve to `.agents/skills/`
-- [x] Model-ID smoke test from `docs/AI_SDK_NOTES.md` (needs a key; skip it if you have none, scripted mode needs no key)
-- [x] Read "What the scaffold actually produces" in `docs/ARCHITECTURE.md` and clear its list: wire `--font-sans` (shadcn leaves it self-referential), mount `TooltipProvider` in the root layout, `pnpm add -D @types/node@^22`
-- [x] `pnpm pkg set scripts.check="pnpm typecheck && pnpm test && pnpm build"`
-- [x] Add `pnpm seed` → `tsx scripts/generate-seed.ts` (install `tsx` as dev dep)
-- [x] Fonts in `app/layout.tsx`: load the single family named in `DESIGN.md` (Typography) with `next/font` and run its tabular-figure check
-- [x] `globals.css` tokens from `DESIGN.md`; wire shadcn theme vars to them
-- [x] Delete scaffold boilerplate page; `/` renders the product name styled per `DESIGN.md`
-- [x] Commit: `chore: bootstrap`
+- [ ] `bash scripts/bootstrap.sh` (scaffolds Next.js + shadcn + deps into this repo without touching the docs; see README)
+- [ ] `ls -la .claude/skills` — the four design skills resolve to `.agents/skills/`
+- [ ] Model-ID smoke test from `docs/AI_SDK_NOTES.md` (needs a key; skip it if you have none, scripted mode needs no key)
+- [ ] Read "What the scaffold actually produces" in `docs/ARCHITECTURE.md` and clear its list: wire `--font-sans` (shadcn leaves it self-referential), mount `TooltipProvider` in the root layout, `pnpm add -D @types/node@^22`
+- [ ] `pnpm pkg set scripts.check="pnpm typecheck && pnpm test && pnpm build"`
+- [ ] Add `pnpm seed` → `tsx scripts/generate-seed.ts` (install `tsx` as dev dep)
+- [ ] Fonts in `app/layout.tsx`: load the single family named in `DESIGN.md` (Typography) with `next/font` and run its tabular-figure check
+- [ ] `globals.css` tokens from `DESIGN.md`; wire shadcn theme vars to them
+- [ ] Delete scaffold boilerplate page; `/` renders the product name styled per `DESIGN.md`
+- [ ] Commit: `chore: bootstrap`
 
 ## Phase 1 — Types + seed world (3 h)
 

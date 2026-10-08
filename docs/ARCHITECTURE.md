@@ -49,10 +49,6 @@ Things the scaffold leaves that Phase 0 must deal with:
 - **shadcn is the `base-nova` style on `@base-ui/react`**, not Radix. Popovers, menus and tooltips
   expose Base UI's attributes (`data-starting-style`, `var(--transform-origin)`), which is what
   the motion rules in `DESIGN.md` assume. 18 components land in `src/components/ui`.
-  **What actually happened on 2026-10-08:** the shadcn registry (`ui.shadcn.com`) was blocked
-  on the build machine, so the CLI steps failed and the components in `src/components/ui` were
-  written by hand in the same shape (cva variants, `cn()`, Base UI primitives) and themed from
-  the tokens. There is no `components.json`; add components the same way.
 - **shadcn rewrites `src/app/globals.css` but not `layout.tsx`**, leaving
   `--font-sans: var(--font-sans)` pointing at itself. Wire the `next/font` variable for the
   family in `DESIGN.md` to `--font-sans` in `layout.tsx`.
