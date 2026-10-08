@@ -6,9 +6,12 @@ build whose demo runs on a seeded digital twin of one business, with no network 
 
 ## Current state
 
-Phases 0 to 3 are done: the scaffold, the seed world (`pnpm seed`), the engine (`src/engine`,
-tests in `tests/engine`), and the shell plus the Today screen (`src/components/{shell,today,
-finding,chain,primitives}`). The other routes are placeholders. Next is Phase 4 in `docs/TASKS.md`.
+Phases 0 to 4 are done: the scaffold, the seed world (`pnpm seed`), the engine (`src/engine`,
+tests in `tests/engine`), the shell plus the Today screen (`src/components/{shell,today,
+finding,chain,primitives}`), and the Why screen (`src/components/ask`, the onset trail in
+`src/components/chain`, the AI layer in `src/lib/ai` with four recorded scripts in
+`src/data/scripts`, tests in `tests/ai`). What if, Horizon and Vault are placeholders. Next is
+Phase 5 in `docs/TASKS.md`.
 
 - If `package.json` is missing, your first action is `bash scripts/bootstrap.sh`. It scaffolds
   Next.js into a temp dir and merges it in without overwriting existing files. Safe to re-run.
@@ -38,6 +41,7 @@ pnpm test         # vitest (tests/engine)
 pnpm build
 pnpm check        # typecheck + test + build; added in Phase 0
 pnpm seed         # regenerate src/data/seed/world.json; added in Phase 1
+pnpm record       # regenerate src/data/scripts/*.json from the engine; run after any seed or engine change
 ```
 
 ## Non-negotiables

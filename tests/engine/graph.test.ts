@@ -32,6 +32,11 @@ describe("causal graph", () => {
       expect(n.series.length).toBe(28);
       expect(n.evidence.length, n.metric).toBeGreaterThan(0);
     }
+    // dated evidence sits around the onset, not at the end of the window
+    const byId = new Map(world.trafficDays.map((t) => [t.id, t]));
+    const traffic = branch.nodes[0].evidence.filter((r) => r.kind === "trafficDay").map((r) => byId.get(r.id)!);
+    expect(traffic.length).toBeGreaterThan(0);
+    for (const t of traffic) expect(Math.abs(dayIndex(world, t.date) - 79)).toBeLessThanOrEqual(2);
   });
 
   it("walks the courier change through complaints to repeat rate", () => {

@@ -78,6 +78,11 @@ function daysBetweenISO(a: string, b: string): number {
 }
 
 /** "Thursday, 8 October": the Today brief's opening. */
+/** A label mid-sentence: "Delivery complaints" reads "delivery complaints"; "D2C revenue" keeps its case. */
+export function midSentence(label: string): string {
+  return /^[A-Z][a-z]/.test(label) ? label[0].toLowerCase() + label.slice(1) : label;
+}
+
 export function briefDate(iso: string): string {
   const [, weekday, rest] = /^(\w+) (\d+ \w+) \d+$/.exec(longDate(iso)) ?? [];
   return weekday && rest ? `${weekday}, ${rest}` : longDate(iso);

@@ -7,14 +7,14 @@ import { cn } from "@/lib/utils";
 // One primary per view. Loading keeps the width and swaps the leading icon for a spinner.
 
 const buttonVariants = cva(
-  "pressable inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[8px] t-ui font-medium select-none disabled:pointer-events-none disabled:bg-wash disabled:text-ink-3 disabled:border-transparent [&_svg]:shrink-0",
+  "pressable inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[8px] t-ui font-medium select-none disabled:pointer-events-none disabled:text-ink-3 disabled:border-transparent [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        primary: "bg-neel text-on-fill hover:bg-neel-hover",
-        secondary: "bg-surface text-ink border border-rule-strong hover:bg-wash",
+        primary: "bg-neel text-on-fill hover:bg-neel-hover disabled:bg-wash",
+        secondary: "bg-surface text-ink border border-rule-strong hover:bg-wash disabled:bg-wash",
         ghost: "bg-transparent text-ink-2 hover:bg-wash hover:text-ink",
-        destructive: "bg-debit text-on-fill hover:opacity-90",
+        destructive: "bg-debit text-on-fill hover:opacity-90 disabled:bg-wash",
       },
       size: {
         default: "h-9 px-3.5 [&_svg]:size-4",

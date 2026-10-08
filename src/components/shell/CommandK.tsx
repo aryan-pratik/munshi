@@ -39,7 +39,7 @@ export function CommandK({ className }: { className?: string }) {
     setOpen(false);
     setText("");
     inputRef.current?.blur();
-    router.push(`/ask?q=${encodeURIComponent(q)}`);
+    router.push(`/ask?q=${encodeURIComponent(q)}&n=${Date.now().toString(36)}`);
   };
 
   return (

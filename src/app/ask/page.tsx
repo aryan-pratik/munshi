@@ -1,10 +1,10 @@
-import { EmptyState } from "@/components/primitives";
+import { Suspense } from "react";
+import { AskScreen } from "@/components/ask/AskScreen";
 
-export default function Page() {
+export default function AskPage() {
   return (
-    <>
-      <h1 className="t-page-title text-ink">Why</h1>
-      <EmptyState className="mt-6" title="Ask why a number moved. The answer comes with the records behind it." detail="This screen arrives in a later phase of the build." />
-    </>
+    <Suspense fallback={<div className="skeleton h-9 w-full max-w-[880px]" aria-hidden />}>
+      <AskScreen />
+    </Suspense>
   );
 }

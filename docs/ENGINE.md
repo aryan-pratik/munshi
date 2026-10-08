@@ -205,7 +205,7 @@ date and the event's `RecordRef` becomes `onsetEvidence` (the UI draws it as a f
 Only the anchored metric snaps. Downstream metrics keep the day the detector found, which is what
 lets the trail show sessions falling the same day (day 77) and orders a day later (day 78, purchase lag).
 
-**Null is an answer.** A null onset stays null and is drawn as "timing unverified". It is never
+**Null is an answer.** A null onset stays null and is drawn with no onset mark. It is never
 back-filled from an event or guessed from a neighbour. `complaints` is a small count (under one a day),
 so its onset may be null on real data; the seed S5 test covers `deliveryDelayAvg` only.
 
@@ -266,7 +266,7 @@ of orders give orders about −14%.
 **What this shows and what it doesn't.** Co-movement along a hand-authored business graph, the
 cause's onset on or before the effect's, and a linked event record. That is evidence for a likely
 cause. It is not proof of causation, and the product never says it is: narratives say "likely",
-and any node missing evidence or an onset is labelled unverified.
+any node missing evidence is labelled unverified, and a node with no onset shows no onset mark.
 
 ## 4. Simulator (`engine/simulator/*`)
 

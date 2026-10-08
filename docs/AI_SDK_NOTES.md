@@ -553,7 +553,7 @@ Chunk order observed from that route: `start`, `start-step`, `tool-input-availab
 
 | Route | Agent | What it does |
 |---|---|---|
-| `POST /api/ask` | investigator | Answers a "why" question. Tools wrap engine functions (`getMetricSeries`, `compareWindows`, `walkCausalGraph`, `listRecords`, `getRecord`, `runSimulation`). The final structured output cites evidence refs; the UI renders any uncited step as unverified. |
+| `POST /api/ask` | investigator | Answers a "why" question. Tools wrap engine functions (`getMetricSeries`, `compareWindows`, `walkCausalGraph`, `listRecords`, `getRecord`, `runSimulation`, `getFindings`). The final structured output cites evidence refs; the UI renders any uncited step as unverified. |
 | `POST /api/act` | operator | Takes the engine-templated drafts for a playbook and rewrites them per recipient, in tone, using that recipient's thread. |
 | `POST /api/explain` | none (one `generateText` on the fast model) | Short narrations: finding copy, chart captions. |
 

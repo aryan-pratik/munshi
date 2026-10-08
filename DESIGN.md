@@ -368,7 +368,7 @@ Flat by default. Elevation is declared once: a surface has a 1px rule border or 
 
 ### Shadow Vocabulary
 - **Float** (`box-shadow: 0 8px 24px -8px rgb(21 26 45 / .18), 0 2px 6px -2px rgb(21 26 45 / .10)`): popovers, menus, toasts.
-- **Sheet** (`box-shadow: -16px 0 40px -16px rgb(21 26 45 / .22)`): the Act sheet.
+- **Sheet** (`box-shadow: -16px 0 40px -16px rgb(21 26 45 / .22)`): the Act sheet. A bottom sheet on a phone lifts the same shadow upward (`0 -16px 40px -16px`), since its lit edge is its top.
 - **Scrim** (`rgb(21 26 45 / .32)`, no blur): behind the sheet.
 
 Shadows carry an offset and a soft blur and are tinted to the ink hue, never pure black on light. In dark, shadows barely read, so floating layers also step up one tone to wash and use `rgb(0 0 0 / .5)`.
@@ -604,7 +604,7 @@ Every animation must answer "why does this move?" with feedback, state change, s
 
 ### The one authored moment: the OnsetTrail draw
 Plays once, when an investigation's result arrives. A past investigation opens already drawn.
-1. Strips reveal from top to bottom. Stagger is `min(240ms, 1200ms / strip count)`, so the whole draw stays under about 1.4s.
+1. Strips reveal from top to bottom. Stagger is `min(240ms, 1200ms / strip count)`, plus a 420ms pause before each later group, so the five-strip demo draw runs about 1.7s and a chain with no branch stays under about 1.4s. The change column and the caption land with their strip; the narrative under the trail waits for the draw to finish.
 2. Within a strip: the series line draws left to right with `clip-path: inset(0 100% 0 0)` to `inset(0)` over 180ms `--ease-out`; then the onset tick fades in with `scaleY(0.6)` to `1` from its base over 120ms and its date label fades in; then the connector to the next strip draws with `stroke-dashoffset` over 120ms.
 3. The "Also contributing" group starts when the primary path has finished.
 Built with CSS transitions or the Web Animations API, not a `requestAnimationFrame` loop.

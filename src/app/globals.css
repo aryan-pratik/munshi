@@ -40,6 +40,7 @@
 
   --shadow-float: 0 8px 24px -8px rgb(21 26 45 / 0.18), 0 2px 6px -2px rgb(21 26 45 / 0.1);
   --shadow-sheet: -16px 0 40px -16px rgb(21 26 45 / 0.22);
+  --shadow-sheet-up: 0 -16px 40px -16px rgb(21 26 45 / 0.22);
   --scrim: rgb(21 26 45 / 0.32);
 
   /* Motion tokens (DESIGN.md, Motion) */
@@ -106,6 +107,7 @@
   --sidebar-ring: #8c9bff;
   --shadow-float: 0 8px 24px -8px rgb(0 0 0 / 0.5), 0 2px 6px -2px rgb(0 0 0 / 0.5);
   --shadow-sheet: -16px 0 40px -16px rgb(0 0 0 / 0.5);
+  --shadow-sheet-up: 0 -16px 40px -16px rgb(0 0 0 / 0.5);
   --scrim: rgb(0 0 0 / 0.5);
 }
 
@@ -165,6 +167,7 @@
 
   --shadow-float: var(--shadow-float);
   --shadow-sheet: var(--shadow-sheet);
+  --shadow-sheet-up: var(--shadow-sheet-up);
 
   --breakpoint-phone: 720px;
   --breakpoint-stack: 900px;
@@ -284,6 +287,11 @@ p {
   .pressable:active:not(:disabled) {
     transform: scale(0.97);
   }
+  /* Full-width rows step their ground and do not scale */
+  .pressable-row:active:not(:disabled) {
+    transform: none;
+    background-color: var(--neel-soft);
+  }
 
   /* Skeleton pulse */
   .skeleton {
@@ -313,6 +321,9 @@ p {
     opacity: 0;
     transform: scale(0.97);
   }
+  .popup-float[data-ending-style] {
+    transition-duration: 120ms;
+  }
   .popup-float[data-instant] {
     transition-duration: 0ms;
   }
@@ -341,5 +352,110 @@ p {
   .popup-float[data-starting-style],
   .popup-float[data-ending-style] {
     transform: none;
+  }
+}
+
+/* Sheet and scrim motion (DESIGN.md, Functional motion): enter 320ms drawer ease, exit 200ms */
+.sheet-scrim {
+  transition: opacity 200ms ease;
+}
+.sheet-scrim[data-starting-style],
+.sheet-scrim[data-ending-style] {
+  opacity: 0;
+}
+.sheet-popup {
+  transition: transform var(--dur-sheet-in) var(--ease-drawer);
+}
+.sheet-popup[data-ending-style] {
+  transition: transform var(--dur-sheet-out) var(--ease-out);
+}
+.sheet-popup[data-side="right"][data-starting-style],
+.sheet-popup[data-side="right"][data-ending-style] {
+  transform: translateX(100%);
+}
+.sheet-popup[data-side="bottom"][data-starting-style],
+.sheet-popup[data-side="bottom"][data-ending-style] {
+  transform: translateY(100%);
+}
+
+/* The OnsetTrail draw (DESIGN.md, The one authored moment). Each strip carries --d, its delay. */
+.trail .trail-line {
+  clip-path: inset(0 100% 0 0);
+}
+.trail .trail-tick,
+.trail .trail-date,
+.trail .trail-after {
+  opacity: 0;
+}
+.trail .trail-tick {
+  transform: scaleY(0.6);
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+.trail .trail-link {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.trail.is-drawn .trail-line {
+  clip-path: inset(0);
+  transition: clip-path 180ms var(--ease-out) var(--d);
+}
+.trail.is-drawn .trail-tick {
+  opacity: 1;
+  transform: scaleY(1);
+  transition:
+    opacity 120ms var(--ease-out) calc(var(--d) + 180ms),
+    transform 120ms var(--ease-out) calc(var(--d) + 180ms);
+}
+.trail.is-drawn .trail-date {
+  opacity: 1;
+  transition: opacity 120ms var(--ease-out) calc(var(--d) + 220ms);
+}
+/* The change column and the caption land with their tick, after the line */
+.trail.is-drawn .trail-after {
+  opacity: 1;
+  transition: opacity 120ms var(--ease-out) calc(var(--d) + 180ms);
+}
+.trail.is-drawn .trail-link {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 120ms var(--ease-out) calc(var(--d) + 300ms);
+}
+.trail.is-drawn.no-anim .trail-line,
+.trail.is-drawn.no-anim .trail-tick,
+.trail.is-drawn.no-anim .trail-date,
+.trail.is-drawn.no-anim .trail-after,
+.trail.is-drawn.no-anim .trail-link {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .trail .trail-line {
+    clip-path: none;
+  }
+  .trail .trail-tick {
+    transform: none;
+  }
+  .trail .trail-link {
+    stroke-dashoffset: 0;
+  }
+  .trail .trail-tick,
+  .trail .trail-date,
+  .trail .trail-after {
+    opacity: 1;
+  }
+  .trail {
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+  .trail.is-drawn {
+    opacity: 1;
+  }
+  .sheet-popup,
+  .sheet-popup[data-ending-style] {
+    transition: opacity 150ms ease;
+  }
+  .sheet-popup[data-side][data-starting-style],
+  .sheet-popup[data-side][data-ending-style] {
+    transform: none;
+    opacity: 0;
   }
 }

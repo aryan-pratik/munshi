@@ -1,0 +1,471 @@
+{
+  "id": "what-should-i-do-today",
+  "question": "What should I do today?",
+  "match": [
+    "what should i do today",
+    "what to do today",
+    "priorities today",
+    "what matters today",
+    "what needs me"
+  ],
+  "parts": [
+    {
+      "type": "text",
+      "text": "Reading this morning's findings.",
+      "delayMs": 200
+    },
+    {
+      "type": "tool",
+      "tool": "getFindings",
+      "input": {},
+      "output": {
+        "total": 407789,
+        "findings": [
+          {
+            "id": "staleHighValueLeads:whatsapp:lead:all",
+            "detector": "staleHighValueLeads",
+            "severity": "high",
+            "group": "needs-you",
+            "title": "7 wholesale leads worth ₹1.8 lakh have gone quiet",
+            "impactINR": 110400,
+            "exposureINR": null,
+            "onset": "2026-10-04",
+            "explain": "7 quoted leads totalling ₹1.8 lakh have had no reply for 78 to 150 hours, and each thread ends with the buyer asking a question. About 60% of quotes like these are won, so about ₹1.1 lakh is at stake.",
+            "playbooks": [
+              "followUpLeads"
+            ],
+            "evidence": [
+              {
+                "source": "whatsapp",
+                "kind": "lead",
+                "id": "L093"
+              },
+              {
+                "source": "gmail",
+                "kind": "lead",
+                "id": "L094"
+              },
+              {
+                "source": "whatsapp",
+                "kind": "lead",
+                "id": "L095"
+              },
+              {
+                "source": "gmail",
+                "kind": "lead",
+                "id": "L096"
+              },
+              {
+                "source": "whatsapp",
+                "kind": "lead",
+                "id": "L097"
+              }
+            ]
+          },
+          {
+            "id": "conversionDrop:shopify:event:ev-theme-updated",
+            "detector": "conversionDrop",
+            "severity": "high",
+            "group": "needs-you",
+            "title": "Landing-page conversion fell from 4.8% to 3.2% after the theme update",
+            "impactINR": 86303,
+            "exposureINR": null,
+            "onset": "2026-09-28",
+            "explain": "Sessions that enter on a campaign or collection page convert at 3.2% now against 4.8% in the previous 14 days (-26%). The change began on 28/09, the day of the event \"Shopify theme updated\". At about 143 such sessions a day that is roughly 2.3 orders a day, ₹86,303 a month.",
+            "playbooks": [],
+            "evidence": [
+              {
+                "source": "shopify",
+                "kind": "event",
+                "id": "ev-theme-updated"
+              },
+              {
+                "source": "shopify",
+                "kind": "trafficDay",
+                "id": "tr-87"
+              },
+              {
+                "source": "shopify",
+                "kind": "trafficDay",
+                "id": "tr-88"
+              },
+              {
+                "source": "shopify",
+                "kind": "trafficDay",
+                "id": "tr-89"
+              },
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11758"
+              }
+            ]
+          },
+          {
+            "id": "overdueInvoices:zoho-books:invoice:all",
+            "detector": "overdueInvoices",
+            "severity": "critical",
+            "group": "needs-you",
+            "title": "3 wholesale invoices overdue, ₹82,400",
+            "impactINR": 82400,
+            "exposureINR": null,
+            "onset": "2026-08-29",
+            "explain": "3 wholesale invoices totalling ₹82,400 are past due. The oldest, ₹48,600 from Saffron Stories, is 41 days late after 2 reminders.",
+            "playbooks": [
+              "collectOverdue"
+            ],
+            "evidence": [
+              {
+                "source": "zoho-books",
+                "kind": "invoice",
+                "id": "inv-WO-S4-1"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "invoice",
+                "id": "inv-WO-S4-2"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "invoice",
+                "id": "inv-WO-S4-3"
+              },
+              {
+                "source": "gmail",
+                "kind": "message",
+                "id": "m0388"
+              },
+              {
+                "source": "gmail",
+                "kind": "message",
+                "id": "m0389"
+              }
+            ]
+          },
+          {
+            "id": "cashCrunch:calendar:obligation:ob-payroll",
+            "detector": "cashCrunch",
+            "severity": "high",
+            "group": "needs-you",
+            "title": "Cash dips ₹62,477 under the ₹2 lakh buffer in 23 days",
+            "impactINR": 62477,
+            "exposureINR": null,
+            "onset": null,
+            "explain": "From ₹6.4 lakh today, known outflows (october payroll ₹4,10,000 on day 22) take cash to ₹1,37,523 on 31/10, ₹62,477 under the buffer. Collecting the ₹82,400 of overdue invoices keeps it above the buffer.",
+            "playbooks": [
+              "collectOverdue"
+            ],
+            "evidence": [
+              {
+                "source": "calendar",
+                "kind": "obligation",
+                "id": "ob-payroll"
+              },
+              {
+                "source": "calendar",
+                "kind": "obligation",
+                "id": "ob-gst"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "bill",
+                "id": "bill-18"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "bill",
+                "id": "bill-15"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "invoice",
+                "id": "inv-WO-S4-1"
+              }
+            ]
+          },
+          {
+            "id": "zombieSubscription:zoho-books:subscription:all",
+            "detector": "zombieSubscription",
+            "severity": "medium",
+            "group": "worth-knowing",
+            "title": "2 subscriptions nobody has used in two months, ₹45,000 a year",
+            "impactINR": 45000,
+            "exposureINR": null,
+            "onset": "2026-07-16",
+            "explain": "Figma (84 days), Zapier (71 days): ₹3,750 a month still renewing, last used 84 days ago at the longest. Cancelling saves ₹45,000 a year.",
+            "playbooks": [
+              "cancelSubscription"
+            ],
+            "evidence": [
+              {
+                "source": "zoho-books",
+                "kind": "subscription",
+                "id": "sub-figma"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "subscription",
+                "id": "sub-zapier"
+              }
+            ]
+          },
+          {
+            "id": "stockoutRisk:shopify:product:CER-MUG4",
+            "detector": "stockoutRisk",
+            "severity": "high",
+            "group": "needs-you",
+            "title": "Indigo Stoneware Mug (set of 4) runs out in 10 days; the next batch takes 18",
+            "impactINR": 34800,
+            "exposureINR": null,
+            "onset": null,
+            "explain": "33 on hand against about 3 a day sold in the last 30 days gives 10 days of cover. Neelam Blue Pottery needs 18 days, so about 8 days of sales, ₹34,800, would be lost unless the order goes today.",
+            "playbooks": [
+              "reorderStock"
+            ],
+            "evidence": [
+              {
+                "source": "shopify",
+                "kind": "product",
+                "id": "CER-MUG4"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "order",
+                "id": "WO070"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "order",
+                "id": "WO072"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "order",
+                "id": "WO075"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "order",
+                "id": "WO080"
+              }
+            ]
+          },
+          {
+            "id": "renewalDue:calendar:obligation:all",
+            "detector": "renewalDue",
+            "severity": "medium",
+            "group": "worth-knowing",
+            "title": "3 renewals and filings due within 3 weeks, ₹15,200 in penalties if missed",
+            "impactINR": 15200,
+            "exposureINR": null,
+            "onset": null,
+            "explain": "kaverihome.in domain renewal in 9 days, GSTR-3B payment for September in 12 days, Shop insurance renewal in 18 days. Together ₹2,15,200 to pay, and ₹15,200 in late fees and lapses if any is missed.",
+            "playbooks": [
+              "scheduleRenewal"
+            ],
+            "evidence": [
+              {
+                "source": "calendar",
+                "kind": "obligation",
+                "id": "ob-domain"
+              },
+              {
+                "source": "calendar",
+                "kind": "obligation",
+                "id": "ob-gst"
+              },
+              {
+                "source": "calendar",
+                "kind": "obligation",
+                "id": "ob-insurance"
+              }
+            ]
+          },
+          {
+            "id": "adEfficiency:meta-ads:adDay:ad-88-0",
+            "detector": "adEfficiency",
+            "severity": "medium",
+            "group": "worth-knowing",
+            "title": "Cost per order from ads up 24% this month, ₹139 against ₹112",
+            "impactINR": 14755,
+            "exposureINR": null,
+            "onset": "2026-10-01",
+            "explain": "₹88,528 of ad spend brought 635 D2C orders in the last 30 days, ₹139 each, against ₹112 in the 30 days before (3 campaigns). Spend rose faster than orders; about ₹14,755 of this month's spend bought nothing the old rate would not have.",
+            "playbooks": [],
+            "evidence": [
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-88-0"
+              },
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-88-1"
+              },
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-88-2"
+              },
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-89-0"
+              },
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-89-1"
+              }
+            ]
+          },
+          {
+            "id": "complaintSpike:freshdesk:ticket:tk-44",
+            "detector": "complaintSpike",
+            "severity": "medium",
+            "group": "worth-knowing",
+            "title": "Delivery complaints up from 3 to 11 since the NCR courier change",
+            "impactINR": 14131,
+            "exposureINR": null,
+            "onset": null,
+            "explain": "11 delivery complaints in the last 14 days against 3 before. Xpressbees is averaging 3.4 days past promise on NCR deliveries and has carried 55 shipments since taking over. At a 21% repeat rate and ₹1,251 an order, about ₹14,131 of repeat business is at risk.",
+            "playbooks": [
+              "escalateCourier"
+            ],
+            "evidence": [
+              {
+                "source": "freshdesk",
+                "kind": "ticket",
+                "id": "tk-44"
+              },
+              {
+                "source": "freshdesk",
+                "kind": "ticket",
+                "id": "tk-45"
+              },
+              {
+                "source": "freshdesk",
+                "kind": "ticket",
+                "id": "tk-46"
+              },
+              {
+                "source": "freshdesk",
+                "kind": "ticket",
+                "id": "tk-48"
+              },
+              {
+                "source": "freshdesk",
+                "kind": "ticket",
+                "id": "tk-49"
+              }
+            ]
+          },
+          {
+            "id": "costCreep:gmail:bill:bill-airtel-1",
+            "detector": "costCreep",
+            "severity": "info",
+            "group": "worth-knowing",
+            "title": "Airtel bill up ₹400 a month since the plan upgrade",
+            "impactINR": 4800,
+            "exposureINR": null,
+            "onset": "2026-09-09",
+            "explain": "The Airtel bill was ₹1,899 on 09/09 against ₹1,499 before (27% more). Airtel Business: \"Your plan has been upgraded to Fibre 300 Mbps as per the renewal terms.\" That is ₹4,800 a year.",
+            "playbooks": [],
+            "evidence": [
+              {
+                "source": "gmail",
+                "kind": "bill",
+                "id": "bill-airtel-1"
+              },
+              {
+                "source": "gmail",
+                "kind": "bill",
+                "id": "bill-airtel-2"
+              },
+              {
+                "source": "gmail",
+                "kind": "bill",
+                "id": "bill-airtel-3"
+              },
+              {
+                "source": "gmail",
+                "kind": "event",
+                "id": "ev-plan-upgraded"
+              }
+            ]
+          },
+          {
+            "id": "customerConcentration:zoho-books:customer:w01",
+            "detector": "customerConcentration",
+            "severity": "medium",
+            "group": "worth-knowing",
+            "title": "Saffron Stories is 31% of revenue, ₹16.9 lakh exposed",
+            "impactINR": 0,
+            "exposureINR": 1685480,
+            "onset": "2026-07-18",
+            "explain": "Saffron Stories, Bengaluru placed 32 orders worth ₹16,85,480 in 90 days, 31% of all revenue. They are also 41 days late on ₹48,600. Losing them would take ₹5.6 lakh a month with it.",
+            "playbooks": [],
+            "evidence": [
+              {
+                "source": "zoho-books",
+                "kind": "customer",
+                "id": "w01"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "order",
+                "id": "WO028"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "order",
+                "id": "WO029"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "order",
+                "id": "WO030"
+              },
+              {
+                "source": "zoho-books",
+                "kind": "order",
+                "id": "WO031"
+              }
+            ]
+          }
+        ]
+      },
+      "delayMs": 800
+    },
+    {
+      "type": "data-answer",
+      "data": {
+        "chainId": null,
+        "narrative": "Three things today, in this order, worth about ₹4.1 lakh between them.\n\nFirst, the 7 wholesale leads worth ₹1.8 lakh: about ₹1.1 lakh is expected from replying, and the replies are drafted. Review 7 drafts on Today sends them.\n\nSecond, the 3 wholesale invoices overdue, ₹82,400. Cash dips ₹62,477 under the ₹2 lakh buffer in 23 days, and collecting these invoices keeps it above the buffer. The reminders are drafted, and the two largest get a call.\n\nThird, Indigo Stoneware Mug (set of 4) runs out in 10 days, and the next batch takes 18. Neelam Blue Pottery needs 18 days, so about 8 days of sales, ₹34,800, would be lost unless the order goes today. The purchase order is drafted.\n\nThe other 6 findings can wait a day: 2 subscriptions nobody has used in two months, ₹45,000 a year; 3 renewals and filings due within 3 weeks, ₹15,200 in penalties if missed; cost per order from ads up 24% this month, ₹139 against ₹112.",
+        "citations": [
+          "whatsapp:lead:L093",
+          "gmail:lead:L094",
+          "whatsapp:lead:L095",
+          "gmail:lead:L096",
+          "whatsapp:lead:L097",
+          "zoho-books:invoice:inv-WO-S4-1",
+          "zoho-books:invoice:inv-WO-S4-2",
+          "zoho-books:invoice:inv-WO-S4-3",
+          "gmail:message:m0388",
+          "gmail:message:m0389",
+          "shopify:product:CER-MUG4",
+          "zoho-books:order:WO070",
+          "zoho-books:order:WO072",
+          "zoho-books:order:WO075",
+          "zoho-books:order:WO080",
+          "calendar:obligation:ob-payroll",
+          "calendar:obligation:ob-gst",
+          "zoho-books:bill:bill-18",
+          "zoho-books:bill:bill-15"
+        ]
+      },
+      "delayMs": 300
+    }
+  ]
+}

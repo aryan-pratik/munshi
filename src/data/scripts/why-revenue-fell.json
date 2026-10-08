@@ -1,0 +1,809 @@
+{
+  "id": "why-revenue-fell",
+  "question": "Why did revenue fall last week?",
+  "match": [
+    "why did revenue fall",
+    "revenue drop",
+    "revenue down",
+    "sales fell",
+    "why is revenue down"
+  ],
+  "parts": [
+    {
+      "type": "text",
+      "text": "Looking at the last 14 days against the 14 before.",
+      "delayMs": 200
+    },
+    {
+      "type": "tool",
+      "tool": "compareWindows",
+      "input": {
+        "metric": "revenue"
+      },
+      "output": {
+        "metric": "revenue",
+        "label": "Revenue",
+        "unit": "inr",
+        "goodWhen": "up",
+        "current": 809220,
+        "previous": 862120,
+        "delta": -52900,
+        "deltaPct": -6.14,
+        "windows": {
+          "current": {
+            "from": "2026-09-25",
+            "to": "2026-10-08"
+          },
+          "previous": {
+            "from": "2026-09-11",
+            "to": "2026-09-24"
+          }
+        }
+      },
+      "delayMs": 500
+    },
+    {
+      "type": "tool",
+      "tool": "compareWindows",
+      "input": {
+        "metric": "revenueD2C"
+      },
+      "output": {
+        "metric": "revenueD2C",
+        "label": "D2C revenue",
+        "unit": "inr",
+        "goodWhen": "up",
+        "current": 348300,
+        "previous": 401200,
+        "delta": -52900,
+        "deltaPct": -13.19,
+        "windows": {
+          "current": {
+            "from": "2026-09-25",
+            "to": "2026-10-08"
+          },
+          "previous": {
+            "from": "2026-09-11",
+            "to": "2026-09-24"
+          }
+        }
+      },
+      "delayMs": 400
+    },
+    {
+      "type": "tool",
+      "tool": "compareWindows",
+      "input": {
+        "metric": "revenueWholesale"
+      },
+      "output": {
+        "metric": "revenueWholesale",
+        "label": "Wholesale revenue",
+        "unit": "inr",
+        "goodWhen": "up",
+        "current": 460920,
+        "previous": 460920,
+        "delta": 0,
+        "deltaPct": 0,
+        "windows": {
+          "current": {
+            "from": "2026-09-25",
+            "to": "2026-10-08"
+          },
+          "previous": {
+            "from": "2026-09-11",
+            "to": "2026-09-24"
+          }
+        }
+      },
+      "delayMs": 400
+    },
+    {
+      "type": "text",
+      "text": "Total revenue is down 6% and the fall is all D2C. Walking the graph upstream of D2C revenue.",
+      "delayMs": 300
+    },
+    {
+      "type": "tool",
+      "tool": "walkCausalGraph",
+      "input": {
+        "target": "revenueD2C"
+      },
+      "output": {
+        "id": "revenueD2C:2026-10-08",
+        "target": "revenueD2C",
+        "window": {
+          "from": "2026-09-25",
+          "to": "2026-10-08"
+        },
+        "nodes": [
+          {
+            "metric": "adSpend",
+            "delta": -7.59,
+            "series": [
+              3113,
+              3147,
+              3131,
+              3170,
+              3140,
+              3157,
+              3145,
+              3019,
+              3204,
+              3135,
+              3177,
+              3117,
+              3109,
+              3065,
+              3112,
+              2947,
+              2963,
+              2822,
+              2877,
+              2868,
+              2987,
+              2869,
+              2800,
+              2872,
+              2770,
+              2859,
+              2886,
+              2870
+            ],
+            "onset": "2026-09-26",
+            "onsetEvidence": [
+              {
+                "source": "meta-ads",
+                "kind": "event",
+                "id": "ev-campaign-paused"
+              }
+            ],
+            "evidence": [
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-77-2"
+              },
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-78-2"
+              },
+              {
+                "source": "meta-ads",
+                "kind": "event",
+                "id": "ev-campaign-paused"
+              }
+            ]
+          },
+          {
+            "metric": "sessions",
+            "delta": -5.23,
+            "series": [
+              808,
+              922,
+              903,
+              789,
+              787,
+              822,
+              810,
+              838,
+              927,
+              891,
+              790,
+              798,
+              822,
+              806,
+              851,
+              865,
+              841,
+              720,
+              757,
+              751,
+              791,
+              795,
+              855,
+              875,
+              724,
+              734,
+              754,
+              787
+            ],
+            "onset": "2026-09-26",
+            "onsetEvidence": [],
+            "evidence": [
+              {
+                "source": "shopify",
+                "kind": "trafficDay",
+                "id": "tr-76"
+              },
+              {
+                "source": "shopify",
+                "kind": "trafficDay",
+                "id": "tr-77"
+              },
+              {
+                "source": "shopify",
+                "kind": "trafficDay",
+                "id": "tr-78"
+              },
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-77-2"
+              }
+            ]
+          },
+          {
+            "metric": "ordersD2C",
+            "delta": -12.81,
+            "series": [
+              19,
+              24,
+              25,
+              23,
+              21,
+              23,
+              23,
+              22,
+              25,
+              25,
+              23,
+              22,
+              22,
+              23,
+              22,
+              22,
+              24,
+              20,
+              19,
+              19,
+              18,
+              20,
+              19,
+              21,
+              21,
+              17,
+              18,
+              19
+            ],
+            "onset": "2026-09-28",
+            "onsetEvidence": [],
+            "evidence": [
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11565"
+              },
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11566"
+              },
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11567"
+              }
+            ]
+          },
+          {
+            "metric": "revenueD2C",
+            "delta": -13.19,
+            "series": [
+              17650,
+              36900,
+              29100,
+              25850,
+              36700,
+              30450,
+              27650,
+              28900,
+              36300,
+              28350,
+              27050,
+              26950,
+              26900,
+              22450,
+              24950,
+              30250,
+              30550,
+              25450,
+              18900,
+              24700,
+              22500,
+              30550,
+              24950,
+              27250,
+              22950,
+              19350,
+              21350,
+              24600
+            ],
+            "onset": null,
+            "onsetEvidence": [],
+            "evidence": [
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11773"
+              },
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11774"
+              },
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11775"
+              }
+            ]
+          }
+        ],
+        "edges": [
+          {
+            "from": "adSpend",
+            "to": "sessions",
+            "sign": 1,
+            "strength": 1
+          },
+          {
+            "from": "sessions",
+            "to": "ordersD2C",
+            "sign": 1,
+            "strength": 0.41
+          },
+          {
+            "from": "ordersD2C",
+            "to": "revenueD2C",
+            "sign": 1,
+            "strength": 0.97
+          }
+        ],
+        "branches": [
+          {
+            "id": "landingCvr:2026-10-08",
+            "target": "ordersD2C",
+            "window": {
+              "from": "2026-09-25",
+              "to": "2026-10-08"
+            },
+            "nodes": [
+              {
+                "metric": "landingCvr",
+                "delta": -25.9,
+                "series": [
+                  4.3478260869565215,
+                  4.430379746835443,
+                  4.878048780487805,
+                  4.929577464788732,
+                  5,
+                  4.72972972972973,
+                  4.861111111111112,
+                  4.666666666666667,
+                  4.678362573099415,
+                  5.063291139240507,
+                  5.0359712230215825,
+                  5.0359712230215825,
+                  4.761904761904762,
+                  4.861111111111112,
+                  4.605263157894736,
+                  4.666666666666667,
+                  5.161290322580645,
+                  3.816793893129771,
+                  3.5211267605633805,
+                  2.877697841726619,
+                  2.857142857142857,
+                  3.5211267605633805,
+                  2.564102564102564,
+                  3.2467532467532463,
+                  3.8461538461538463,
+                  3.125,
+                  3.0303030303030303,
+                  2.7777777777777777
+                ],
+                "onset": "2026-09-28",
+                "onsetEvidence": [
+                  {
+                    "source": "shopify",
+                    "kind": "event",
+                    "id": "ev-theme-updated"
+                  }
+                ],
+                "evidence": [
+                  {
+                    "source": "shopify",
+                    "kind": "event",
+                    "id": "ev-theme-updated"
+                  },
+                  {
+                    "source": "shopify",
+                    "kind": "trafficDay",
+                    "id": "tr-78"
+                  },
+                  {
+                    "source": "shopify",
+                    "kind": "trafficDay",
+                    "id": "tr-79"
+                  }
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "from": "landingCvr",
+                "to": "ordersD2C",
+                "sign": 1,
+                "strength": 0.3
+              }
+            ],
+            "branches": []
+          }
+        ]
+      },
+      "delayMs": 1100
+    },
+    {
+      "type": "data-chain",
+      "data": {
+        "id": "revenueD2C:2026-10-08",
+        "target": "revenueD2C",
+        "window": {
+          "from": "2026-09-25",
+          "to": "2026-10-08"
+        },
+        "nodes": [
+          {
+            "metric": "adSpend",
+            "delta": -7.59,
+            "series": [
+              3113,
+              3147,
+              3131,
+              3170,
+              3140,
+              3157,
+              3145,
+              3019,
+              3204,
+              3135,
+              3177,
+              3117,
+              3109,
+              3065,
+              3112,
+              2947,
+              2963,
+              2822,
+              2877,
+              2868,
+              2987,
+              2869,
+              2800,
+              2872,
+              2770,
+              2859,
+              2886,
+              2870
+            ],
+            "onset": "2026-09-26",
+            "onsetEvidence": [
+              {
+                "source": "meta-ads",
+                "kind": "event",
+                "id": "ev-campaign-paused"
+              }
+            ],
+            "evidence": [
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-77-2"
+              },
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-78-2"
+              },
+              {
+                "source": "meta-ads",
+                "kind": "event",
+                "id": "ev-campaign-paused"
+              }
+            ]
+          },
+          {
+            "metric": "sessions",
+            "delta": -5.23,
+            "series": [
+              808,
+              922,
+              903,
+              789,
+              787,
+              822,
+              810,
+              838,
+              927,
+              891,
+              790,
+              798,
+              822,
+              806,
+              851,
+              865,
+              841,
+              720,
+              757,
+              751,
+              791,
+              795,
+              855,
+              875,
+              724,
+              734,
+              754,
+              787
+            ],
+            "onset": "2026-09-26",
+            "onsetEvidence": [],
+            "evidence": [
+              {
+                "source": "shopify",
+                "kind": "trafficDay",
+                "id": "tr-76"
+              },
+              {
+                "source": "shopify",
+                "kind": "trafficDay",
+                "id": "tr-77"
+              },
+              {
+                "source": "shopify",
+                "kind": "trafficDay",
+                "id": "tr-78"
+              },
+              {
+                "source": "meta-ads",
+                "kind": "adDay",
+                "id": "ad-77-2"
+              }
+            ]
+          },
+          {
+            "metric": "ordersD2C",
+            "delta": -12.81,
+            "series": [
+              19,
+              24,
+              25,
+              23,
+              21,
+              23,
+              23,
+              22,
+              25,
+              25,
+              23,
+              22,
+              22,
+              23,
+              22,
+              22,
+              24,
+              20,
+              19,
+              19,
+              18,
+              20,
+              19,
+              21,
+              21,
+              17,
+              18,
+              19
+            ],
+            "onset": "2026-09-28",
+            "onsetEvidence": [],
+            "evidence": [
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11565"
+              },
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11566"
+              },
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11567"
+              }
+            ]
+          },
+          {
+            "metric": "revenueD2C",
+            "delta": -13.19,
+            "series": [
+              17650,
+              36900,
+              29100,
+              25850,
+              36700,
+              30450,
+              27650,
+              28900,
+              36300,
+              28350,
+              27050,
+              26950,
+              26900,
+              22450,
+              24950,
+              30250,
+              30550,
+              25450,
+              18900,
+              24700,
+              22500,
+              30550,
+              24950,
+              27250,
+              22950,
+              19350,
+              21350,
+              24600
+            ],
+            "onset": null,
+            "onsetEvidence": [],
+            "evidence": [
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11773"
+              },
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11774"
+              },
+              {
+                "source": "shopify",
+                "kind": "order",
+                "id": "KH11775"
+              }
+            ]
+          }
+        ],
+        "edges": [
+          {
+            "from": "adSpend",
+            "to": "sessions",
+            "sign": 1,
+            "strength": 1
+          },
+          {
+            "from": "sessions",
+            "to": "ordersD2C",
+            "sign": 1,
+            "strength": 0.41
+          },
+          {
+            "from": "ordersD2C",
+            "to": "revenueD2C",
+            "sign": 1,
+            "strength": 0.97
+          }
+        ],
+        "branches": [
+          {
+            "id": "landingCvr:2026-10-08",
+            "target": "ordersD2C",
+            "window": {
+              "from": "2026-09-25",
+              "to": "2026-10-08"
+            },
+            "nodes": [
+              {
+                "metric": "landingCvr",
+                "delta": -25.9,
+                "series": [
+                  4.3478260869565215,
+                  4.430379746835443,
+                  4.878048780487805,
+                  4.929577464788732,
+                  5,
+                  4.72972972972973,
+                  4.861111111111112,
+                  4.666666666666667,
+                  4.678362573099415,
+                  5.063291139240507,
+                  5.0359712230215825,
+                  5.0359712230215825,
+                  4.761904761904762,
+                  4.861111111111112,
+                  4.605263157894736,
+                  4.666666666666667,
+                  5.161290322580645,
+                  3.816793893129771,
+                  3.5211267605633805,
+                  2.877697841726619,
+                  2.857142857142857,
+                  3.5211267605633805,
+                  2.564102564102564,
+                  3.2467532467532463,
+                  3.8461538461538463,
+                  3.125,
+                  3.0303030303030303,
+                  2.7777777777777777
+                ],
+                "onset": "2026-09-28",
+                "onsetEvidence": [
+                  {
+                    "source": "shopify",
+                    "kind": "event",
+                    "id": "ev-theme-updated"
+                  }
+                ],
+                "evidence": [
+                  {
+                    "source": "shopify",
+                    "kind": "event",
+                    "id": "ev-theme-updated"
+                  },
+                  {
+                    "source": "shopify",
+                    "kind": "trafficDay",
+                    "id": "tr-78"
+                  },
+                  {
+                    "source": "shopify",
+                    "kind": "trafficDay",
+                    "id": "tr-79"
+                  }
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "from": "landingCvr",
+                "to": "ordersD2C",
+                "sign": 1,
+                "strength": 0.3
+              }
+            ],
+            "branches": []
+          }
+        ]
+      },
+      "delayMs": 0
+    },
+    {
+      "type": "data-answer",
+      "data": {
+        "chainId": "revenueD2C:2026-10-08",
+        "narrative": "Revenue is down about 6% over the last 14 days, and all of it is D2C, which is down 13%. Wholesale held flat.\n\nThe likely cause began on 26 Sep, the day of the event \"Diwali Early campaign paused\". Ad spend fell 8%, sessions fell 5% the same day, and D2C orders fell 13% from 28 Sep. Each of those moved in the order the graph expects, and the cause moved first.\n\nA second cause is also contributing. Landing-page conversion fell 26% from 28 Sep, the day of the event \"Shopify theme updated\", so the sessions that still arrive convert worse than before. Restoring the ad spend alone would send more traffic into a page that converts worse. Fix the landing page first, then the spend.",
+        "citations": [
+          "meta-ads:event:ev-campaign-paused",
+          "meta-ads:adDay:ad-77-2",
+          "meta-ads:adDay:ad-78-2",
+          "shopify:trafficDay:tr-76",
+          "shopify:trafficDay:tr-77",
+          "shopify:trafficDay:tr-78",
+          "shopify:order:KH11565",
+          "shopify:order:KH11566",
+          "shopify:order:KH11567",
+          "shopify:order:KH11773",
+          "shopify:order:KH11774",
+          "shopify:order:KH11775",
+          "shopify:event:ev-theme-updated",
+          "shopify:trafficDay:tr-79"
+        ]
+      },
+      "delayMs": 400
+    }
+  ]
+}

@@ -49,9 +49,10 @@ GST payment in 12 days. Each row has a small strip in its Since column showing w
 
 `⌘K`, then pick **Why did revenue fall last week?** from the suggestion list under the ask field.
 
-The first line of the answer says total revenue is down about 6%, and all of it is D2C, which is
-down 14%. Wholesale held flat. Let the trail draw. Don't talk over the animation. Five strips in
-three groups appear top to bottom on one shared 28-day axis:
+Let the trail draw. Don't talk over the animation. The narrative lands under the trail once the
+draw has finished; its first line says total revenue is down about 6%, and all of it is D2C, which
+is down 14%. Wholesale held flat. Five strips in three groups appear top to bottom on one shared
+28-day axis:
 
 1. Ad spend, sessions.
 2. Under the heading **Also contributing**: landing conversion.
@@ -125,7 +126,7 @@ invoices are collected** switch.
 |---|---|
 | Live model slow or fails | In `auto` the request falls back to the matching script and the label reads "Demo answers"; say nothing. If you are in `live`, there is no fallback: set `MUNSHI_AI_MODE=scripted`, restart, hard refresh. If no script matches the question, the answer says "I could not reach the model and have no recorded answer for this question." In `scripted`, an unknown question gets "I only know these questions in demo mode." plus the suggestion chips: pick one. |
 | Trail doesn't animate | Reduced-motion is on at OS level. The trail still renders, fully drawn. Continue, and point at the onset marks yourself. |
-| A strip says "unverified" | The engine found no onset or no evidence for it and is saying so. Don't hide it; it is the honest answer to the next question below. |
+| A strip says "unverified" | The engine found no evidence for it and is saying so (a strip with evidence but no clear onset just has no onset mark). Don't hide it; it is the honest answer to the next question below. |
 | State looks wrong (findings already handled) | Hard refresh resets the world to the seed; the store is in memory only. |
 | Projector washes out | Zoom to 125%; light mode was chosen for this. |
 
@@ -141,8 +142,8 @@ invoices are collected** switch.
   three things: the metrics moved together along a known business graph, the cause's change began
   on or before the effect's (that is what the stepping onset marks are), and there is a dated
   event record you can open (the campaign was paused, the theme was updated). That makes it the
-  likely cause, and the answer says "likely". Anything without evidence or without an onset is
-  labelled unverified on screen. See `docs/ENGINE.md`, section 3.
+  likely cause, and the answer says "likely". Anything without evidence is
+  labelled unverified on screen, and a metric with no clear onset carries no onset mark. See `docs/ENGINE.md`, section 3.
 - **"What stops it from sending something wrong?"** Nothing sends without an approval card, and
   every draft is editable. Actions are logged with expected vs actual impact.
 - **"Why would an SMB pay?"** The ₹ at stake is on the screen every morning. The product prices

@@ -67,7 +67,7 @@ export function walkCausalGraph(world: World, target: MetricId, window?: Window)
 
   const toNode = (m: MetricId): ChainNode => {
     const i = info.get(m)!;
-    return { metric: m, delta: round(i.delta), series: i.series, onset: i.onset, onsetEvidence: i.onsetEvidence, evidence: evidenceFor(world, m, current) };
+    return { metric: m, delta: round(i.delta), series: i.series, onset: i.onset, onsetEvidence: i.onsetEvidence, evidence: evidenceFor(world, m, current, i.onset) };
   };
   const byOnset = (a: MetricId, b: MetricId) => {
     const da = day(info.get(a)!.onset);
@@ -97,9 +97,18 @@ export function walkCausalGraph(world: World, target: MetricId, window?: Window)
 }
 
 /** The top records behind a node's move in the window. */
-export function evidenceFor(world: World, metric: MetricId, w: Window): RecordRef[] {
+/**
+ * Records that back a node. With an onset, dated records are the ones nearest that day (the day
+ * before and the days after it), so the popover shows the change, not the latest rows.
+ */
+export function evidenceFor(world: World, metric: MetricId, w: Window, onset: string | null = null): RecordRef[] {
   const refs: RecordRef[] = [];
   const push = (source: RecordRef["source"], kind: RecordRef["kind"], id: string) => refs.push({ source, kind, id });
+  const nearest = <T>(xs: T[], dateOf: (x: T) => string, n: number): T[] => {
+    if (!onset) return xs.slice(-n);
+    const o = dayIndex(world, onset);
+    return [...xs].sort((a, b) => Math.abs(dayIndex(world, dateOf(a)) - o) - Math.abs(dayIndex(world, dateOf(b)) - o) || dateOf(a).localeCompare(dateOf(b))).slice(0, n).sort((a, b) => dateOf(a).localeCompare(dateOf(b)));
+  };
   switch (metric) {
     case "adSpend": {
       const paused = world.adDays.filter((a) => a.status === "paused" && inWindow(a.date, w));
@@ -108,16 +117,16 @@ export function evidenceFor(world: World, metric: MetricId, w: Window): RecordRe
       break;
     }
     case "sessions":
-      for (const t of world.trafficDays.filter((x) => inWindow(x.date, w)).slice(-3)) push(t.source, "trafficDay", t.id);
+      for (const t of nearest(world.trafficDays.filter((x) => inWindow(x.date, w)), (x) => x.date, 3)) push(t.source, "trafficDay", t.id);
       for (const a of world.adDays.filter((x) => inWindow(x.date, w) && x.status === "paused").slice(0, 1)) push(a.source, "adDay", a.id);
       break;
     case "landingCvr":
       for (const e of world.events.filter((x) => x.kind === "theme_updated")) push(e.source, "event", e.id);
-      for (const t of world.trafficDays.filter((x) => inWindow(x.date, w)).slice(-2)) push(t.source, "trafficDay", t.id);
+      for (const t of nearest(world.trafficDays.filter((x) => inWindow(x.date, w)), (x) => x.date, 2)) push(t.source, "trafficDay", t.id);
       break;
     case "ordersD2C":
     case "revenueD2C":
-      for (const o of world.orders.filter((x) => x.channel === "d2c" && inWindow(x.createdAt, w)).slice(-3)) push(o.source, "order", o.id);
+      for (const o of nearest(world.orders.filter((x) => x.channel === "d2c" && inWindow(x.createdAt, w)), (x) => x.createdAt, 3)) push(o.source, "order", o.id);
       break;
     case "revenue":
       for (const o of world.orders.filter((x) => inWindow(x.createdAt, w)).slice(-3)) push(o.source, "order", o.id);

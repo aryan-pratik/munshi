@@ -121,7 +121,7 @@ tests/engine/             vitest
 scripts/
   bootstrap.sh            phase-0 scaffold (see README)
   generate-seed.ts        deterministic seed generator → src/data/seed/world.json
-  record-scripts.ts       runs the engine per demo question → src/data/scripts/*.json
+  record-scripts.ts       runs the engine per demo question → src/data/scripts/*.json (`pnpm record`)
 PRODUCT.md                what and why, plus the decision log (repo root)
 DESIGN.md                 the design contract (repo root)
 .agents/skills/           vendored design skills, symlinked from .claude/skills/
@@ -153,7 +153,7 @@ every Today row, so the product has one way of showing "since when".
 
 - **Client is the source of truth for state.** The server is stateless; every request carries the `actions[]` log and the server replays it over the committed seed. Payload stays small (actions, not the world). The store is in memory only; a hard refresh reloads the seed.
 - **Today = `analyze(current world)` merged with `handledFindings(seed, actions)`.** `analyze()` returns only open findings. `handledFindings` (in `engine/index.ts`) returns `{ finding, action }[]`: for each action at index i it takes the finding with `action.findingId` from `analyze(replay(seed, actions.slice(0, i)))` (the pre-action snapshot) and uses `action.approvedAt` as the handled time. The store merges the two on every `applyAction`.
-- **`/api/ask`** is the investigator agent. Tools: `getMetricSeries`, `compareWindows`, `walkCausalGraph`, `listRecords`, `getRecord`, `runSimulation`. `walkCausalGraph` returns a `Chain` whose nodes already carry their onset dates and both windows' daily series, so the client can draw the OnsetTrail straight from the tool output. The agent must cite `RecordRef`s in its final structured output. A strip with no evidence, or with no onset, is drawn labelled "unverified"; it is never hidden and never styled as fact.
+- **`/api/ask`** is the investigator agent. Tools: `getMetricSeries`, `compareWindows`, `walkCausalGraph`, `listRecords`, `getRecord`, `runSimulation`, `getFindings` (the ranked findings with their playbooks, one call for "what should I do today"). `walkCausalGraph` returns a `Chain` whose nodes already carry their onset dates and both windows' daily series, so the client can draw the OnsetTrail straight from the tool output. The agent must cite `RecordRef`s in its final structured output. A strip with no evidence is drawn labelled "unverified" (`DESIGN.md`); a strip with evidence but a null onset draws with no onset mark. Neither is hidden or styled as fact.
 - **Action names stay constant through a flow.** The playbook supplies the labels from its draft count: "Review 7 drafts" on the lead item, "Approve and send 7" in the Act sheet, "7 follow-ups sent" in the toast.
 - **Scripted mode** never calls the model. `/api/ask` replays a recorded script; `/api/act` streams the engine's template drafts. The full rules (resolution table, matching, request bodies, mode signalling) are in section 5, which is the single source.
 
@@ -190,8 +190,8 @@ Scripted streams are stored as an array of UI message parts with timing hints:
   "match": ["why did revenue fall", "revenue drop", "revenue down"],
   "parts": [
     { "type": "text", "text": "Looking at the last 14 days against the prior 14...", "delayMs": 300 },
-    { "type": "tool-compareWindows", "input": {...}, "output": {...}, "delayMs": 600 },   // revenue, then revenueD2C
-    { "type": "tool-walkCausalGraph", "input": { "target": "revenueD2C" }, "output": {...}, "delayMs": 1200 },
+    { "type": "tool", "tool": "compareWindows", "input": {...}, "output": {...}, "delayMs": 600 },   // revenue, then revenueD2C
+    { "type": "tool", "tool": "walkCausalGraph", "input": { "target": "revenueD2C" }, "output": {...}, "delayMs": 1200 },
     { "type": "data-chain", "data": {
         "id": "revenueD2C:<window.to>",
         "target": "revenueD2C",
@@ -255,7 +255,7 @@ type ChainNode = {
   metric: MetricId;
   delta: number;                 // Δ%, current 14 days vs previous 14
   series: number[];              // 28 daily points: previous 14, then current 14
-  onset: string | null;          // ISO date the change began; null = none found, drawn as "timing unverified"
+  onset: string | null;          // ISO date the change began; null = none found, drawn with no onset mark
   onsetEvidence: RecordRef[];    // the Event the onset snapped to, if any; drawn as a flag on the axis
   evidence: RecordRef[];
 };
