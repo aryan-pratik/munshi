@@ -80,7 +80,7 @@ phone).
 Click the link at the end of the answer (**Try this in What if**) or go to `/whatif`.
 
 Drag **Price** to +15%. The comparison table (Base, Scenario, Change) updates as you drag: profit
-falls from ₹1.60 lakh to ₹1.49 lakh, customers fall 22%, risk reads Medium.
+falls from ₹1.61 lakh to ₹1.52 lakh, customers fall 21%, risk reads Medium.
 
 > "Raising prices 15% makes profit worse: we'd lose about a fifth of customers."
 

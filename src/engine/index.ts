@@ -9,7 +9,7 @@ export { detectOnset, metricOnset } from "./graph/onset";
 export { EDGES, EVENT_ANCHORS, ancestorsOf } from "./graph/dag";
 export { horizon } from "./horizon";
 export { simulate, simulateBase, baseInputs, BASE_LEVERS, LEVER_RANGES } from "./simulator/model";
-export { optimize, GRID } from "./simulator/optimize";
+export { optimize, GRID, type ScanPoint, type Strategy, type Optimization } from "./simulator/optimize";
 export { PLAYBOOKS, playbook, playbooksFor, nextFriday } from "./playbooks";
 export * from "./windows";
 

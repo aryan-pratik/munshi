@@ -378,6 +378,18 @@ p {
   transform: translateY(100%);
 }
 
+/* The strategy scan (DESIGN.md, Scan counter): dots appear by opacity in batches while the counter runs. */
+.scan .scan-batch {
+  opacity: 0;
+}
+.scan.is-drawn .scan-batch {
+  opacity: 1;
+  transition: opacity 160ms var(--ease-out) var(--d);
+}
+.scan.is-drawn.no-anim .scan-batch {
+  transition: none;
+}
+
 /* The OnsetTrail draw (DESIGN.md, The one authored moment). Each strip carries --d, its delay. */
 .trail .trail-line {
   clip-path: inset(0 100% 0 0);

@@ -101,13 +101,13 @@ and states per `DESIGN.md`.
 
 ## Phase 5 — What if (3 h)
 
-- [ ] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`
-- [ ] `components/whatif/Levers.tsx` — sliders with value readouts and the base value marked, presets, reset
-- [ ] `OutcomeTable` — one row per `Outcome` field: Revenue, Customers, Churn, Profit, Cash runway; columns Base, Scenario, Change. Values update instantly as a slider moves, with no count-up. `notes[]` under it, then `RiskScale` (Low, Medium, High as words)
-- [ ] `StrategyScan` — the scan counter ("1,800 scenarios checked", the only animated number in the product) + scatter (x `riskScore`, y profit, from `optimize().all`) + `ParetoList` top 3 with "Apply"
-- [ ] `/whatif` reads initial levers from `?preset=`; `/ask` answers can deep-link here
-- [ ] After: `impeccable critique` then `impeccable polish` on What if, one bounded round
-- [ ] Commit: `feat: what if`
+- [x] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`
+- [x] `components/whatif/Levers.tsx` — sliders with value readouts and the base value marked, presets, reset
+- [x] `OutcomeTable` — one row per `Outcome` field: Revenue, Customers, Churn, Profit, Cash runway; columns Base, Scenario, Change. Values update instantly as a slider moves, with no count-up. `notes[]` under it, then `RiskScale` (Low, Medium, High as words)
+- [x] `StrategyScan` — the scan counter ("1,800 scenarios checked", the only animated number in the product) + scatter (x `riskScore`, y profit, from `optimize().all`) + `ParetoList` top 3 with "Apply"
+- [x] `/whatif` reads initial levers from `?preset=`; `/ask` answers can deep-link here
+- [x] After: `impeccable critique` then `impeccable polish` on What if, one bounded round
+- [x] Commit: `feat: what if`
 
 ## Phase 6 — Act (3 h)
 

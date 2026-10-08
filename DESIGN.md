@@ -358,7 +358,7 @@ Nothing is larger than 28px. The giant number with a small label under it is ref
 
 **Density.** Medium-high. Findings, sources, records, outcomes and strategies are tables with real columns. Lists are rows divided by a 1px rule. A card is used only when a thing genuinely floats or stands alone; a grid of identical cards is never the page structure.
 
-**Tables.** Header row 36px in the label role, ink-2, with a 1px rule beneath. Rows are at least 52px, cells padded 12px by 16px, divided by a 1px rule. Numeric columns are right-aligned and tabular. Row hover is wash (fine pointers only). An expanded or selected row is neel-soft and carries `aria-expanded`. Under 720px a table becomes stacked rows: the first line holds the primary cell, the second holds the supporting cells left and the amount right.
+**Tables.** Header row 36px in the label role, ink-2, with a 1px rule beneath. Rows are at least 52px, cells padded 12px by 16px, divided by a 1px rule. Numeric columns are right-aligned and tabular. Row hover is wash (fine pointers only). An expanded or selected row is neel-soft and carries `aria-expanded`. Under 720px a table becomes stacked rows: the first line holds the primary cell, the second holds the supporting cells left and the amount right. The exception is a comparison table whose point is reading across (the What if outcome table, the top three strategies): it keeps its columns at every width, with the label column allowed to wrap.
 
 **Overflow.** Text containers truncate or wrap by decision, flex children get `min-w-0`, and no screen scrolls horizontally at 390px. Test every money cell with `₹12,34,56,789`.
 
