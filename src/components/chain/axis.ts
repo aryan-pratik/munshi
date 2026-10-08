@@ -32,6 +32,29 @@ export function linePath(values: number[], s: Scales): string {
 }
 
 /** The area between the line and a horizontal level, only where `below(v)` holds. */
+/** The stretch of the line that sits below `level`, with the crossings interpolated so it starts and ends on the level. */
+export function lineBelow(values: number[], level: number, s: Scales): string {
+  const parts: string[] = [];
+  let open = false;
+  const pt = (x: number, y: number) => `${s.x(x).toFixed(1)} ${s.y(y).toFixed(1)}`;
+  for (let i = 0; i < values.length; i++) {
+    const v = values[i];
+    const prev = i > 0 ? values[i - 1] : null;
+    if (v < level) {
+      if (!open) {
+        if (prev !== null && prev >= level) parts.push(`M${pt(i - 1 + (prev - level) / (prev - v), level)}`);
+        else parts.push(`M${pt(i, v)}`);
+        open = true;
+        if (prev !== null && prev >= level) parts.push(`L${pt(i, v)}`);
+      } else parts.push(`L${pt(i, v)}`);
+    } else if (open && prev !== null) {
+      parts.push(`L${pt(i - 1 + (level - prev) / (v - prev), level)}`);
+      open = false;
+    }
+  }
+  return parts.join(" ");
+}
+
 export function areaBelow(values: number[], level: number, s: Scales): string {
   const gen = area<number>()
     .defined((v) => v < level)

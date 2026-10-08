@@ -53,7 +53,7 @@ export function EventLine({ world, refx }: { world: World; refx: RecordRef }) {
   );
 }
 
-type Row = { number: string; party: string; date: string; amount: number | null; status?: { label: string; variant?: "default" | "critical" | "warn" | "good" } };
+export type Row = { number: string; party: string; date: string; amount: number | null; status?: { label: string; variant?: "default" | "critical" | "warn" | "good" } };
 
 /** One table-like row for an invoice, order, bill or any other record with a number and a party. */
 export function RecordRow({ world, refx }: { world: World; refx: RecordRef }) {
@@ -79,7 +79,7 @@ export function RecordRow({ world, refx }: { world: World; refx: RecordRef }) {
   );
 }
 
-function rowOf(world: World, refx: RecordRef): Row | null {
+export function rowOf(world: World, refx: RecordRef): Row | null {
   const today = now(world);
   switch (refx.kind) {
     case "invoice": {

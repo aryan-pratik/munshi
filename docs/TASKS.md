@@ -124,13 +124,13 @@ and states per `DESIGN.md`.
 
 ## Phase 7 — Horizon + Vault (3 h)
 
-- [ ] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`
-- [ ] `RunwayCurve` with buffer band, pinned outflows, "Assume overdue invoices are collected" switch (path morph); reuses the Phase 3 axis helper and `engine/horizon.ts`
-- [ ] `UpcomingList`, `RiskStrip`
-- [ ] Vault: `SourceGrid`, `RecordTable` (virtualised if > 500 rows — or just paginate), `GraphExplorer`
-- [ ] Every `ReceiptChip` anywhere deep-links to the Vault record
-- [ ] After: `impeccable critique` then `impeccable polish` on Horizon and Vault, one bounded round
-- [ ] Commit: `feat: horizon + vault`
+- [x] Before: load `impeccable` (Operate mode, read `reference/craft-floor.md`) and `emil-design-eng`
+- [x] `RunwayCurve` with buffer band, pinned outflows, "Assume overdue invoices are collected" switch (path morph); reuses the Phase 3 axis helper and `engine/horizon.ts`
+- [x] `UpcomingList`, `RiskStrip`
+- [x] Vault: `SourceGrid`, `RecordTable` (paginated, 50 a page), `GraphExplorer`
+- [x] Every `ReceiptChip` anywhere deep-links to the Vault record
+- [x] After: `impeccable critique` then `impeccable polish` on Horizon and Vault, one bounded round
+- [x] Commit: `feat: horizon + vault`
 
 ## Phase 8 — Finish gate (3 h)
 
