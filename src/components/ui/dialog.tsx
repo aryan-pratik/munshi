@@ -31,7 +31,7 @@ export function Sheet({ side = "right", title, hideTitle, meta, closeDisabled, c
       <BaseDialog.Backdrop className="sheet-scrim fixed inset-0 z-40 bg-(--scrim)" />
       <BaseDialog.Popup
         className={cn(
-          "sheet-popup fixed z-50 flex flex-col bg-surface outline-none",
+          "sheet-popup fixed z-50 flex flex-col bg-surface",
           side === "bottom" ? "shadow-(--shadow-sheet-up)" : "shadow-(--shadow-sheet)",
           side === "right" ? "inset-y-0 right-0 w-full max-w-[480px] max-phone:pb-[env(safe-area-inset-bottom)]" : "inset-x-0 bottom-0 max-h-[85dvh] rounded-t-[12px] pb-[env(safe-area-inset-bottom)]",
           className,
@@ -48,7 +48,7 @@ export function Sheet({ side = "right", title, hideTitle, meta, closeDisabled, c
             <X aria-hidden strokeWidth={1.5} />
           </BaseDialog.Close>
         </header>
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">{children}</div>
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain [scroll-padding-bottom:120px]">{children}</div>
       </BaseDialog.Popup>
     </BaseDialog.Portal>
   );

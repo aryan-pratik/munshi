@@ -73,7 +73,7 @@ export function AskScreen() {
             world={world}
             message={m}
             streaming={busy && m === last}
-            error={m === last && status === "error" ? (error?.message ?? "The model failed.") : null}
+            error={m === last && status === "error" ? friendly(error) : null}
             onRetry={() => {
               clearError();
               void regenerate({ body: { actions } });
@@ -84,7 +84,7 @@ export function AskScreen() {
       )}
       {status === "error" && last?.role === "user" ? (
         <div className="rounded-[12px] border border-rule bg-surface p-4">
-          <p className="t-ui text-debit">{error?.message ?? "The request failed."}</p>
+          <p className="t-ui text-debit">{friendly(error)}</p>
           <button
             type="button"
             onClick={() => {
@@ -99,4 +99,13 @@ export function AskScreen() {
       ) : null}
     </div>
   );
+}
+
+/** A plain sentence for the error box, with the next step; the raw message stays in the console. */
+function friendly(error: Error | undefined): string {
+  if (error) console.error(error);
+  const m = error?.message ?? "";
+  if (/fetch|network|Load failed/i.test(m)) return "Munshi could not reach the server. Check the connection, then try again.";
+  if (/401|403|key/i.test(m)) return "The model key was refused. Check AI_GATEWAY_API_KEY, or set MUNSHI_AI_MODE=scripted.";
+  return "Munshi could not finish this answer. Try again, or ask it another way.";
 }

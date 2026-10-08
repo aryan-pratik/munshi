@@ -76,7 +76,7 @@ export function DraftPreview({ world, draft, body, kept, state, disabled, onChan
           </p>
         </div>
         {state === "sent" ? null : (
-          <Button size="sm" variant="ghost" onClick={() => onKeep(!kept)} disabled={disabled} aria-pressed={!kept}>
+          <Button size="sm" variant="ghost" onClick={() => onKeep(!kept)} disabled={disabled}>
             {kept ? "Drop" : "Keep"}
           </Button>
         )}
@@ -95,7 +95,7 @@ export function DraftPreview({ world, draft, body, kept, state, disabled, onChan
         }}
         onFocus={grow}
         rows={Math.max(2, body.split("\n").length)}
-        className="mt-3 block w-[calc(100%+16px)] resize-none rounded-[8px] border border-transparent bg-transparent px-2 py-1 -mx-2 t-body text-ink outline-none hover:border-rule focus:border-neel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel disabled:text-ink-2 field-sizing-content"
+        className="mt-3 block w-[calc(100%+16px)] resize-none rounded-[8px] border border-transparent bg-transparent px-2 py-1 -mx-2 t-body text-ink hover:border-rule focus:border-neel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel disabled:text-ink-2 field-sizing-content"
       />
       {onRewrite ? (
         <div className="mt-2 flex justify-end">

@@ -74,7 +74,7 @@ export function RecordTable({ world, record, className }: { world: World; record
               setKind(e.target.value as RecordKind | "all");
               setPage(0);
             }}
-            className="h-9 rounded-[8px] border border-rule-strong bg-surface pr-8 pl-3 t-ui text-ink outline-none focus:border-neel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel"
+            className="h-9 rounded-[8px] border border-rule-strong bg-surface pr-8 pl-3 t-ui text-ink focus:border-neel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel"
           >
             <option value="all">All kinds, {count(all.length)}</option>
             {kinds.map((k) => (
@@ -101,7 +101,7 @@ export function RecordTable({ world, record, className }: { world: World; record
                 setPage(0);
               }}
               placeholder="A name, a number, a shop…"
-              className="h-9 w-full rounded-[8px] border border-rule-strong bg-surface pr-3 pl-9 t-ui text-ink outline-none placeholder:text-ink-3 focus:border-neel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel"
+              className="h-9 w-full rounded-[8px] border border-rule-strong bg-surface pr-3 pl-9 t-ui text-ink placeholder:text-ink-3 focus:border-neel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel"
             />
           </span>
         </label>
@@ -163,12 +163,12 @@ function Row({ world, r, expanded, onToggle, ref }: { world: World; r: IndexedRe
     <>
       <tr ref={ref} className={cn("group border-b border-rule scroll-mt-20", expanded ? "bg-neel-soft" : "fine:hover:bg-wash", STACK)}>
         <td className={cn("w-8 px-2 py-3 align-middle max-phone:p-0")}>
-          <button type="button" onClick={onToggle} aria-expanded={expanded} aria-controls={panelId} aria-label={`${expanded ? "Hide" : "Show"} ${r.title}`} className="flex size-6 items-center justify-center rounded-[6px] text-ink-3 outline-none hover:bg-wash hover:text-ink focus-visible:outline-2 focus-visible:outline-neel">
-            <ChevronRight className={cn("size-4 transition-transform duration-[120ms] ease-[ease]", expanded && "rotate-90")} aria-hidden strokeWidth={1.5} />
-          </button>
+          <span className="flex size-6 items-center justify-center text-ink-3" aria-hidden>
+            <ChevronRight className={cn("size-4", expanded && "rotate-90")} strokeWidth={1.5} />
+          </span>
         </td>
         <td className={cn(CELL, "max-phone:p-0")}>
-          <button type="button" onClick={onToggle} aria-expanded={expanded} aria-controls={panelId} className="block w-full text-left outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel rounded-[2px]">
+          <button type="button" onClick={onToggle} aria-expanded={expanded} aria-controls={panelId} className="block w-full text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel rounded-[2px]">
             <span className="block t-ui text-ink">{r.title}</span>
             {r.detail || r.status ? (
               <span className="block t-caption text-ink-2">

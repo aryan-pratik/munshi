@@ -22,7 +22,7 @@ export function PopoverContent({ className, side = "bottom", align = "start", si
     <BasePopover.Portal>
       <BasePopover.Positioner side={side} align={align} sideOffset={sideOffset} anchor={anchor} collisionPadding={16} className="z-50">
         <BasePopover.Popup
-          className={cn("popup-float w-[min(32rem,calc(100vw-32px))] rounded-[12px] bg-surface p-1 shadow-(--shadow-float) outline-none dark:bg-wash", className)}
+          className={cn("popup-float w-[min(32rem,calc(100vw-32px))] rounded-[12px] bg-surface p-1 shadow-(--shadow-float) dark:bg-wash", className)}
           {...props}
         >
           {children}

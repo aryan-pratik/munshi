@@ -30,7 +30,7 @@ export function toolRunningLabel(part: Part): string | null {
     case "runSimulation":
       return "Running the simulator…";
     case "getFindings":
-      return "Reading this morning's findings…";
+      return "Reading this morning’s findings…";
     default:
       return "Working…";
   }

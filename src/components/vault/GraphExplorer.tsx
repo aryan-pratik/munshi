@@ -71,7 +71,7 @@ export function GraphExplorer({ world, className }: { world: World; className?: 
                 onClick={() => setSelected(n.id)}
                 aria-pressed={selected === n.id}
                 className={cn(
-                  "pressable absolute flex items-center justify-center rounded-[8px] border px-2 t-caption leading-tight font-medium outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel",
+                  "pressable absolute flex items-center justify-center rounded-[8px] border px-2 t-caption leading-tight font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel",
                   selected === n.id ? "border-neel bg-neel-soft text-neel" : "border-rule-strong bg-surface text-ink hover:bg-wash",
                 )}
                 style={{ left: n.x, top: n.y, width: NODE_W, height: NODE_H }}

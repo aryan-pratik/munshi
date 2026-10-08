@@ -6,14 +6,15 @@ build whose demo runs on a seeded digital twin of one business, with no network 
 
 ## Current state
 
-Phases 0 to 7 are done: the scaffold, the seed world (`pnpm seed`), the engine (`src/engine`,
+Phases 0 to 8 are done: the scaffold, the seed world (`pnpm seed`), the engine (`src/engine`,
 tests in `tests/engine`), the shell plus the Today screen (`src/components/{shell,today,
 finding,chain,primitives}`), the Why screen (`src/components/ask`, the onset trail in
 `src/components/chain`, the AI layer in `src/lib/ai` with four recorded scripts in
-`src/data/scripts`, tests in `tests/ai`), the What if screen (`src/components/whatif`, the
-slider in `src/components/ui`), and the Act sheet (`src/components/act`, `/api/act`, the toast in
-`src/components/ui`), and Horizon and Vault (`src/components/{horizon,vault}`, the switch in
-`src/components/ui`). Next is Phase 8, the finish gate, in `docs/TASKS.md`.
+`src/data/scripts`, tests in `tests/ai`), the What if screen (`src/components/whatif`), the Act
+sheet (`src/components/act`, `/api/act`), Horizon and Vault (`src/components/{horizon,vault}`),
+and the finish gate. The demo in `docs/DEMO.md` runs end to end in scripted mode with no key.
+Phase 9 (Vercel deploy) is not started. Live mode (`MUNSHI_AI_MODE=live` with a key) is written
+against `docs/AI_SDK_NOTES.md` but has not been exercised against the gateway.
 
 - If `package.json` is missing, your first action is `bash scripts/bootstrap.sh`. It scaffolds
   Next.js into a temp dir and merges it in without overwriting existing files. Safe to re-run.

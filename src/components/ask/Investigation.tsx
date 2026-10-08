@@ -71,12 +71,10 @@ export function Investigation({ world, message, streaming, error, onRetry, after
 
   return (
     <div className="flex flex-col gap-6">
-      {activity ? (
-        <p className="flex items-center gap-2 t-ui text-ink-2" aria-live="polite">
-          <Loader2 className="spin size-3.5 shrink-0" aria-hidden />
-          {activity}
-        </p>
-      ) : null}
+      <p className={cn("flex items-center gap-2 t-ui text-ink-2", !activity && "sr-only")} aria-live="polite">
+        {activity ? <Loader2 className="spin size-3.5 shrink-0" aria-hidden /> : null}
+        {activity}
+      </p>
       {interim && texts.length ? (
         <div className="flex flex-col gap-6" aria-live="polite">
           {texts.map((t, i) => (

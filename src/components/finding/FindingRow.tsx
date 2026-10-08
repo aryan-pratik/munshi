@@ -65,7 +65,7 @@ export function FindingRow({ world, finding, expanded, onToggle, handled }: Prop
             onClick={onToggle}
             aria-expanded={expanded}
             aria-controls={panelId}
-            className="flex w-full items-start gap-2 rounded-[4px] text-left outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neel"
+            className="flex w-full items-start gap-2 rounded-[4px] text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neel"
           >
             <ChevronRight className={cn("mt-1 size-3.5 shrink-0 text-ink-3", expanded && "rotate-90")} aria-hidden strokeWidth={1.75} />
             <span className="flex min-w-0 flex-col gap-0.5">

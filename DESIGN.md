@@ -627,7 +627,7 @@ Built with CSS transitions or the Web Animations API, not a `requestAnimationFra
 - Animate only `transform` and `opacity`, plus `clip-path`, `stroke-dashoffset`, the SVG path `d` and the blur named above. Never `height`, `width`, `padding` or `margin`.
 - Name exact properties: `transition: transform 160ms var(--ease-out), opacity 160ms var(--ease-out)`. Never `transition: all`.
 - Use transitions, not keyframes, for anything that can be triggered again quickly, so it retargets.
-- Use CSS or the Web Animations API for predetermined motion. Use the `motion` package only for the re-rank and the path morph, and pass a full `transform` string (not `x` or `y`) so it stays on the compositor.
+- Use CSS or the Web Animations API for predetermined motion. The re-rank is a FLIP through `element.animate` and the path morph interpolates the series in a `requestAnimationFrame` loop; no animation library. Pass a full `transform` string (not `x` or `y`) so it stays on the compositor.
 - Gate hover effects with `@media (hover: hover) and (pointer: fine)`.
 - Under `prefers-reduced-motion: reduce`, keep opacity and colour transitions and remove movement: the trail appears drawn with a 150ms fade, the sheet fades, the re-rank and morph snap, the skeleton is still.
 - Review each animation once at one tenth speed in DevTools before the phase is done.

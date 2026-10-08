@@ -211,7 +211,7 @@ function ActBody({ findingId, playbookId, onBusy }: { findingId: string; playboo
               {retrying ? `${sentIds.size} of ${kept.length} sent. ${pending.length} ${pending.length === 1 ? "is" : "are"} still to go.` : draftsSentence(kept)} Expected about {inrCompact(impact.inr)} over {impact.horizonDays} days.
             </p>
             <div className="mt-3 flex items-center justify-between gap-3">
-              <span className={cn("t-caption", busy ? "text-ink-3" : retrying ? "text-debit" : "text-ink-2")}>{busy ? "Sending" : retrying ? `${pending.length} not sent` : "Not sent yet"}</span>
+              <span className={cn("t-caption", busy ? "text-ink-3" : retrying ? "text-debit" : "text-ink-2")} aria-live="polite">{busy ? "Sending…" : retrying ? `${pending.length} not sent` : "Not sent yet"}</span>
               <Button variant="primary" size="lg" onClick={() => void approve()} loading={busy} disabled={!pending.length}>
                 {busy ? labels.working : retrying ? `Send ${pending.length} again` : labels.approve}
               </Button>

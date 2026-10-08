@@ -211,6 +211,15 @@ export function OnsetTrail({ world, chain, animate = false, className }: Props) 
           ))}
         </tbody>
       </table>
+      {placed.length ? (
+        <ul className="sr-only">
+          {placed.map((p) => (
+            <li key={p.flag.ref.id}>
+              Event: {p.ev.label}, on {longDate(p.ev.at)}, flagged on {METRICS[p.flag.metric].label}.
+            </li>
+          ))}
+        </ul>
+      ) : null}
       {selected !== null ? (
         <EvidencePopover
           world={world}
@@ -252,7 +261,7 @@ function StripButton({ strip, top, height, phone, selected, onSelect, windowTo, 
       aria-label={label}
       aria-expanded={selected}
       className={cn(
-        "absolute inset-x-0 -mx-2 flex flex-col justify-start rounded-[8px] px-2 text-left outline-none transition-colors duration-[120ms] ease-[ease] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel",
+        "absolute inset-x-0 -mx-2 flex flex-col justify-start rounded-[8px] px-2 text-left transition-colors duration-[120ms] ease-[ease] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel",
         selected ? "bg-neel-soft" : "fine:hover:bg-wash active:bg-neel-soft",
       )}
       style={{ top, height, width: "calc(100% + 16px)", "--d": `${strip.delay}ms` } as React.CSSProperties}

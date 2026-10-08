@@ -19,7 +19,7 @@ export function UpcomingOutflows({ world }: { world: World }) {
         <ul className="mt-1 divide-y divide-rule">
           {rows.map((u) => (
             <li key={`${u.ref.kind}:${u.ref.id}`}>
-              <Link href={vaultHref(u.ref)} className="fine:hover:bg-wash -mx-2 flex items-center gap-3 rounded-[8px] px-2 py-2.5 outline-none focus-visible:outline-2 focus-visible:outline-neel">
+              <Link href={vaultHref(u.ref)} className="fine:hover:bg-wash -mx-2 flex items-center gap-3 rounded-[8px] px-2 py-2.5 focus-visible:outline-2 focus-visible:outline-neel">
                 <span className="min-w-0 flex-1">
                   <span className="block truncate t-ui text-ink">{u.label}</span>
                   <span className="block t-caption text-ink-3">

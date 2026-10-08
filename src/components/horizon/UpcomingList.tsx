@@ -43,7 +43,7 @@ export function UpcomingList({ horizon: h, today, className }: { horizon: Horizo
                 {g.rows.map((u) => (
                   <tr key={`${u.ref.kind}:${u.ref.id}:${u.day}`} className={cn("border-b border-rule last:border-b-0 fine:hover:bg-wash", STACK)}>
                     <td className={cn(CELL, "max-phone:col-span-2 max-phone:p-0 max-phone:pb-1")}>
-                      <Link href={vaultHref(u.ref)} className="t-ui text-ink outline-none hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel rounded-[2px]">
+                      <Link href={vaultHref(u.ref)} className="t-ui text-ink hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel rounded-[2px]">
                         {u.label}
                       </Link>
                       {u.certainty === "expected" ? <span className="ml-2 t-caption text-ink-3">expected</span> : null}

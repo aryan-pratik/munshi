@@ -44,7 +44,7 @@ export function Slider({ id, label, value, min, max, step = 1, base, onChange, f
           <BaseSlider.Track className="relative h-1 w-full rounded-full bg-rule-strong">
             <BaseSlider.Indicator className="rounded-full bg-neel" />
             <BaseSlider.Thumb
-              className="relative size-4 rounded-full border-2 border-neel bg-surface outline-none transition-[border-color,box-shadow] duration-[120ms] ease-[ease] before:absolute before:-inset-3.5 before:content-[''] fine:hover:border-neel-hover data-dragging:shadow-[0_0_0_4px_var(--neel-soft)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neel"
+              className="relative size-4 rounded-full border-2 border-neel bg-surface transition-[border-color,box-shadow] duration-[120ms] ease-[ease] before:absolute before:-inset-3.5 before:content-[''] fine:hover:border-neel-hover data-dragging:shadow-[0_0_0_4px_var(--neel-soft)] focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-neel"
               getAriaLabel={() => label}
               getAriaValueText={(_, v) => (speak ?? format)(v)}
             />

@@ -23,6 +23,7 @@ export function FindingsTable({ world, findings, handled }: Props) {
   useRerank(ref, findings.map((f) => f.id).join("|") + "#" + handled.map((h) => h.action.id).join("|"));
   return (
     <div className="overflow-hidden rounded-[12px] border border-rule bg-surface">
+      <h2 className="sr-only">Findings</h2>
       <table ref={ref} className="w-full border-collapse max-phone:block [&_tbody]:max-phone:block">
         <thead className="max-phone:hidden">
           <tr className="h-9 border-b border-rule">
@@ -80,7 +81,8 @@ function useRerank(ref: React.RefObject<HTMLTableElement | null>, order: string)
     const table = ref.current;
     if (!table) return;
     const rows = Array.from(table.querySelectorAll<HTMLElement>("[data-flip]"));
-    const next = new Map(rows.map((r) => [r.dataset.flip!, r.getBoundingClientRect().top]));
+    const top = table.getBoundingClientRect().top;
+    const next = new Map(rows.map((r) => [r.dataset.flip!, r.getBoundingClientRect().top - top]));
     const before = prev.current;
     prev.current = next;
     if (!before || reduced) return;

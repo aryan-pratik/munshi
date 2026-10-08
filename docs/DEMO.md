@@ -37,13 +37,14 @@ sentences. Pause there.
 > nobody has replied to in two days."
 
 Click **See the threads**. The lead item expands in place (no drawer) to the seven leads: quotes
-totalling ₹1.84 lakh, and WhatsApp threads ending in a question from the customer. The ₹1.1 lakh
+totalling ₹1.8 lakh, and WhatsApp and email threads ending in a question from the customer. The ₹1.1 lakh
 is the part Munshi expects to win, about 60% of quoted leads like these.
 
 > "Every number is a receipt. Nothing here is a summary. It's the actual thread."
 
-Collapse it. Scroll the findings table once: overdue invoices, complaints up, Figma nobody uses, a
-GST payment in 12 days. Each row has a small strip in its Since column showing when it began.
+Collapse it. Scroll the findings table once: overdue invoices, the cash dip in 23 days, complaints
+up, two subscriptions nobody uses. Each row has a small strip in its Since column showing when it
+began, and the forward-looking rows say "in 23 days" instead.
 
 ### Beat 2: Why, the onset trail (50 s)
 
@@ -51,7 +52,7 @@ GST payment in 12 days. Each row has a small strip in its Since column showing w
 
 Let the trail draw. Don't talk over the animation. The narrative lands under the trail once the
 draw has finished; its first line says total revenue is down about 6%, and all of it is D2C, which
-is down 14%. Wholesale held flat. Five strips in three groups appear top to bottom on one shared
+is down 13%. Wholesale held flat. Five strips in three groups appear top to bottom on one shared
 28-day axis:
 
 1. Ad spend, sessions.
@@ -59,17 +60,17 @@ is down 14%. Wholesale held flat. Five strips in three groups appear top to bott
 3. D2C orders, D2C revenue (the metric you asked about, last).
 
 As each strip draws, its onset mark lands, and the marks step to the right within the first group:
-the campaign-paused flag on 26 Sep, sessions falling the same day, orders a day later. The cause
+the campaign-paused flag on 26 Sep, sessions falling the same day, orders two days later. The cause
 visibly moves first. The landing conversion mark sits later (28 Sep), after the first group, which
 is why it is its own group.
 
-> "Ad spend dropped 7% when the Diwali campaign was paused, sessions down 6%, orders down 14%.
+> "Ad spend dropped 8% when the Diwali campaign was paused, sessions down 5%, orders down 13%.
 > Obvious answer: turn the ads back on."
 
 Then point at the **Also contributing** group: landing conversion holds level for two more days,
 then breaks at the theme-update flag on 28 Sep.
 
-> "But Munshi found a second cause: landing-page conversion fell from about 4.9 to 3.5% after the
+> "But Munshi found a second cause: landing-page conversion fell from 4.8 to 3.2% after the
 > theme update on 28 Sep. Spending more on ads would be pouring water into a cracked bucket."
 
 Click the Landing conversion strip. A popover opens on the theme-update event (a bottom sheet on a

@@ -107,9 +107,9 @@ export function StrategyScan({ world, levers, onApply }: Props) {
                   <Delta value={lift} goodWhen="up" className="ml-2" />
                 </td>
                 <td className="hidden py-3 pl-4 t-ui text-ink phone:table-cell">{RISK_LABEL[risk]}</td>
-                <td className="py-2 pl-4 text-right">
+                <td className="py-2 pl-4 text-right" aria-live="polite">
                   {applied ? (
-                    <span className="inline-flex h-7 items-center gap-1 t-caption font-medium text-ink-2" aria-live="polite">
+                    <span className="inline-flex h-7 items-center gap-1 t-caption font-medium text-ink-2">
                       <Check className="size-3.5 text-credit" aria-hidden strokeWidth={2} />
                       Applied
                     </span>
@@ -144,6 +144,7 @@ function useCount(target: number, ms: number): number {
   const [n, setN] = useState(ms ? 0 : target);
   const start = useRef<number | null>(null);
   useEffect(() => {
+    start.current = null;
     if (!ms || !target) {
       setN(target);
       return;

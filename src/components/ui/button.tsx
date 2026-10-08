@@ -44,7 +44,7 @@ function Button({ className, variant, size, loading, children, disabled, style, 
   const width = React.useRef<number | null>(null);
   React.useLayoutEffect(() => {
     if (!loading && ref.current) width.current = ref.current.offsetWidth;
-  });
+  }, [loading]);
   return (
     <button
       ref={ref}

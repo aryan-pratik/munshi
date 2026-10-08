@@ -48,6 +48,9 @@ export function CommandK({ className }: { className?: string }) {
       <input
         ref={inputRef}
         type="text"
+        name="ask"
+        autoComplete="off"
+        enterKeyHint="search"
         role="combobox"
         aria-label="Ask Munshi"
         aria-expanded={showList}

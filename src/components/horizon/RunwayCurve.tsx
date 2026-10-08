@@ -65,7 +65,7 @@ export function RunwayCurve({ horizon: h, collected, onCollectedChange }: Props)
             {/* the dipping stretch, in debit, so the dip reads at a distance */}
             <path d={lineBelow(balances, h.buffer, s)} fill="none" stroke="var(--debit)" strokeWidth={1.5} strokeLinejoin="round" style={fade(!collected)} />
             <path d={lineBelow(withCollection, h.buffer, s)} fill="none" stroke="var(--debit)" strokeWidth={1.5} strokeLinejoin="round" style={fade(collected)} />
-            <path d={linePath(scenario, s)} fill="none" stroke="var(--neel)" strokeWidth={1.5} strokeLinejoin="round" style={{ opacity: collected ? 1 : 0, transition: reduced ? "none" : `opacity 200ms ease ${collected ? "0ms" : `${MORPH_MS}ms`}` }} />
+            <path d={linePath(scenario, s)} fill="none" stroke="var(--neel)" strokeWidth={1.5} strokeLinejoin="round" style={{ opacity: collected ? 1 : 0, transition: reduced ? "none" : "opacity 200ms ease" }} />
             {/* pinned outflows: every leader first, then every label, so a leader never crosses a label */}
             {pins.map((p, i) => {
               const x = s.x(p.day);

@@ -34,6 +34,8 @@ export function AskComposer({ onAsk, busy, initial = "", mode, placeholder = "Wh
         <textarea
           ref={ref}
           id={id}
+          name="question"
+          autoComplete="off"
           rows={1}
           value={text}
           disabled={busy}
