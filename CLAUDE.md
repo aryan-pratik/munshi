@@ -10,9 +10,9 @@ Docs, a folder skeleton and a bootstrap script. **No app code yet.**
 
 - If `package.json` is missing, your first action is `bash scripts/bootstrap.sh`. It scaffolds
   Next.js into a temp dir and merges it in without overwriting existing files. Safe to re-run.
-- One product decision is open: consumer "Life OS" or the business version documented here. The
-  assistant chose business; the user has not confirmed. Ask the user before starting Phase 1
-  (the seed world). See the Decision log at the end of `PRODUCT.md`.
+- The product decision is made: build the business version (Kaveri Home) as `PRODUCT.md`
+  documents. The owner's cloud goal states it is confirmed; do not stop to ask. The Decision log
+  at the end of `PRODUCT.md` records it and what switching to the consumer "Life OS" would cost.
 
 ## Read these, in this order, before writing code
 

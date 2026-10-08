@@ -264,5 +264,6 @@ Full click-by-click script: `docs/DEMO.md`.
 - **Cost of switching to the consumer Life OS.** Rewrite `PRODUCT.md`, `docs/DATA-MODEL.md`
   (persona and planted stories) and `docs/DEMO.md`. The engine shape (detectors, causal walk,
   simulator, playbooks), the architecture, the design system and the task plan carry over.
-- **Status:** open. Ask the user before Phase 1 (seed world) starts, because the seed is where
-  the two versions diverge.
+- **Status:** proceeding with the business version. The owner's cloud build goal (2026-10-09)
+  says the decision is confirmed. If the owner changes course, rewrite PRODUCT.md, docs/DATA-MODEL.md and docs/DEMO.md
+  before Phase 1 generates the seed.

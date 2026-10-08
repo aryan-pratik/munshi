@@ -12,8 +12,9 @@ Jaipur home-decor brand), so nothing on stage depends on a third-party login or 
 ## Status
 
 This commit is **docs, a folder skeleton and a bootstrap script. There is no app code yet.**
-The build plan is `docs/TASKS.md`. One product decision is still open (consumer "Life OS" or the
-business version documented here); see the Decision log at the end of `PRODUCT.md`.
+The build plan is `docs/TASKS.md`. The business version documented in `PRODUCT.md` is the one
+being built; the Decision log there records why and what the alternative (a consumer "Life OS")
+would change.
 
 Screenshots and live URL: to be added after Phase 9 of `docs/TASKS.md`.
 
